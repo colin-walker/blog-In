@@ -29,3 +29,22 @@ This CMS includes the following external projects:
 
 - after installation, a cron job running once a day (at time of choice but ideally around midnight) to build the Daily RSS feed
 
+## Installation
+
+Upload ALL files and folders to the desired location on your server. The system uses .htaccess files to set the default file for each folder, e.g. admin.php in the /admin/ folder.
+
+In a browser, navigate to http(s)://your_chosen_blog_address/setup.php — you will asked to enter an initial set of values:
+
+- blog name
+- blog address (this is the base URL)
+- database name
+- database read account & password
+- database write account & password
+- desired table prefix
+
+Once submitted, the database tables will be automatically created 
+
+
+
+
+
