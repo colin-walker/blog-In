@@ -9,5 +9,10 @@ The system is indieweb aware from the outset with microformats2 markup and the a
 
 Posts are written, edited, updated and even deleted inline in the browser. Markdown Extra is supported along with custom markup to make life easier. More on that later.
 
+This CMS includes the following external projects:
 
-
+- Emanuil Rusev's [Parsedown](https://github.com/erusev/parsedown) & [ParsedownExtra](https://github.com/erusev/parsedown-extra)
+- [bigfoot.js](http://www.bigfootjs.com/)
+- [PHPMailer](https://github.com/PHPMailer/PHPMailer)
+- [indieweb-mention-client-php](https://github.com/indieweb/mention-client-php)
+- [php-mf2](https://github.com/microformats/php-mf2)
