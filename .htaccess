@@ -1,13 +1,11 @@
 DirectoryIndex blog.php
 
-<filesMatch ".(jpg|jpeg|png)$">
-    Header set Cache-Control "max-age=12592000, public"
-</filesMatch>
+# I include redirection to HTTPS in mine but this is optional
 
 # BEGIN HTTPS Redirection
-<IfModule mod_rewrite.c>
-RewriteEngine On
-RewriteCond %{SERVER_PORT} !^443$
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301]
-</IfModule>
+# <IfModule mod_rewrite.c>
+# RewriteEngine On
+# RewriteCond %{SERVER_PORT} !^443$
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301]
+# </IfModule>
 # END HTTPS Redirection
