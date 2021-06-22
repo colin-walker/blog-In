@@ -64,9 +64,15 @@ Once submitted, the database tables are automatically created and you will be ta
 
 Saving these details successfully takes you straight to the blog.
 
+Admin settings can be changed at any time when logged in – a floating cog icon is shown in the bottom-right corner of the page.
+
 ## Usage
 
-(b)log-In uses PHP sessions to manage logging in
+(b)log-In uses PHP sessions to manage logging in. If not logged in the (b)log-In link top-right goes to the login page, entering the correct credentials creates a random hash of the admin password which is valid ONLY for that browser session. Closing the browser or logging in via another browser/device invalidates any existing session.
+
+When logged in, if no posts exists for that day a 'new post' form will be displayed. Posts can be published immediately or saved as drafts. Once a posts has been published on that day the form is hidden and new posts can be added by clicking/tapping the floating '+' toggle in the top-right corner of the page. This toggle also places the blog in 'edit' mode where existing posts can be modified or deleted using the icons visible by each.
+
+![media uploads](https://colinwalker.blog/images/image_light.png)
 
 
 
