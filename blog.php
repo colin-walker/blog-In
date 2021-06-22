@@ -1004,9 +1004,6 @@ $conn->close();
 if ($date != INSTALL_DATE) {
 echo '<div class="nav-previous"><a href="' . BASE_URL . '?date=' . $prev_date . '"><<</a></div>';
 }
-if  ($date == '2021-01-06') {
-echo '<div class="nav-previous"><a href="'. BASE_URL . '/wp/2021/01/05/"><<</a></div>';
-}
 if ($date != date('Y-m-d')) {
 	if ($date == date('Y-m-d', strtotime($today .' -1 day'))) {
 		echo '<div class="nav-next"><a href="' . BASE_URL . '">>></a></div>';
