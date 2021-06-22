@@ -72,7 +72,7 @@ Admin settings can be changed at any time when logged in – a floating cog ico
 
 When logged in, if no posts exists for that day a 'new post' form will be displayed. Posts can be published immediately or saved as drafts. Once a posts has been published on that day the form is hidden and new posts can be added by clicking/tapping the floating '+' toggle in the top-right corner of the page. This toggle also places the blog in 'edit' mode where existing posts can be modified or deleted using the icons visible by each.
 
-![media uploads](https://colinwalker.blog/images/image_light.png)
+<img src="https://colinwalker.blog/images/image_light.png" style="width: 30px;">
 
 
 
