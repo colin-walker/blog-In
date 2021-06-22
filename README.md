@@ -80,7 +80,11 @@ Choosing a file, click upload then clock the 'Copy file path' to have the direct
 
 Each post is preceeded by a permalink (#) and a comment icon, the comment icon acts as a toggle to show/hide the comments section for that post. When logged in, each comment will have a delete icon by it. Top level comments can be replied to by clicking the reply arrow next to the commenters name.
 
+## Markup
 
+In addition to Markdown, custom markup can be used to enhance and simplify posting:
+
+- [hr] = a break/horizontal rule of width 33%
 
 
 
