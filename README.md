@@ -84,7 +84,33 @@ Each post is preceeded by a permalink (#) and a comment icon, the comment icon a
 
 In addition to Markdown, custom markup can be used to enhance and simplify posting:
 
-- [hr] = a break/horizontal rule of width 33%
+- `[hr]` – a break/horizontal rule of width 33% 
+- `~underline~`
+- `~~strikethrough~~`
+- `^superscript^`
+- `!!summary>!details!<` – details/summary tag
+- `[a[link here]a]` - embed audio
+- `[v[link here]v]` - embed video (e.g. self-hosted)
+- `[y[video ID]y]y` - embed YouTube video – you only need to include the YouTube video ID (e.g. A0GgrQXB1tU)
+- `::highlighted text::` – a custom highlight option
+- `==marked text==` – the HTML mark tag
+- `((link to be liked))` - insert properly formatted link to send a webmention Like
+- `(r(link to reply to))` – insert properly formatted link to send a webmention Reply
 
+Using a feature of MarkdownExtra, images can have classes applied, the format is as below:
 
+– ![alt text](image URL){.classname}
+
+Valid classes:
+
+- .aligncenter
+- .left (align left, width 48%)
+- .right (align right, width 48%)
+- .i50 (align center, width 50%)
+- .i60 (align center, width 60%)
+- .i75 (align center, width 75%)
+- .i80 (align center, width 80%)
+- .i90 (align center, width 90%)
+- .i100 (align center, width 100%)
+- .noradius (all images have a border radius by default, applying this removes it for that image)
 
