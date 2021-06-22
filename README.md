@@ -91,7 +91,7 @@ In addition to Markdown, custom markup can be used to enhance and simplify posti
 - `!!summary>!details!<` – details/summary tag
 - `[a[link here]a]` - embed audio
 - `[v[link here]v]` - embed video (e.g. self-hosted)
-- `[y[video ID]y]y` - embed YouTube video – you only need to include the YouTube video ID (e.g. A0GgrQXB1tU)
+- `[y[video ID]y]` - embed YouTube video – you only need to include the YouTube video ID (e.g. A0GgrQXB1tU)
 - `::highlighted text::` – a custom highlight option
 - `==marked text==` – the HTML mark tag
 - `((link to be liked))` - insert properly formatted link to send a webmention Like
