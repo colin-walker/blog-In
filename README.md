@@ -85,7 +85,7 @@ Media uploads are handled using an iframe above the post form which can be toggl
 
 Choosing a file, click upload then clock the 'Copy file path' to have the direct URL placed in the clipboard for easy insertion into a post. Re-uploading a file of the same name with overwrite the original.
 
-Each post is preceeded by a permalink (#) and a comment icon, the comment icon acts as a toggle to show/hide the comments section for that post and will appear 'filled' when a post has comments. When logged in, each comment will have a delete icon by it. Top level comments can be replied to by clicking the reply arrow next to the commenters name. The system will atempt to pull in an avatar for each commenter (either via microformats on the source site or favicon) and default to a monogram if none can be found.
+Each post is preceeded by a permalink (#) and a comment icon, the comment icon acts as a toggle to show/hide the comments section for that post and will appear 'filled' when a post has comments. When logged in, each comment will have a delete icon by it. Top level comments can be replied to by clicking the reply arrow next to the commenters name. The system will attempt to pull in an avatar for each commenter (either via microformats on the source site or favicon) and default to a monogram if none can be found.
 
 ## Markup
 
