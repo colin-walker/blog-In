@@ -18,7 +18,7 @@ This CMS includes the following external projects:
 - [indieweb-mention-client-php](https://github.com/indieweb/mention-client-php)
 - [php-mf2](https://github.com/microformats/php-mf2)
 
-It also includes a modification of a [form-caching trick](https://git.jlel.se/jlelse/GoBlog/src/commit/fd844bbfc1c22f96d603546b59a80e271fde5bd0/templates/assets/js/formcache.js) from Jan-Lukas Else.
+It also includes a modification of a [form-caching trick](https://git.jlel.se/jlelse/GoBlog/src/commit/fd844bbfc1c22f96d603546b59a80e271fde5bd0/templates/assets/js/formcache.js) from Jan-Lukas Else so you don't lose your post if the tab is accidentally closed.
 
 ### Blogs using (b)log-In
 
