@@ -114,6 +114,16 @@ Valid classes:
 - .i100 (align center, width 100%)
 - .noradius (all images have a border radius by default, applying this removes it for that image)
 
+The .clickable class is a special case and is applied to a link where that link contains a thumbnail of a larger image. This adds an overlay to indicate that the image can be expanded. The format is as follows:
+
+`[![image alt text](thumbnail link){.optional_image_class}](image link){.clickable}`
+
+and looks like this:
+
+![clickable image](https://colinwalker.blog/uploads/2021/06/clickable.png)
+
+It works for centred images and not those that are left or right aligned.
+
 ## accesskeys
 
 A number of accesskeys are defined across the system as below:
