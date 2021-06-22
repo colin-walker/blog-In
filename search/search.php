@@ -147,9 +147,6 @@ if($rows > 5){
 	} else { ?>
 		<br/>
         <h3>Nothing found.</h3>
-        <p class="entry-content" style="padding-bottom: 10px;">
-        <a accesskey="a" style="font-family: Helvetica, Arial, sans-serif;" href="<?php echo constant('BASE_URL'); ?>/wp/?s=<?php echo stripslashes($query); ?>&post_type=post">Try the archive</a>?
-        </p>
 		<div style="text-align: center; margin: 7.4vh auto 0">
 		<form role="search" method="post" class="search-form" action="">
 			<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" autofocus />
