@@ -131,6 +131,16 @@ and looks like this:
 
 It works for centred images and not those that are left or right aligned.
 
+## Linked hashtags
+
+Any hashtags included in post content will automatically be converted into search links for that tag.
+
+## Fragmentions and comment links
+
+(b)log-In supports the original proposal for fragmentions; highlighting a paragraph in a post based on a URL parameter. The fragmention is indicated by a double hash and spaces replaced by +s:
+
+`https://colinwalker.blog/?date=2021-06-15#p1##had+always+struggled` highlights the paragraph [in that post](https://colinwalker.blog/?date=2021-06-15#p1##had+always+struggled) containing the words 'had always struggled'.
+
 ## accesskeys
 
 A number of accesskeys are defined across the system as below:
