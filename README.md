@@ -37,12 +37,34 @@ In a browser, navigate to http(s)://your_chosen_blog_address/setup.php — you w
 
 - blog name
 - blog address (this is the base URL)
+- admin account username & password
+- email address
 - database name
 - database read account & password
 - database write account & password
 - desired table prefix
 
-Once submitted, the database tables will be automatically created 
+Once submitted, the database tables are automatically created and you will be taken to the admin page for the first time to complete other key pieces of information:
+
+- URL to an avatar image
+- description (is inserted into the meta description tag)
+- about text - appears on the About page, supports Markdown
+- SMTP server details
+    - host address
+    - username
+    - password
+    - port number
+- post order – ASC (chronological) or DESC (reverse chron)
+- post titles (on or off)
+- post meta (on or off, shows if post order is DESC)
+- comment moderation (on or off)
+- date format (UK or US format)
+- timezone (manual free entry, must be in standard format, e.g. Europe/London)
+- journal (on or off – shows/hides the streak/link in header)
+
+Saving these details successfully takes you straight to the blog.
+
+
 
 
 
