@@ -135,3 +135,13 @@ A number of accesskeys are defined across the system as below:
 
 - accesskey s = submit search
 - accesskey s = new search when in results
+
+## Webmentions
+
+(b)log-In will attempt to send a webmention for all links added to posts. Likes and Replies can be posted using the markup above.
+
+Incoming webmentions will be processed by the endpoint. Likes and replies are handled automatically with replies being displayed as comments - other webmention types will just be listed as a mention. Replying to a webmention reply will also attempt to send a webmention back to the original item.
+
+When mentioning an existing post it is listed as a 'related post' rather than as a normal mention or comment.
+
+The endpoint also caters for, and distinguisges, mentions coming from [micro.blog](https://micro.blog).
