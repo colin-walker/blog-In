@@ -114,3 +114,24 @@ Valid classes:
 - .i100 (align center, width 100%)
 - .noradius (all images have a border radius by default, applying this removes it for that image)
 
+## accesskeys
+
+A number of accesskeys are defined across the system as below:
+
+### Main blog
+
+- accesskey a = go to admin
+- accesskey c = close post form but stay in edit mode
+- accesskey e = toggle edit mode
+- accesskey s = go to search
+
+### Admin
+
+- accesskey c = cancel back to blog
+- accesskey p = submit password change
+- accesskey u = update options
+
+### Search
+
+- accesskey s = submit search
+- accesskey s = new search when in results
