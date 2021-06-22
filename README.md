@@ -18,6 +18,10 @@ This CMS includes the following external projects:
 - [indieweb-mention-client-php](https://github.com/indieweb/mention-client-php)
 - [php-mf2](https://github.com/microformats/php-mf2)
 
+### Blogs using (b)log-In
+
+- [Colin Walker](https://colinwalker.blog)
+
 ## Prerequisites
 
 - PHP, recommended v7 or later
