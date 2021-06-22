@@ -23,8 +23,8 @@ This CMS includes the following external projects:
 - PHP, recommended v7 or later
 - MySQL with a database already created
 - database accounts
-    - it is recommended to have one with write/create permissions and one with read-only (SELECT) permissions
-    - just one account can be used for everything but this will be less secure
+    - it is recommended to have one with write/create permissions (create tables, INSERT, UPDATE, DELETE) and one with read-only (SELECT) permissions
+    - just one account _can_ be used for everything but this will be less secure
 
 ## Postrequisites
 
