@@ -143,7 +143,7 @@ if($rows > 5){
 			echo "<a title='Last' href='{$_SERVER['PHP_SELF']}?pagenum=$last&s=$query'>>></a>";
 		}
 		echo '</div>';
-		echo '<div class="day-links"><a accesskey="s" href="/search.php">New search</a>|<a href="' . BASE_URL . '/wp/?s=' . stripslashes($query) . '&post_type=post">Search archive</a></div>';
+		echo '<div class="day-links"><a accesskey="s" href="/search/">New search</a></div>';
 	} else { ?>
 		<br/>
         <h3>Nothing found.</h3>
