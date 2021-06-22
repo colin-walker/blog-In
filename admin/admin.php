@@ -30,7 +30,7 @@ $dbauth = $row["Option_Value"];
 $authsql->close();
 
 if ($_SESSION['auth'] != $dbauth) {
-  header("location: " . BASE_URL . "");
+  header("location: " . BASE_URL);
   exit;
 }
 
