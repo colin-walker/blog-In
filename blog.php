@@ -25,7 +25,7 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 
-// HTML starts on line 410
+// HTML starts on line 415
 
 
 date_default_timezone_set('' . TIMEZONE . '');
@@ -411,6 +411,7 @@ if ($_SESSION['auth'] == $dbauth) {
 ?>
 
 
+
 <!DOCTYPE html>
 <html lang="en-GB">
 <head>
@@ -419,15 +420,14 @@ if ($_SESSION['auth'] == $dbauth) {
 	<title><?php echo constant('NAME'); ?> — <?php echo isset($_GET['date']) ? date('M j, Y', strtotime($_GET['date'])) : date('M j, Y'); ?></title>
 	<meta name="description" content="<?php echo constant('DESCRIPTION'); ?>">
 	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 	<link defer rel="stylesheet" href="/bigfoot/bigfoot-bottom.css" type="text/css" media="all">
 	<link defer rel="stylesheet" href="/style.css" type="text/css" media="all">
 	<link rel="webmention" href="<?php echo constant('BASE_URL'); ?>/endpoint.php"/>
 	<link rel="http://webmention.org/" href="<?php echo constant('BASE_URL'); ?>/endpoint.php"/>	
-    <link rel="home alternate" type="application/rss+xml" title="<?php echo constant('NAME'); ?> :: Daily Feed" href="<?php echo constant('BASE_URL'); ?>/dailyfeed.rss" />
-    <link rel="alternate" type="application/rss+xml" title="<?php echo constant('NAME'); ?> :: Live Feed" href="<?php echo constant('BASE_URL'); ?>/livefeed.rss" />
-    <link rel="me" href="mailto:<?php echo constant('MAILTO'); ?>" />
-	<link rel="me" href="https://micro.blog/colinwalker" />
+    	<link rel="home alternate" type="application/rss+xml" title="<?php echo constant('NAME'); ?> :: Daily Feed" href="<?php echo constant('BASE_URL'); ?>/dailyfeed.rss" />
+    	<link rel="alternate" type="application/rss+xml" title="<?php echo constant('NAME'); ?> :: Live Feed" href="<?php echo constant('BASE_URL'); ?>/livefeed.rss" />
+    	<link rel="me" href="mailto:<?php echo constant('MAILTO'); ?>" />
 	
 	<script type="text/javascript" src="/script.js"></script>
 
