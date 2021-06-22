@@ -31,9 +31,9 @@ This CMS includes the following external projects:
 
 ## Installation
 
-Upload ALL files and folders to the desired location on your server. The system uses .htaccess files to set the default file for each folder, e.g. admin.php in the /admin/ folder.
+Upload ALL files and folders to the desired location on your server. The system uses .htaccess files to set the default file for each folder, e.g. admin.php in the /admin/ folder. Alternatively, you could rename `blog.php` and each file in the folders about, admin, colophon, joinme, journal, login, search to `index.php` to avoid the need for the .htaccess files. 
 
-In a browser, navigate to http(s)://your_chosen_blog_address/setup.php — you will asked to enter an initial set of values:
+In a browser, navigate to http(s)://your_chosen_blog_address/setup.php — you will be asked to enter an initial set of values:
 
 - blog name
 - blog address (this is the base URL)
