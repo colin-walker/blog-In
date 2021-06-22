@@ -99,7 +99,7 @@ In addition to Markdown, custom markup can be used to enhance and simplify posti
 
 Using a feature of MarkdownExtra, images can have classes applied, the format is as below:
 
-– ![alt text](image URL){.classname}
+`![alt text](image URL){.classname}`
 
 Valid classes:
 
