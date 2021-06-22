@@ -96,7 +96,7 @@ In addition to Markdown, custom markup can be used to enhance and simplify posti
 - `::highlighted text::` – a custom highlight option
 - `==marked text==` – the HTML mark tag
 - `((link to be liked))` - insert properly formatted link to send a webmention Like
-- `(r(link to reply to))` – insert properly formatted link to send a webmention Reply
+- `(r(link to reply to)r)` – insert properly formatted link to send a webmention Reply
 
 Using a feature of MarkdownExtra, images can have classes applied, the format is as below:
 
