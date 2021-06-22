@@ -1,8 +1,9 @@
 # blog-In
-The (b)log-In blogging system.
+### The (b)log-In blogging system.
 
 (b)log-In (a play on blogging, login and inline) is a custom CMS built specifically for blogging that emerged from my efforts to make WordPress a simpler platform.
-It is a relatively simple PHP site connecting to a MySQL database.
+It is a relatively simple PHP site connecting to a MySQL database. I created it as a way of meeting my owns needs and getting my blog off of WordPress. The concept started as a custom overlay on top of WordPress that didn't require using wp-admin but I converted it to a standalone system.
+
 The core idea of (b)log-In is that each day is a self-contained unit which, by default reads chronologically — top down — opposite to a traditional blog. This can be changed to suit your needs.
 
 The system is indieweb aware from the outset with microformats2 markup and the ability to send and receive webmentions, although not all types of webmention are supported.
