@@ -49,7 +49,7 @@ In a browser, navigate to http(s)://your_chosen_blog_address/setup.php — you w
 - database write account & password
 - desired table prefix
 
-Once submitted, the database tables are automatically created and you will be taken to the admin page for the first time to complete other key pieces of information:
+Once submitted, the database tables are automatically created, setup.php is deleted and you will be taken to the admin page for the first time to complete other key pieces of information:
 
 - URL to an avatar image
 - description (is inserted into the meta description tag)
