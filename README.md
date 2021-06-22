@@ -141,6 +141,10 @@ Any hashtags included in post content will automatically be converted into searc
 
 `https://colinwalker.blog/?date=2021-06-15#p1##had+always+struggled` highlights the paragraph [in that post](https://colinwalker.blog/?date=2021-06-15#p1##had+always+struggled) containing the words 'had always struggled'.
 
+When a post is linked in this way internally, the fragmention text will become a backlink to the post that mentioned it as in [this example](https://colinwalker.blog/?date=2021-01-18#p1).
+
+Specific comments can be linked to and highlighted by appending a URL parameter in the format `c=2:1` – this means 2nd post, 1st comment as in [this example](https://colinwalker.blog/?date=2021-03-17&c=2:1).
+
 ## accesskeys
 
 A number of accesskeys are defined across the system as below:
