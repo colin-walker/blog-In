@@ -64,7 +64,9 @@ Once submitted, the database tables are automatically created and you will be ta
 
 Saving these details successfully takes you straight to the blog.
 
+## Usage
 
+(b)log-In uses PHP sessions to manage logging in
 
 
 
