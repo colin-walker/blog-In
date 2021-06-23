@@ -252,7 +252,7 @@ if ($date != date('Y-m-d')) {
   <div class="linksDiv day-links">&nbsp;</div>
 <?php } ?>
 
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="jquery-3.6.0.min.js"></script>
 	
 	        <script>
 	        
