@@ -149,7 +149,6 @@ $content = str_replace('[hr]', '<hr noshade width="33%" style="margin-bottom: 25
 			$linktext = substr($content, $opos+3, $len-3);
 			$replace = '<audio controls="controls" preload="metadata" src="' . $linktext . '"></audio>';
 		
-			//$replace = '<div class="aligncenter" style="position: relative; width: 75%; padding-top: 42.1875%;"><iframe style="position: absolute; top: 0; bottom: 0; left: 0; right: 0; width: 100%; height: 100%" src="' . $linktext . '" allowfullscreen="true" frameborder="0">Click to watch...</iframe></div>';
 			$content = str_replace($orig, $replace, $content);
 		}
 	}
@@ -234,7 +233,7 @@ function like($content) {
 		if ( $linkopos && $linkcpos && $linktext !="" ) {
 			ob_start();
             $ch = curl_init($linktext);
-			curl_setopt($ch,CURLOPT_USERAGENT,'colinwalker.blog');
+			curl_setopt($ch,CURLOPT_USERAGENT,parse_url(BASE_URL)['host']);
 			curl_setopt($ch,CURLOPT_HEADER,0);
 			$ok = curl_exec($ch);
 			curl_close($ch);
@@ -279,7 +278,7 @@ function reply($content) {
 		if ( $linkopos && $linkcpos && $linktext !="" ) {
             ob_start();
             $ch = curl_init($linktext);
-			curl_setopt($ch,CURLOPT_USERAGENT,'colinwalker.blog');
+			curl_setopt($ch,CURLOPT_USERAGENT,parse_url(BASE_URL)['host']);
 			curl_setopt($ch,CURLOPT_HEADER,0);
 			$ok = curl_exec($ch);
 			curl_close($ch);
