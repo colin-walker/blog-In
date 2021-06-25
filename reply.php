@@ -39,8 +39,8 @@
 	$day = $row["Day"];
 	$Parent_sql->execute();
 	
-	if (parse_url($website)['host'] == 'colinwalker.blog') {
-		$photo = 'https://colinwalker.blog/images/colinwalker-thumb.jpg';
+	if (parse_url($website)['host'] == parse_url(BASE_URL)['host']) {
+		$photo = AVATAR;
 	} else if ($photo == '') {
 		$photo = 'https://icons.duckduckgo.com/ip2/' . parse_url($website)['host'] . '.ico';
 	}
@@ -51,8 +51,6 @@
 <html>
 	<head>
 		<title>Reply</title>
-		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 		<link rel="stylesheet" href="/style.css" type="text/css" media="all">
 
 		<script type="text/javascript">
