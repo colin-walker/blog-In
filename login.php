@@ -15,7 +15,7 @@ $dbauth = $row["Option_Value"];
 $authsql->close();
 
 if ($_SESSION['auth'] == $dbauth) {
-    header("location: /blog.php");
+    header("location: " . BASE_URL);
     exit;
 }
 
