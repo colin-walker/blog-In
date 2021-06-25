@@ -34,7 +34,7 @@ fwrite($xmlfile, 'xmlns:slash="http://purl.org/rss/1.0/modules/slash/"'.PHP_EOL)
 fwrite($xmlfile, '>'.PHP_EOL);
 fwrite($xmlfile, '<channel>'.PHP_EOL);
 fwrite($xmlfile, '<title>' . NAME . ' — Live Feed</title>'.PHP_EOL);
-fwrite($xmlfile, '<description>Posts as they happen from ' . NAME . '</description>'.PHP_EOL);
+fwrite($xmlfile, '<description>Posts as they happen from ' . parse_url(BASE_URL)['host'] . '</description>'.PHP_EOL);
 fwrite($xmlfile, '<link>' . BASE_URL . '</link>'.PHP_EOL);
 fwrite($xmlfile, '<lastBuildDate>' . gmdate('D, d M Y H:i:s') . ' GMT</lastBuildDate>'.PHP_EOL);
 fwrite($xmlfile, '<generator>(b)log-In</generator>'.PHP_EOL);
