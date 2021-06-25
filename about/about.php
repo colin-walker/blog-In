@@ -49,7 +49,7 @@ require_once('../ParsedownExtra.php');
 		</div><!-- #primary -->
 	</div><!-- #page -->
 
-	<div class="linksDiv day-links"><a href="<?php echo BASE_URL; ?>" title="Return to Today">Today</a>|<a href="../joinme/" title="Subscribe to regular & daily RSS feeds & the muse-letter">Join me</a>
+	<div class="linksDiv day-links"><a href="<?php echo BASE_URL; ?>" title="Return to Today">Today</a>|<a href="../joinme/" title="Subscribe to regular & daily RSS feeds">Join me</a>
 	</div>
 
 <?php
