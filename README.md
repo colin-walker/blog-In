@@ -8,7 +8,7 @@ The core idea of (b)log-In is that each day is a self-contained unit which, by d
 
 The system is indieweb aware from the outset with microformats2 markup and the ability to send and receive webmentions, although not all types of webmention are supported.
 
-Posts are written, edited, updated and even deleted inline in the browser. Markdown Extra is supported along with custom markup to make life easier. More on that later. Comments can be deleted by the admin inline and file uploads are supported, again all inline, without the need to drop to any back end. An admin page exists but this is only for site settings.
+Posts are written, edited, updated and even deleted inline in the browser. Markdown Extra is supported along with custom markup to make life easier. More on that later. Comments can be moderated (if the option is enabled) and deleted by the admin inline and file uploads are supported, again all inline, without the need to drop to any back end. An admin page exists but this is only for site settings.
 
 This CMS includes the following external projects:
 
@@ -85,7 +85,9 @@ Media uploads are handled using an iframe above the post form which can be toggl
 
 Choosing a file, click upload then clock the 'Copy file path' to have the direct URL placed in the clipboard for easy insertion into a post. Re-uploading a file of the same name with overwrite the original.
 
-Each post is preceeded by a permalink (#) and a comment icon, the comment icon acts as a toggle to show/hide the comments section for that post and will appear 'filled' when a post has comments. When logged in, each comment will have a delete icon by it. Top level comments can be replied to by clicking the reply arrow next to the commenters name. The system will attempt to pull in an avatar for each commenter (either via microformats on the source site or favicon) and default to a monogram if none can be found.
+Each post is preceeded by a permalink (#) and a comment icon, the comment icon acts as a toggle to show/hide the comments section for that post and will appear 'filled' when a post has comments. When logged in, each comment will have a delete icon by it. Top level comments can be replied to by clicking the reply arrow next to the commenters name. The system will attempt to pull in an avatar for each commenter (either via microformats on the source site or favicon) and default to a monogram if none can be found. When comment moderation is enabled on the admin page the comment form includes a "Comments are moderated" placeholder and all comments will require approval before being displayed. A tick to approve the comment will be shown next to the usual delete icon:
+
+![Comment moderation](https://colinwalker.blog/uploads/2021/06/moderation.png)
 
 ## Markup
 
