@@ -135,6 +135,11 @@ and looks like this:
 
 It works for centred images and not those that are left or right aligned.
 
+## Indented/sub posts
+
+Posts can be indented so as to act as sub posts – ideal for following up to a previous post. To achieve this precede the post content with `>>`
+This may technically clash with nested Markdown blockquotes but if nested quotes are required just separate the `>` with a space.
+
 ## Linked hashtags
 
 Any hashtags included in post content will automatically be converted into search links for that tag.
@@ -188,3 +193,7 @@ Each time a post is published, edited or deleted the live rss feed is regenerate
 ## Journal
 
 The private journal works in a similar way to the blog but there is only one post per day. You can visually separate it into section susing the `@@` markup listed above. Once a journal entry exists just click/tap the date above it to switch to edit mode.
+
+## Now page
+
+A [/now](https://nownownow.com/about) page can be used and operates in the same way as the Journal. An option on the admin page enables/disables a link to it in the footer. 
