@@ -14,11 +14,8 @@ require_once('../content_filters.php');
 require_once('../Parsedown.php');
 require_once('../ParsedownExtra.php');
 
-$root = $_SERVER['DOCUMENT_ROOT'];
-$file = $root . '/setup.php';
-
+$file = dirname(__FILE__) . '../setup.php';
 if ( file_exists( $file ) ) {
-    chmod($file, 0777);
     unlink( $file );
 }
 
@@ -30,7 +27,7 @@ $dbauth = $row["Option_Value"];
 $authsql->close();
 
 if ($_SESSION['auth'] != $dbauth) {
-  header("location: " . BASE_URL);
+  header("location: " . BASE_URL );
   exit;
 }
 
@@ -50,6 +47,7 @@ if ($_POST['update'] == 'true') {
     $dateformat = $_POST['dateformat'];
     $timezone = $_POST['timezone'];
     $journal = $_POST['journal'];
+    $now = $_POST['now'];
     
     $Parsedown = new ParsedownExtra();
   	$mdabout = $Parsedown->text($about);
@@ -69,6 +67,7 @@ if ($_POST['update'] == 'true') {
     $dbdate = getOption('Date_Format');
     $dbtz = getOption('Timezone');
     $dbjournal = getOption('Journal');
+    $dbnow = getOption('Use_Now');
 
 
 // Base options
@@ -151,7 +150,12 @@ if ($_POST['update'] == 'true') {
         $changeStr .= 'Timezone changed.<br/>';
     }
 
-    if ($timezone != $dbjournal) {
+    if ($now != $dbnow) {
+        setOption('Use_Now', $now);
+        $changeStr .= 'Now page status changed.<br/>';
+    }
+
+    if ($journal != $dbjournal) {
         setOption('Journal', $journal);
         $changeStr .= 'Journal status changed.<br/>';
     }
@@ -258,8 +262,13 @@ if ( $_POST['passcheck'] == 'true' ) {
  				  <option value="US"<?php if(getOption('Date_Format') == 'US') { echo 'selected'; } ?>>US (mm/dd/yyyy)</option>
  				</select>
             	<label>Timezone</label>
- 				<input type="text" name="timezone" style="margin-bottom: 50px;" class="form-control" value="<?php echo getOption('Timezone'); ?>">
+ 				<input type="text" name="timezone" class="form-control" value="<?php echo getOption('Timezone'); ?>">
                 
+                <label>Now page</label>
+ 				<select name="now" class="form-control" style="width: 100%;">
+ 				  <option value="yes" <?php if(getOption('Use_Now') == 'yes') { echo 'selected'; } ?>>yes (show now link in footer)</option>
+ 				  <option value="no"<?php if(getOption('Use_Now') == 'no') { echo 'selected'; } ?>>no</option>
+ 				</select>            
                 <label>Journal</label>
  				<select name="journal" class="form-control" style="width: 100%; margin-bottom: 50px;">
  				  <option value="yes" <?php if(getOption('Journal') == 'yes') { echo 'selected'; } ?>>yes (show journal streak)</option>
