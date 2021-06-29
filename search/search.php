@@ -17,13 +17,12 @@ require_once('../ParsedownExtra.php');
 <html lang="en-GB">
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Colin Walker - Search</title>
+	<title><?php echo constant('NAME'); ?> - Search</title>
 	<link rel="stylesheet" href="../style.css" type="text/css" media="all">
 	<link rel="stylesheet" href="../bigfoot/bigfoot-bottom.css" type="text/css" media="all">
 	<script type="text/javascript" src="../script.js"></script>
 	<link rel="home alternate" type="application/rss+xml" title="<?php echo constant('NAME'); ?> :: Daily Feed" href="<?php echo constant('BASE_URL'); ?>/dailyfeed.rss" />
     <link rel="alternate" type="application/rss+xml" title="<?php echo constant('NAME'); ?> :: Live Feed" href="<?php echo constant('BASE_URL'); ?>/livefeed.rss" />
-	<link rel="me" href="https://micro.blog/colinwalker" />
     <link rel="me" href="mailto:<?php echo constant('MAILTO'); ?>" />
 </head>
 
@@ -203,7 +202,7 @@ if($rows > 5){
         </span>
         <br/>
         <span class="licSpan">
-            <a href="../colophon/">Colophon</a>. Content: <a href="https://creativecommons.org/licenses/by-nc/2.0/uk/">CC BY-NC 2.0 UK</a>
+            <?php if(getOption('Use_Now') == 'yes') { ?><a href="../now/">NOW</a> | <?php } ?><a href="../colophon/">Colophon</a>. Content: <a href="https://creativecommons.org/licenses/by-nc/2.0/uk/">CC BY-NC 2.0 UK</a>
         </span>
     </div>
 </body>
