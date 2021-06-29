@@ -77,7 +77,7 @@ $check_date = $date;
 $step = 0;
 $count = 0;
 
-if($streak_sql = $connsel->prepare("SELECT Day FROM nowp_journal ORDER BY ID DESC")) {
+$streak_sql = $connsel->prepare("SELECT Day FROM nowp_journal ORDER BY ID DESC");
 $streak_sql->execute();
 $streak_result = mysqli_stmt_get_result($streak_sql);
 
@@ -113,9 +113,6 @@ if ($none_today == 'true') {
 
 if ($break == '.') {
   $break = '';
-}
-} else {
-	$break = 'Get started!';
 }
 
 if ($_SESSION['auth'] == $dbauth) {
@@ -252,7 +249,7 @@ if ($date != date('Y-m-d')) {
   <div class="linksDiv day-links">&nbsp;</div>
 <?php } ?>
 
-	<script src="jquery-3.6.0.min.js"></script>
+	<script src="../jquery-3.6.0.min.js"></script>
 	
 	        <script>
 	        
@@ -263,7 +260,7 @@ if ($date != date('Y-m-d')) {
                     
                     var pid = $("#id").val();
                     var content = $("#newcontent").val();
-                    $.post("../updatejournal.php",
+                    $.post("updatejournal.php",
                     	{
                     		updatepost: "true",
                     		newcontent: content,
@@ -271,7 +268,7 @@ if ($date != date('Y-m-d')) {
                     	},
 						function(data, status){		
 							var XHR = new XMLHttpRequest();
-							XHR.open("GET", "../updatejournal.php", true);
+							XHR.open("GET", "updatejournal.php", true);
 							XHR.send();
 							
 							XHR.onreadystatechange = function() {
