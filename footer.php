@@ -4,7 +4,7 @@
         </span>
         <br/>
         <span class="licSpan">
-            <a href="/colophon/">Colophon</a>. Content: <a href="https://creativecommons.org/licenses/by-nc/2.0/uk/">CC BY-NC 2.0 UK</a>
+            <?php if(getOption('Use_Now') == 'yes') { ?><a href="/now/">NOW</a> | <?php } ?><a href="/colophon/">Colophon</a> | Content: <a href="https://creativecommons.org/licenses/by-nc/2.0/uk/">CC BY-NC 2.0 UK</a>
         </span>
     </div>
 

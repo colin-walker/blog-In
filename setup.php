@@ -196,6 +196,9 @@ if ( file_exists( $file ) ) {
 		$sql .= "INSERT INTO " . $options . " (Option_Name, Option_Value) VALUES ('Timezone', 'Europe/London');";
 		$sql .= "INSERT INTO " . $options . " (Option_Name, Option_Value) VALUES ('Journal', 'no');";
 		$sql .= "INSERT INTO " . $options . " (Option_Name, Option_Value) VALUES ('Install_Date', '" . date('Y-m-d') . "');";
+		$sql .= "INSERT INTO " . $options . " (Option_Name, Option_Value) VALUES ('Use_Now', 'no');";
+		$sql .= "INSERT INTO " . $options . " (Option_Name, Option_Value) VALUES ('Now_Text', '');";
+		$sql .= "INSERT INTO " . $options . " (Option_Name, Option_Value) VALUES ('Now_Updated', '');";
 
 		
 		if ($conn->multi_query($sql) === TRUE) {
