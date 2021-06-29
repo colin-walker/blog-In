@@ -59,12 +59,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             
             $session_id = session_id();
                         
-            if ($_GET['return'] == 'muse') {
-                header("location: https://colinwalker.blog/muse-letter/");
-                exit;
-            } else {
-                header("location: " . BASE_URL . "");
-                exit;
+            header("location: " . BASE_URL . "");
+            exit;
             }
         } else {
             // Display an error message if password is not valid
