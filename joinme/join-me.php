@@ -15,7 +15,7 @@ require_once('../config.php');
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="theme-color" content="#eeeeee">
 	<title>Join Me</title>
-	<meta name="description" content="Writing, blogging, life, tech and mental health with a philosophical/psychological slant">
+	<meta name="description" content="<?php echo constant('DESCRIPTION'); ?>">
 	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 	<link rel="stylesheet" href="../style.css" type="text/css" media="all">
@@ -48,9 +48,9 @@ require_once('../config.php');
 					<div class="entry-content e-content pre-line">
 					    <strong>Want to keep up with what’s going on?</strong>
 
-                        I recommend subscribing to the <a href="https://colinwalker.blog/dailyfeed.rss">Daily Update RSS feed</a> - get all posts from the previous day as one item, in chronological order, as if it were a "day page" on the blog itself.
+                        I recommend subscribing to the <a href="<?php echo constant('BASE_URL'); ?>/dailyfeed.rss">Daily Update RSS feed</a> - get all posts from the previous day as one item, in chronological order, as if it were a "day page" on the blog itself.
 
-                        For a more traditional "posts as they happen" RSS feed you can use the <a href="https://colinwalker.blog/livefeed.rss">Live RSS Feed</a>.                 
+                        For a more traditional "posts as they happen" RSS feed you can use the <a href="<?php echo constant('BASE_URL'); ?>/livefeed.rss">Live RSS Feed</a>.                 
                         <hr noshade width="33%" style="margin-bottom: -20px; margin-top: 25px;" size="1">   
                     </div>
                 </article>
@@ -75,7 +75,7 @@ require_once('../config.php');
         </span>
         <br/>
         <span class="licSpan">
-            <a href="../colophon/">Colophon</a>. Content: <a href="https://creativecommons.org/licenses/by-nc/2.0/uk/">CC BY-NC 2.0 UK</a>
+            <?php if(getOption('Use_Now') == 'yes') { ?><a href="../now/">NOW</a> | <?php } ?><a href="../colophon/">Colophon</a> | Content: <a href="https://creativecommons.org/licenses/by-nc/2.0/uk/">CC BY-NC 2.0 UK</a>
         </span>
     </div>
 
