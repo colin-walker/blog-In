@@ -25,7 +25,6 @@ require_once('../config.php');
     <link rel="home alternate" type="application/rss+xml" title="<?php echo constant('NAME'); ?> :: Daily Feed" href="<?php echo constant('BASE_URL'); ?>/dailyfeed.rss" />
     <link rel="alternate" type="application/rss+xml" title="<?php echo constant('NAME'); ?> :: Live Feed" href="<?php echo constant('BASE_URL'); ?>/livefeed.rss" />
     <link rel="me" href="mailto:<?php echo constant('MAILTO'); ?>" />
-	<link rel="me" href="https://micro.blog/colinwalker" />
 	
 	<script type="text/javascript" src="../script.js"></script>
 </head>
