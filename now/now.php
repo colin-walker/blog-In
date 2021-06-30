@@ -200,9 +200,6 @@ if ($_SESSION['auth'] == $dbauth) {
     			post.style.display = 'none';
     			edit.style.display = 'block';
     			var contentArea = document.getElementById('newcontent');
-                        if(contentArea.value.slice(-3) != '@@ ') {
-                        	contentArea.value = contentArea.value + '\n\n@@ ';
-                        }
                         var areaLen = contentArea.value.length;
                         contentArea.setSelectionRange(areaLen, areaLen);
                         contentArea.focus();
