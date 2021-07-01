@@ -97,7 +97,7 @@ if($tz == 'UK') {
 }
 
 if ($_SESSION['auth'] == $dbauth) {
-	echo '<h2><span style="margin-bottom: 20px; cursor: pointer;" class="dateSpan" onclick="toggleUpdate()" accesskey="e">What I\'m doing now:</span><br/><span class="updatedSpan">(Updated: ' . $when . ')</span></h2>';
+	echo '<h2><span style="margin-bottom: 20px; cursor: pointer;" class="dateSpan" onclick="toggleUpdate()" accesskey="e">What I\'m doing now:</span><br/><span class="updatedSpan" id="updated">(Updated: ' . $when . ')</span></h2>';
 } else {
 	echo '<h3 style="margin-bottom: 20px;" class="dateSpan">What I\'m doing now:<br/><span class="updatedSpan" id="updated">(Updated: ' . $when . ')</span></h2>';
 }
@@ -179,7 +179,7 @@ if ($_SESSION['auth'] == $dbauth) {
 					if (month < 10) {
 						month = "0" + month;
 					}
-					var newdate = d.getDate() + "/" + month + "/" + (d.getYear()-100);
+					let newdate = d.getDate() + "-" + month + "-" + d.getFullYear();
                     
                     $.post("updatenow.php",
                     	{
@@ -194,7 +194,8 @@ if ($_SESSION['auth'] == $dbauth) {
 							XHR.onreadystatechange = function() {
 								if (this.readyState == 4 && this.status == 200) {
 									var data = JSON.parse(this.responseText);									document.getElementById("entry").innerHTML = data;
-									document.getElementById("updated").innerText = "(Updated: " + newdate + ")";
+									console.log(document.getElementById("updated"));
+									document.getElementById("updated").innerHTML = "(Updated)";
     								post.style.display = 'block';
     								edit.style.display = 'none';
     							}
