@@ -15,6 +15,15 @@ require_once('../ParsedownExtra.php');
 
 date_default_timezone_set('' . TIMEZONE . '');
 
+
+// redirect if now disabled
+
+if (getOption('Journal') == 'no') {
+    header("location: " . BASE_URL);
+    exit;
+}
+
+
 // Get auth string from database
 
 $authsql = $connsel->prepare("SELECT Option_Value FROM " . OPTIONS . " WHERE Option_Name = 'Auth' ");
