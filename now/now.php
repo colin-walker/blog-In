@@ -93,7 +93,7 @@ if ( isset($_POST['updatepost']) && ($_POST['newcontent'] !='') ) {
 if ($_SESSION['auth'] == $dbauth) {
 	echo '<h2><span style="margin-bottom: 20px; cursor: pointer;" class="dateSpan" onclick="toggleUpdate()" accesskey="e">What I\'m doing now:</span><br/><span class="updatedSpan">(Updated: ' . $when . ')</span></h2>';
 } else {
-	echo '<h3 style="margin-bottom: 20px;" class="dateSpan">What I\'m doing now:<br/><span class="updatedSpan">(Updated: ' . $when . ')</span></h2>';
+	echo '<h3 style="margin-bottom: 20px;" class="dateSpan">What I\'m doing now:<br/><span class="updatedSpan" id="updated">(Updated: ' . $when . ')</span></h2>';
 }
 
 	$now = getOption('Now_Text');
@@ -188,6 +188,7 @@ if ($_SESSION['auth'] == $dbauth) {
 							XHR.onreadystatechange = function() {
 								if (this.readyState == 4 && this.status == 200) {
 									var data = JSON.parse(this.responseText);									document.getElementById("entry").innerHTML = data;
+									document.getElementById("updated").innerText = "(Updated: " + newdate + ")";
     								post.style.display = 'block';
     								edit.style.display = 'none';
     							}
