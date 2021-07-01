@@ -97,9 +97,9 @@ if($tz == 'UK') {
 }
 
 if ($_SESSION['auth'] == $dbauth) {
-	echo '<h2><span style="margin-bottom: 20px; cursor: pointer;" class="dateSpan" onclick="toggleUpdate()" accesskey="e">What I\'m doing now:</span><br/><span class="updatedSpan" id="updated">(Updated: ' . $when . ')</span></h2>';
+	echo '<h2><span style="cursor: pointer;" class="dateSpan" onclick="toggleUpdate()" accesskey="e">What I\'m doing now:</span><br/><span id="updated" class="updatedSpan">(Updated: ' . $when . ')</span></h2>';
 } else {
-	echo '<h3 style="margin-bottom: 20px;" class="dateSpan">What I\'m doing now:<br/><span class="updatedSpan" id="updated">(Updated: ' . $when . ')</span></h2>';
+	echo '<h2><span class="dateSpan">What I\'m doing now:</span><br/><span id="updated" class="updatedSpan">(Updated: ' . $when . ')</span></h2>';
 }
 
 	$now = getOption('Now_Text');
@@ -232,7 +232,7 @@ if ($_SESSION['auth'] == $dbauth) {
     
         @media screen and (max-width: 767px) {
             #page {
-                min-height: calc(100vh - 257px) !important;
+                min-height: calc(100vh - 227px) !important;
             }
         }
         
