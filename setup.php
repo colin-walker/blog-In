@@ -11,7 +11,7 @@ if ( file_exists( $file ) ) {
 		exit('You are already configured.');
 }
 
-	if ( !$_POST['name'] ) {
+	if ( $_POST['name'] ) {
 		
 		$sitename = $_POST['name'];
 		$url = $_POST['url'];
