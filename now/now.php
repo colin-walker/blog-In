@@ -35,8 +35,6 @@ $authsql->close();
 
 $date = date('Y-m-d');
 
-$when = getOption('Now_Updated');
-
 
 // Submit entry
 
@@ -89,6 +87,14 @@ if ( isset($_POST['updatepost']) && ($_POST['newcontent'] !='') ) {
 			<main id="main" class="site-main today-container">
 
 <?php
+
+$when = date_create(getOption('Now_Updated'));
+$tz = getOption('Date_Format');
+if($tz == 'UK') {
+	$when = date_format($when,'d/m/y');
+} else {
+	$when = date_format($when,'m/d/y');
+}
 
 if ($_SESSION['auth'] == $dbauth) {
 	echo '<h2><span style="margin-bottom: 20px; cursor: pointer;" class="dateSpan" onclick="toggleUpdate()" accesskey="e">What I\'m doing now:</span><br/><span class="updatedSpan">(Updated: ' . $when . ')</span></h2>';

@@ -17,11 +17,11 @@
     
 <?php
 if ($_SESSION['auth'] == $dbauth) {
-	if ($date == INSTALL_DATE && $noposts == 'true') { ?>
+	if ($date == INSTALL_DATE || $noposts == 'true') { ?>
     	<style>
         	@media screen and (min-width: 768px) {
             	#page {
-                	min-height: calc(100vh - 162px) !important;
+                	min-height: calc(100vh - 157px) !important;
             	}
         	}
     	</style>		
