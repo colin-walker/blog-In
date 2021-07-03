@@ -16,17 +16,92 @@ if ($two == '>>') {
 }
 
 
-
 // break
 
 $content = str_replace('[hr]', '<hr noshade width="33%" style="margin-bottom: 25px; margin-top: 25px;" size="1">' ,$content);
-
 
 
 // linked hashtags
 
 	$content = preg_replace('/((?<!&|\'|\#|\)|\||\/|\[|[0-9]|[a-z]|=")#(?!\s|#|\*|\$|^[a-z]).*?)([^\s|^"|^\)|^\.<]+)/i', '<span class="hashtag"><a href="' . BASE_URL . '/search/?s=%23'.'$2">#$2</a></span>', $content);
 
+
+// internal links
+
+	$open = '[[';
+	$close = ']]';
+	$linkcount = substr_count($content, $open);
+
+	for ($i=0; $i < $linkcount; $i++) {
+		$opos = strpos($content, $open);
+		$cpos = strpos($content, $close);
+		$len = $cpos-$opos;
+		if ($cpos - $opos != 2) {
+			$orig = substr($content, $opos, $len+2);
+			$linktext = substr($content, $opos+2, $len-2);
+			$gardenlinkurl = strtolower(str_replace(' ', '-', $linktext));
+			$replace = '.<a href="/wp/' . $gardenlinkurl . '/">' . $linktext . '</a>';
+			$content = str_replace($orig, $replace , $content);
+		}
+	}
+
+
+// external links
+
+	$open = '{{';
+	$close = '}}';
+	$linkcount = substr_count($content, $open);
+
+	for ($i=0; $i < $linkcount; $i++) {
+		$opos = strpos($content, $open);
+		$cpos = strpos($content, $close);
+		$len = $cpos-$opos;
+		if ($cpos - $opos != 2) {
+			$orig = substr($content, $opos, $len+2);
+			$linktext = substr($content, $opos+2, $len-2);
+			$gardenlinkurl = strtolower(str_replace(' ', '-', $linktext));
+			$replace = '&#123;&#123;<a href="' . $linktext . '">' . $linktext . '</a>&#125;&#125;';
+			$content = str_replace($orig, $replace, $content);
+		}
+	}
+
+
+// summary
+
+	$open = '[s[';
+	$close = ']s]';
+	$linkcount = substr_count($content, $open);
+
+	for ($i=0; $i < $linkcount; $i++) {
+		$opos = strpos($content, $open);
+		$cpos = strpos($content, $close);
+		$len = $cpos-$opos;
+		if ($cpos - $opos != 2) {
+			$orig = substr($content, $opos, $len+4);
+			$summary = substr($content, $opos+3, $len-3);
+			$replace = "<details><summary style='outline: none;'>$summary</summary>";
+			$content = str_replace($orig, $replace, $content);
+		}
+	}
+
+
+// details
+
+	$open = '[d[';
+	$close = ']d]';
+	$linkcount = substr_count($content, $open);
+
+	for ($i=0; $i < $linkcount; $i++) {
+		$opos = strpos($content, $open);
+		$cpos = strpos($content, $close);
+		$len = $cpos-$opos;
+		if ($cpos - $opos != 2) {
+			$orig = substr($content, $opos, $len+4);
+			$details = substr($content, $opos+3, $len-3);
+			$replace = "<div style='margin-left: 17px;'>$details</div></details>";
+			$content = str_replace($orig, $replace, $content);
+		}
+	}
 
 
 // details/summary
@@ -66,7 +141,6 @@ $content = str_replace('[hr]', '<hr noshade width="33%" style="margin-bottom: 25
 // End details/summary
 
 
-
 // strikethrough
 
 	$strike = '~~';
@@ -85,7 +159,6 @@ $content = str_replace('[hr]', '<hr noshade width="33%" style="margin-bottom: 25
 		}
 		$content = preg_replace($check, $replace, $content, 1);
 	}
-	
 	
 	
 // underline
@@ -108,7 +181,6 @@ $content = str_replace('[hr]', '<hr noshade width="33%" style="margin-bottom: 25
 		$replace = "<span style='text-decoration: underline;'>$2</span>";
 		$content = preg_replace($check, $replace, $content, 1);
 	}	
-	
 	
 	
 // superscript
@@ -168,10 +240,8 @@ $content = str_replace('[hr]', '<hr noshade width="33%" style="margin-bottom: 25
 		if ($cpos - $opos != 3) {
 			$orig = substr($content, $opos, $len+4);
 			$linktext = substr($content, $opos+3, $len-3);
-		
-			//$replace = '<div class="aligncenter" style="position: relative; width: 100%; padding-top: 42.1875%;"><iframe style="position: absolute; top: 0; bottom: 0; left: 0; right: 0; width: 100%; height: 100%" src="' . $linktext . '" allowfullscreen="false" frameborder="0">Click to watch...</iframe></div>';
 			
-			$replace = '<div class="aligncenter"><video width="90%" controls><source src="' . $linktext . '" type="video/mp4"><a href="' . $linktext . '">Click to watch...</a></video></div>';
+			$replace = '<div class="aligncenter"><video width="90%" controls><source src="' . $linktext . '" type="video/mp4">Can\'t see the video? a href="' . $linktext . '">Click here to watch...</a></video></div>';
 			
 			$content = str_replace($orig, $replace, $content);
 		}
@@ -179,7 +249,7 @@ $content = str_replace('[hr]', '<hr noshade width="33%" style="margin-bottom: 25
 	
 	
 	
-// embedded YouTube
+	// embedded YouTube
 
 	$open = '[y[';
 	$close = ']y]';
@@ -193,11 +263,12 @@ $content = str_replace('[hr]', '<hr noshade width="33%" style="margin-bottom: 25
 			$orig = substr($content, $opos, $len+4);
 			$linktext = substr($content, $opos+3, $len-3);
 		
-			$replace = '<div class="aligncenter" style="position: relative; width: 100%; padding-top: 56.25%"><iframe style="position: absolute; top: 10px; bottom: 0; left: 0; right: 0; width: 100%; height: 100%" src="https://www.youtube.com/embed/' . $linktext . '" allowfullscreen="false" frameborder="0">Click to watch...</iframe></div>';
+			$replace = '<div class="aligncenter" style="position: relative; width: 100%; padding-top: 56.25%"><iframe style="position: absolute; top: 10px; bottom: 0; left: 0; right: 0; width: 100%; height: 100%" src="https://www.youtube.com/embed/' . $linktext . '" allowfullscreen="false" frameborder="0">Can\'t see the video? Click here to watch...</iframe></div>';
 			
 			$content = str_replace($orig, $replace, $content);
 		}
 	}
+	
 	
 	
 	
