@@ -23,11 +23,7 @@ $xmlfile = fopen($file, 'w');
 fwrite($xmlfile, '<?xml version="1.0" encoding="UTF-8"?>'.PHP_EOL);
 fwrite($xmlfile, '<rss version="2.0"'.PHP_EOL);
 fwrite($xmlfile, 'xmlns:content="http://purl.org/rss/1.0/modules/content/"'.PHP_EOL);
-fwrite($xmlfile, 'xmlns:wfw="http://wellformedweb.org/CommentAPI/"'.PHP_EOL);
-fwrite($xmlfile, 'xmlns:dc="http://purl.org/dc/elements/1.1/"'.PHP_EOL);
-fwrite($xmlfile, 'xmlns:atom="http://www.w3.org/2005/Atom"'.PHP_EOL);
 fwrite($xmlfile, 'xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"'.PHP_EOL);
-fwrite($xmlfile, 'xmlns:slash="http://purl.org/rss/1.0/modules/slash/"'.PHP_EOL);
 fwrite($xmlfile, '>'.PHP_EOL);
 fwrite($xmlfile, '<channel>'.PHP_EOL);
 fwrite($xmlfile, '<title>' . NAME . ' — Daily Feed</title>'.PHP_EOL);
@@ -82,7 +78,7 @@ while($row = $result->fetch_assoc()) {
 		if ($post_title != '') {
 			$h2 = '<span style="font-size: 24px; text-transform: uppercase;"><strong>' . $post_title . '</strong></span><br/>';
 		}
-		$feedcontent = '<p' . $indentSpan . '><a href="https://colinwalker.blog/?date=' . $feeddate . '#p' . $section_number . '" style="text-decoration: none; margin-right: 8px;">#</a> ' . $h2 . $feedcontent . '</p>'.PHP_EOL;
+		$feedcontent = '<p' . $indentSpan . '><a href="' . BASE_URL . '/?date=' . $feeddate . '#p' . $section_number . '" style="text-decoration: none; margin-right: 8px;">#</a> ' . $h2 . $feedcontent . '</p>'.PHP_EOL;
 
 		$fullcontent .= $feedcontent;
 			
