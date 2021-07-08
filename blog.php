@@ -217,7 +217,7 @@ if ( isset($_POST['dopost']) ) {
         $section_check->close();
 
         $post_date = date("Y-m-d");
-        $permalink = BASE_URL . '?date=' . $post_date;
+        $permalink = BASE_URL . '/?date=' . $post_date;
         $post_time = date("D, d M Y H:i:s");
         $post_day = date("Y/m/d");
         $status = $_POST['status'];

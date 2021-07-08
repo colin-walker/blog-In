@@ -156,60 +156,60 @@ if ($_POST['source'] != $_POST['target']) {
 		echo $Comment . PHP_EOL;
 		echo $Like . PHP_EOL;
 		echo $Reply . PHP_EOL;
-        	echo $targetURL . PHP_EOL;
-        	echo $fragmention . PHP_EOL;
-        	*/
+        echo $targetURL . PHP_EOL;
+        echo $fragmention . PHP_EOL;
+        */
 
 		$comment_sql = $conn->prepare("INSERT INTO " . COMMENTS . " (Parent, Name, Photo, Website, Comment, Mention, isLike, isReply, Fragmention) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 		$comment_sql->bind_param("issssssss", $Parent, $Name, $Photo, $Website, $Comment, $Mention, $Like, $Reply, $fragmention);
 		if($comment_sql) {
 			$comment_sql->execute();
-	    		$comment_ID = $comment_sql->insert_id;
-	    		$cid = $comment_ID;
+	    	$comment_ID = $comment_sql->insert_id;
+	    	$cid = $comment_ID;
 			$comment_sql->close();
 
 			$parent_sql = $connsel->prepare("SELECT Permalink, Section FROM " . POSTS . " WHERE ID=?");
 			$parent_sql->bind_param("i", $Parent);
-    			$parent_sql->execute();
-    			$parent_sql->bind_result($db_permalink, $db_section);
-    			$parent_result = mysqli_stmt_get_result($parent_sql);
-    			$row = $parent_result->fetch_assoc();
-    			$permalink = $row["Permalink"];
-    			$section = $row["Section"];
-    			$postlink = $permalink . '&c=' . $section . ':' . $cid; //'#p' . $section;
-    			$parent_sql->close();
+    		$parent_sql->execute();
+    		$parent_sql->bind_result($db_permalink, $db_section);
+    		$parent_result = mysqli_stmt_get_result($parent_sql);
+    		$row = $parent_result->fetch_assoc();
+    		$permalink = $row["Permalink"];
+    		$section = $row["Section"];
+    		$postlink = $permalink . '&c=' . $section . ':' . $cid; //'#p' . $section;
+    		$parent_sql->close();
 
-    			$body .= '<p>A new webmention has been received on the blog.</p>';
-    			$body .= '<p>\'' . $Name . '\' mentioned <a href="' . $postlink . '">this post</a> saying:</p>';
-    			$body .= '<blockquote>' . $Comment . '</blockquote>';
-    			$body .= '<p>From: <a href="' . $Website . '">' . $Website . '</a></p>';
+    		$body .= '<p>A new webmention has been received on the blog.</p>';
+    		$body .= '<p>\'' . $Name . '\' mentioned <a href="' . $postlink . '">this post</a> saying:</p>';
+    		$body .= '<blockquote>' . $Comment . '</blockquote>';
+    		$body .= '<p>From: <a href="' . $Website . '">' . $Website . '</a></p>';
 
 			$mail = new PHPMailer(true);
 
-    			try {
-            		//Server settings
-            		//$mail->SMTPDebug = SMTP::DEBUG_SERVER;
-            		$mail->isSMTP();
-            		$mail->Host = '' . SMTPHOST . '';
-            		$mail->SMTPAuth = true;
-            		$mail->Username = '' . SMTPUSER . '';
-            		$mail->Password = '' . SMTPPASS . '';
-            		$mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-            		$mail->Port = SMTPPORT;
+    		try {
+            	//Server settings
+            	//$mail->SMTPDebug = SMTP::DEBUG_SERVER;
+           		$mail->isSMTP();
+            	$mail->Host = '' . SMTPHOST . '';
+           		$mail->SMTPAuth = true;
+            	$mail->Username = '' . SMTPUSER . '';
+            	$mail->Password = '' . SMTPPASS . '';
+            	$mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+            	$mail->Port = SMTPPORT;
 
-            		//Recipients
-            		$mail->setFrom('' . MAILTO . '', '' . parse_url(BASE_URL)['host'] . '');
-            		$mail->addAddress('' . MAILTO . '', '' . NAME . '');
+            	//Recipients
+            	$mail->setFrom('' . MAILTO . '', '' . parse_url(BASE_URL)['host'] . '');
+            	$mail->addAddress('' . MAILTO . '', '' . NAME . '');
 
-            		//Content
-                	$mail->CharSet = 'UTF-8';
-            		$mail->isHTML(true);
-            		$mail->Subject = 'New webmention';
-            		$mail->Body = $body;
+            	//Content
+                $mail->CharSet = 'UTF-8';
+            	$mail->isHTML(true);
+            	$mail->Subject = 'New webmention';
+            	$mail->Body = $body;
 	
-        	    	$mail->send();
+        	    $mail->send();
         	} catch (Exception $e) {
-            		echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            	echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         	}
 
 		}
