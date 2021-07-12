@@ -1002,13 +1002,13 @@ $conn->close();
 
 <?php
 if ($date != INSTALL_DATE) {
-echo '<div class="nav-previous"><a href="' . BASE_URL . '?date=' . $prev_date . '"><<</a></div>';
+echo '<div class="nav-previous"><a href="' . BASE_URL . '?date=' . $prev_date . '" title="Previous day"><<</a></div>';
 }
 if ($date != date('Y-m-d')) {
 	if ($date == date('Y-m-d', strtotime($today .' -1 day'))) {
-		echo '<div class="nav-next"><a href="' . BASE_URL . '">>></a></div>';
+		echo '<div class="nav-next"><a href="' . BASE_URL . '" title="Next day">>></a></div>';
 	} else {
-		echo '<div class="nav-next"><a href="' . BASE_URL . '?date=' . $next_date . '">>></a></div>';
+		echo '<div class="nav-next"><a href="' . BASE_URL . '?date=' . $next_date . '" title="Next day">>></a></div>';
 	}
 }
 ?>
