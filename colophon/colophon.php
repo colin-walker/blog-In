@@ -58,5 +58,7 @@ require_once('../config.php');
 	</div>
 
 <?php
+	$pageDesktop = "157";
+	$pageMobile = "227";
 	include('../footer.php');
 ?>

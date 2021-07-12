@@ -319,16 +319,7 @@ if ($date != date('Y-m-d')) {
     </script>
 	
 <?php
-if ($_SESSION['auth'] == $dbauth) { ?>
-    <style>
-        @media screen and (min-width: 768px) {
-            #page {
-                min-height: calc(100vh - 212px) !important;
-            }
-        }
-    </style>
-<?php
-}
-
-include('../footer.php');
+	$pageDesktop = "212";
+	$pageMobile = "277";
+	include('../footer.php');
 ?>

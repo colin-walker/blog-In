@@ -228,30 +228,8 @@ if ($_SESSION['auth'] == $dbauth) {
     	}
     </script>
 	
-    <style>
-    
-        @media screen and (max-width: 767px) {
-            #page {
-                min-height: calc(100vh - 227px) !important;
-            }
-        }
-        
-        @media screen and (min-width: 768px) {
-            #page {
-                min-height: calc(100vh - 157px) !important;
-            }
-        }
-    </style>
-
-    <div id="siteID" class="siteID">
-        <span class="nameSpan">
-            <a href="../about/"><?php echo constant("NAME"); ?></a>
-        </span>
-        <br/>
-        <span class="licSpan">
-            <a href="/now/">NOW</a> | <a href="/colophon/">Colophon</a> | Content: <a href="https://creativecommons.org/licenses/by-nc/2.0/uk/">CC BY-NC 2.0 UK</a>
-        </span>
-    </div>
-    
-</body>
-</html>
+<?php
+	$pageDesktop = "157";
+	$pageMobile = "227";
+	include('../footer.php');
+?>

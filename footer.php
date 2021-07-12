@@ -4,7 +4,7 @@
         </span>
         <br/>
         <span class="licSpan">
-            <?php if(getOption('Use_Now') == 'yes') { ?><a href="/now/">NOW</a> | <?php } ?><a href="/colophon/">Colophon</a> | Content: <a href="https://creativecommons.org/licenses/by-nc/2.0/uk/">CC BY-NC 2.0 UK</a>
+            <?php if(getOption('Use_Now') == 'yes') { ?><a href="/now/">NOW</a> | <?php } ?><a href="/colophon/">COLOPHON</a><?php if($copyright != "yes") { ?> | Content: <a href="https://creativecommons.org/licenses/by-nc/2.0/uk/">CC BY-NC 2.0 UK</a><?php } ?>
         </span>
     </div>
 
@@ -36,6 +36,35 @@ if ($_SESSION['auth'] == $dbauth) {
 	<?php
 	}
 } 
+
+if($pageMobile) {
+?>
+  <style>
+
+        	@media screen and (max-width: 767px) {
+
+            	#page {
+                	min-height: calc(100vh - <?php echo $pageMobile; ?>px) !important;
+            	}
+        	}
+    	</style>
+<?php
+}
+
+if($pageDesktop) {
+?>
+  <style>
+
+        	@media screen and (min-width: 768px) {
+
+            	#page {
+                	min-height: calc(100vh - <?php echo $pageDesktop; ?>px) !important;
+            	}
+        	}
+    	</style>
+<?php
+}
+
 ?>
 
 </body>

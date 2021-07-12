@@ -59,31 +59,9 @@ require_once('../config.php');
 
     	<div class="linksDiv day-links"><a href="<?php echo BASE_URL; ?>">Today</a>|<a accesskey="s" style="text-decoration: none;" title="Search" href="../search/"><picture class="searchicon"><source srcset="../images/search_dark.png" media="(prefers-color-scheme: dark)"><img class="searchicon" src="../images/search_light.png" alt="Search the blog"></picture></a>|<a href="/joinme/" title="Subscribe to regular & daily RSS feeds & the muse-letter">Join me</a>
 	</div>
-    
-    <style>
-        @media screen and (min-width: 768px) {
-            #page {
-                min-height: calc(100vh - 162px) !important;
-            }
-        }
-    </style>
-    
-    <div id="siteID" class="siteID">
-        <span class="nameSpan">
-            <a href="../about/"><?php echo constant("NAME"); ?></a>
-        </span>
-        <br/>
-        <span class="licSpan">
-            <?php if(getOption('Use_Now') == 'yes') { ?><a href="../now/">NOW</a> | <?php } ?><a href="../colophon/">Colophon</a> | Content: <a href="https://creativecommons.org/licenses/by-nc/2.0/uk/">CC BY-NC 2.0 UK</a>
-        </span>
-    </div>
 
-    <div class="h-card p-author vcard author">
-        <img class="u-photo" src="<?php echo constant('AVATAR'); ?>" alt="<?php echo constant("NAME"); ?>"/>
-        <a class="u-url" rel="me" href="<?php echo constant('BASE_URL'); ?>"><?php echo constant("NAME"); ?></a>
-        <a rel="me" class="u-email" href="mailto:<?php echo constant("MAILTO"); ?>"><?php echo constant("MAILTO"); ?></a>
-        <p class="p-note"></p>
-    </div>
-
-</body>
-</html>
+<?php
+    $pageDesktop = "157";
+    $pageMobile = "227";
+    include('../footer.php');
+?>

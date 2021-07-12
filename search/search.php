@@ -170,40 +170,9 @@ if($rows > 5){
 			</main><!-- #main -->
 		</div><!-- #primary -->
 	</div><!-- #page -->
-
-    <style>
-
-    @media screen and (max-width: 767px) {
-		#page {
-			min-height: calc(100vh - 135px) !important;
-		}
-	}
-
-    @media screen and (min-width: 768px) {
-		#page {
-			min-height: calc(100vh - 105px) !important;
-		}
-	}
-
-    </style>
-    
-	<script type="text/javascript" src="../jquery.slim.min.js"></script>
-    <script type="text/javascript" src="../bigfoot/bigfoot.js"></script>
-    <script type="text/javascript">
-        var bigfoot = $.bigfoot( {
-            positionContent: true,
-            preventPageScroll: true
-        } );
-    </script>
-
-    <div id="siteID" class="siteID">
-        <span class="nameSpan">
-            <a href="../about/"><?php echo constant("NAME"); ?></a>
-        </span>
-        <br/>
-        <span class="licSpan">
-            <?php if(getOption('Use_Now') == 'yes') { ?><a href="../now/">NOW</a> | <?php } ?><a href="../colophon/">Colophon</a>. Content: <a href="https://creativecommons.org/licenses/by-nc/2.0/uk/">CC BY-NC 2.0 UK</a>
-        </span>
-    </div>
-</body>
-</html>
+	
+<?php
+	$pageDesktop = "102";
+	$pageMobile = "147";
+	include('../footer.php');
+?>
