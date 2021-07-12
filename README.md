@@ -163,6 +163,7 @@ A number of accesskeys are defined across the system as below:
 - accesskey a = go to admin
 - accesskey c = close post form but stay in edit mode
 - accesskey e = toggle edit mode
+- accesskey l = go to login page
 - accesskey s = go to search
 
 ### Admin

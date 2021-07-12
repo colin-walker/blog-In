@@ -406,7 +406,7 @@ if ($_SESSION['auth'] == $dbauth) {
 		$streakStr = '';
 	}
 } else {
-    $streakStr = '<div id="streak" class="blogin"><a style="text-decoration: none;" href="/login/?return=blog">(b)log-<picture style="width: 7px; position: relative; top: 1.5px;" class="insertimg"><source srcset="/images/blogin_dark.png" media="(prefers-color-scheme: dark)"><img alt="insert image" style="width: 7px; position: relative; top: 1.5px;" id="insertimg" class="insertimg" src="/images/blogin_light.png" /></picture>n</a></div>' . PHP_EOL;
+    $streakStr = '<div id="streak" class="blogin"><a accesskey="l" style="text-decoration: none;" href="/login/?return=blog">(b)log-<picture style="width: 7px; position: relative; top: 1.5px;" class="insertimg"><source srcset="/images/blogin_dark.png" media="(prefers-color-scheme: dark)"><img alt="insert image" style="width: 7px; position: relative; top: 1.5px;" id="insertimg" class="insertimg" src="/images/blogin_light.png" /></picture>n</a></div>' . PHP_EOL;
 }
 ?>
 
