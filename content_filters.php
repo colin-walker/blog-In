@@ -361,7 +361,6 @@ function reply($content) {
 			$dom->loadHTML($result);
 			libxml_clear_errors();
 			$reply_title = $dom->getElementsByTagName('title')->item('0')->nodeValue;
-			//$reply_title = substr($reply_title, 0 , 30);
 
 			if ($reply_title != '') {
 				$length = 50;
@@ -369,14 +368,14 @@ function reply($content) {
 				    $reply_title = wordwrap($reply_title, $length);
 				    $reply_title = substr($reply_title, 0, strpos($reply_title, "\n"));
 				}
-				
-				$reply_str = '<em>In reply to: <a class="u-in-reply-to" href="' . $linktext . '">' . $reply_title . '</a>...</em>';
-				$content = str_replace($orig, $reply_str, $content);
 			}
+		} else {
+			$linktext = '';
+			$reply_title = '';
 		}
 
 		$content = substr($content, 2);
-		return $content;
+		return array($linktext, $reply_title, $content);
 }
 
 

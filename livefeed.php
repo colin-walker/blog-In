@@ -40,20 +40,27 @@ fwrite($xmlfile, '<sy:updateFrequency>1</sy:updateFrequency>'.PHP_EOL);
 
 // get posts
 
-$feedsql = $connsel->prepare("SELECT ID, Permalink, Section, Title, Content, Date, Draft FROM " . POSTS . " WHERE Draft='' ORDER BY ID Desc");
+$feedsql = $connsel->prepare("SELECT ID, Permalink, Section, Title, Content, Date, ReplyURL, Reply_Title, Draft FROM " . POSTS . " WHERE Draft='' ORDER BY ID Desc");
 $feedsql->execute();
 $feed_result = mysqli_stmt_get_result($feedsql);
 
 while($row = $feed_result->fetch_assoc()) {
+	$replyURL = '';
 	if($count < 10) {
 		$section_number = $row["Section"];
 		$post_title = $row["Title"];
 		$postdate = $row["Date"];
 		$date = date_create($postdate, timezone_open("Europe/London"));
 		$main_link = $row["Permalink"];
+		$replyURL = $row["ReplyURL"];
+		$reply_title = $row["Reply_Title"];
 		$content = stripslashes($row["Content"]);
 
   		$content = filters($content);
+  		if($replyURL != '') {
+  			$content = substr($content, (strlen($replyURL)+9));
+  			$content = '<p><em>In reply to: <a class="u-in-reply-to" href="' . $replyURL . '">' . $reply_title . '</a>...</em></p>' . $content;
+  		}
   		
   		$trunc_content ='';
   		$trunc = strip_tags($content);
@@ -64,7 +71,7 @@ while($row = $feed_result->fetch_assoc()) {
 
 		$Parsedown = new ParsedownExtra();
 		$feedcontent = $Parsedown->text($content);
-		$trunc_content = substr($feedcontent, 3, 53);
+		$trunc_content = substr($trunc_content, 0, 50);
 		$day = date_format($date,"Y/m/d");
 		$postdate = gmdate("D, d M Y H:i:s", strtotime($postdate));
 

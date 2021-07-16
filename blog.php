@@ -228,15 +228,25 @@ if ( isset($_POST['dopost']) ) {
         }
         $content = $_POST['content'];
         $content = like($content);
-        $content = reply($content);
-        $wmcontent = $content;
-
-        if ($status == 'publish') {
-            $sql = $conn->prepare("INSERT INTO " . POSTS . " (Permalink, Section, Title, Content, Date, Day) VALUES (?, ?, ?, ?, ?, ?)");
-            $sql->bind_param("sissss", $permalink, $section, $title, $content, $post_time, $post_day);
+        if(strpos($content, '(r(') == 0) {
+        	list($replyURL, $reply_title, $content) = reply($content);
         } else {
-            $sql = $conn->prepare("INSERT INTO " . POSTS . " (Permalink, Section, Title, Content, Date, Day, Draft) VALUES (?, ?, ?, ?, ?, ?, ?)");
-            $sql->bind_param("sisssss", $permalink, $section, $title, $content, $post_time, $post_day, $status);
+        	$replyURL = '';
+        	$reply_title = '';
+        }
+        
+        $wmcontent = $content;
+        if($replyURL != '') {
+	        $wmcontent = substr($wmcontent, (strlen($replyURL)+9));
+	        $wmcontent = '<em>In reply to: <a class="u-in-reply-to" href="' . $replyURL . '">' . $reply_title . '</a>...</em>' . $wmcontent;
+		}
+		
+        if ($status == 'publish') {
+            $sql = $conn->prepare("INSERT INTO " . POSTS . " (Permalink, Section, Title, Content, Date, Day, ReplyURL, Reply_Title) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+            $sql->bind_param("sissssss", $permalink, $section, $title, $content, $post_time, $post_day, $replyURL, $reply_title);
+        } else {
+            $sql = $conn->prepare("INSERT INTO " . POSTS . " (Permalink, Section, Title, Content, Date, Day, Draft, ReplyURL, Reply_Title) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $sql->bind_param("sisssssss", $permalink, $section, $title, $content, $post_time, $post_day, $status, $replyURL, $reply_title);
             $draft = 'true';
         }
         $sql->execute();
@@ -609,12 +619,11 @@ if ($_SESSION['auth'] == $dbauth) { ?>
 <?php
 
 if ($_SESSION['auth'] == $dbauth) {
-
-$sql = $connsel->prepare("SELECT ID, Permalink, Section, Title, Content, Date, Draft FROM " . POSTS . " WHERE Day=? ORDER BY ID " . $post_order);
-$sql->bind_param("s", $dbdate);
+	$sql = $connsel->prepare("SELECT ID, Permalink, Section, Title, Content, Date, Draft, ReplyURL, Reply_Title FROM " . POSTS . " WHERE Day=? ORDER BY ID " . $post_order);
+	$sql->bind_param("s", $dbdate);
 } else {
-$sql = $connsel->prepare("SELECT ID, Permalink, Section, Title, Content, Date, Draft FROM " . POSTS . " WHERE Day=? AND Draft='' ORDER BY ID " . $post_order);
-$sql->bind_param("s", $dbdate);
+	$sql = $connsel->prepare("SELECT ID, Permalink, Section, Title, Content, Date, Draft, ReplyURL, Reply_Title FROM " . POSTS . " WHERE Day=? AND Draft='' ORDER BY ID " . $post_order);
+	$sql->bind_param("s", $dbdate);
 }
   // output data of each row
 
@@ -628,6 +637,8 @@ $result = mysqli_stmt_get_result($sql);
     $section_number = $row["Section"];
     $post_title = $row["Title"];
     $post_time = $row["Date"];
+    $replyURL = $row["ReplyURL"];
+    $reply_title = $row["Reply_Title"];
   	$content = $row["Content"];
   	$raw = $content;
 
@@ -635,6 +646,13 @@ $result = mysqli_stmt_get_result($sql);
         $statusStr = '<span style="cursor: pointer;" onclick="toggleEdit(' . $ID . ')" class="statusStr">Draft:&nbsp;</span>';
     } else {
         $statusStr = '';   
+    }
+    
+    if($replyURL != '') {
+    	$reply_Str = '<p class="replyto" style="font-size: 16px; line-height: 1.5em; margin-block-start: 0.5em; margin-block-end: 0.5em;"><em>In reply to: <a class="u-in-reply-to" href="' . $replyURL . '">' . $reply_title . '</a>...</em></p>';
+    	$content = substr($content, (strlen($replyURL)+9));
+    } else {
+    	$reply_Str = '';
     }
 
   	$content = filters($content);
@@ -672,10 +690,10 @@ $result = mysqli_stmt_get_result($sql);
     echo '<article id="p' . $section_number . '"class="h-entry hentry" ' . $indentSpan . '>' . PHP_EOL;
     $indentSpan = '';
     if ($post_title != '') {
-    	$openStr = '<h2 class="p-name postTitle">' . $post_title . '</h2><div class="entry-content e-content"><p>';
+    	$openStr = '<h2 class="p-name postTitle">' . $post_title . '</h2>' . $reply_Str . '<div class="entry-content e-content"><p>';
     } else {
     	echo '<h6 class="post_title">' . $dbdate . '#p' . $section_number . '</h6>' . PHP_EOL;
-   		$openStr = '<div class="entry-content e-content p-name"><p>';
+   		$openStr = $reply_Str . '<div class="entry-content e-content p-name"><p>';
     }
 	echo '<div id="post' . $ID . '">' . PHP_EOL;
 	echo '<div class="section">' . PHP_EOL . $editSpan . '<a style="float: left;" class="u-url hash"  href="' . $permalink . '#p' . $section_number . '">#</a>' . PHP_EOL;
