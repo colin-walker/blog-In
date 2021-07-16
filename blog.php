@@ -649,7 +649,7 @@ $result = mysqli_stmt_get_result($sql);
     }
     
     if($replyURL != '') {
-    	$reply_Str = '<p class="replyto" style="font-size: 16px; line-height: 1.5em; margin-block-start: 0.5em; margin-block-end: 0.5em;"><em>In reply to: <a class="u-in-reply-to" href="' . $replyURL . '">' . $reply_title . '</a>...</em></p>';
+    	$reply_Str = '<p class="replyto"><em>In reply to: <a class="u-in-reply-to" href="' . $replyURL . '">' . $reply_title . '</a>...</em></p>';
     	$content = substr($content, (strlen($replyURL)+9));
     } else {
     	$reply_Str = '';

@@ -500,7 +500,7 @@ body [fragmention] em {
     z-index: -1;
 }
 
-.entry-content, .entry-content p {
+.entry-content, .entry-content p, .replyto {
 	font-size: 16px;
 	line-height: 1.5em;
 	margin-block-start: 0.5em;
@@ -1102,7 +1102,7 @@ object.avatar {
 		width: 344px;
 	}
 
-	.entry-content, .entry-content p {
+	.entry-content, .entry-content p, .replyto {
 		font-size: 18px !important;
 		line-height: 26px;
 	}
