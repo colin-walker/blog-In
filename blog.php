@@ -890,9 +890,9 @@ if ($moderated != '1' || $_SESSION['auth'] == $dbauth) {
 
 		    $photoStr = '';
 	        if ($photo) {
-	            $photoStr .= '<object class="avatar" data="' . $photo . '" type="image/png" style="position: relative; left: 15px;"><img class="avatar" src="/images/avatar.png"/></object>';
+	            $photoStr .= '<object class="avatar" data="' . $photo . '" type="image/png" style="position: relative; left: 12px;"><img class="avatar" src="/images/avatar.png"/></object>';
 	        } else {
-	            $photoStr .= '<div class="photo-box" style="position: relative; left: 15px;"><div class="box-content"><div><span>' . $name[0] . '</span></div></div></div>';
+	            $photoStr .= '<div class="photo-box" style="position: relative; left: 12px;"><div class="box-content"><div><span>' . $name[0] . '</span></div></div></div>';
 	        }
 	        
             if ($_SESSION['auth'] == $dbauth) {
