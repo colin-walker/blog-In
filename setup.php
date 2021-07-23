@@ -199,6 +199,7 @@ if ( file_exists( $file ) ) {
 		$sql .= "INSERT INTO " . $options . " (Option_Name, Option_Value) VALUES ('Use_Now', 'no');";
 		$sql .= "INSERT INTO " . $options . " (Option_Name, Option_Value) VALUES ('Now_Text', '');";
 		$sql .= "INSERT INTO " . $options . " (Option_Name, Option_Value) VALUES ('Now_Updated', '');";
+		$sql .= "INSERT INTO " . $options . " (Option_Name, Option_Value) VALUES ('Use_Random', 'no');";
 
 		
 		if ($conn->multi_query($sql) === TRUE) {

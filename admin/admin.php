@@ -48,6 +48,7 @@ if ($_POST['update'] == 'true') {
     $timezone = $_POST['timezone'];
     $journal = $_POST['journal'];
     $now = $_POST['now'];
+    $random = $_POST['random'];
     
     $Parsedown = new ParsedownExtra();
   	$mdabout = $Parsedown->text($about);
@@ -68,6 +69,7 @@ if ($_POST['update'] == 'true') {
     $dbtz = getOption('Timezone');
     $dbjournal = getOption('Journal');
     $dbnow = getOption('Use_Now');
+    $dbrandom = getOption('Use_Random');
 
 
 // Base options
@@ -158,6 +160,11 @@ if ($_POST['update'] == 'true') {
     if ($journal != $dbjournal) {
         setOption('Journal', $journal);
         $changeStr .= 'Journal status changed.<br/>';
+    }
+
+    if ($random != $dbrandom) {
+        setOption('Use_Random', $random);
+        $changeStr .= 'Random post status changed.<br/>';
     }
 }
     
@@ -270,9 +277,14 @@ if ( $_POST['passcheck'] == 'true' ) {
  				  <option value="no"<?php if(getOption('Use_Now') == 'no') { echo 'selected'; } ?>>no</option>
  				</select>            
                 <label>Journal</label>
- 				<select name="journal" class="form-control" style="width: 100%; margin-bottom: 50px;">
+ 				<select name="journal" class="form-control" style="width: 100%;">
  				  <option value="yes" <?php if(getOption('Journal') == 'yes') { echo 'selected'; } ?>>yes (show journal streak)</option>
  				  <option value="no"<?php if(getOption('Journal') == 'no') { echo 'selected'; } ?>>no</option>
+ 				</select>            
+                <label>Random post</label>
+ 				<select name="random" class="form-control" style="width: 100%; margin-bottom: 50px;">
+ 				  <option value="yes" <?php if(getOption('Use_Random') == 'yes') { echo 'selected'; } ?>>yes (show random post link in footer)</option>
+ 				  <option value="no"<?php if(getOption('Use_Random') == 'no') { echo 'selected'; } ?>>no</option>
  				</select>
                 <div style="text-align: right; margin-top: 12px; padding-right: 1px;"><input accesskey="u" type="submit" value="Update" style="font-size: 14px; font-weight: bold;"></div>
             </div>

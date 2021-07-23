@@ -1034,7 +1034,7 @@ if ($date != date('Y-m-d')) {
 			</div><!-- .nav-links -->
 	</nav><!-- .navigation -->
 
-	<div class="linksDiv day-links"><a href="<?php echo BASE_URL; ?>">Today</a>|<a accesskey="s" style="text-decoration: none;" title="Search" href="/search/"><picture class="searchicon"><source srcset="/images/search_dark.png" media="(prefers-color-scheme: dark)"><img class="searchicon" src="/images/search_light.png" alt="Search the blog"></picture></a>|<a href="/joinme/" title="Subscribe to regular & daily RSS feeds">Join me</a>
+	<div class="linksDiv day-links"><a href="<?php echo BASE_URL; ?>">Today</a>|<a accesskey="s" style="text-decoration: none;" title="Search" href="/search/"><picture class="searchicon"><source srcset="/images/search_dark.png" media="(prefers-color-scheme: dark)"><img class="searchicon" src="/images/search_light.png" alt="Search the blog"></picture></a><?php if(getOption("Use_Random") == "yes") {?>|<a accesskey="r" style="text-decoration: none;" title="Random post" href="/random/">?</a><?php } ?>|<a href="/joinme/" title="Subscribe to regular & daily RSS feeds">Join me</a>
 	</div>
 
     <script>
