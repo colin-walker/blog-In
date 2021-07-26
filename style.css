@@ -1205,6 +1205,12 @@ object.avatar {
 		text-align: left !important;
 		margin: 20px 0 30px !important;
 	}
+	
+	.randomlink {
+	  font-size: 17px;
+	  position: relative;
+	  top: 1.5px;
+	}
 }
 
 
