@@ -89,6 +89,7 @@ $count = 0;
 $streak_sql = $connsel->prepare("SELECT Day FROM " . JOURNAL . " ORDER BY ID DESC");
 $streak_sql->execute();
 $streak_result = mysqli_stmt_get_result($streak_sql);
+$rowcount = mysqli_num_rows($streak_result);
 
 while($row = $streak_result->fetch_assoc()) {
 	$postdate = date('Y-m-d', strtotime($row["Day"]));
@@ -122,6 +123,10 @@ if ($none_today == 'true') {
 
 if ($break == '.') {
   $break = '';
+}
+
+if ($rowcount == 0) {
+    $break = "Get started!";
 }
 
 if ($_SESSION['auth'] == $dbauth) {
