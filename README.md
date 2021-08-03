@@ -164,6 +164,7 @@ A number of accesskeys are defined across the system as below:
 - accesskey c = close post form but stay in edit mode
 - accesskey e = toggle edit mode
 - accesskey l = go to login page
+- accesskey r = show random post
 - accesskey s = go to search
 
 ### Admin
