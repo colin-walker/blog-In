@@ -86,7 +86,7 @@ $check_date = $date;
 $step = 0;
 $count = 0;
 
-$streak_sql = $connsel->prepare("SELECT Day FROM nowp_journal ORDER BY ID DESC");
+$streak_sql = $connsel->prepare("SELECT Day FROM " . JOURNAL . " ORDER BY ID DESC");
 $streak_sql->execute();
 $streak_result = mysqli_stmt_get_result($streak_sql);
 
