@@ -723,9 +723,9 @@ $result = mysqli_stmt_get_result($sql);
     	} else {
     		$numstring = ' comments';
     	}
-        echo '<a onclick="toggleComments(' . $ID . ')" title="' . $numrows . $numstring . ': click to read or leave your own" class="toggleComments"><picture class="commenticonpicture"><source srcset="/images/hascommentdark.png" media="(prefers-color-scheme: dark)"><img id="commenticon' . $ID . '" class="commenticon" src="/images/hascomment.png" alt="Click to read or leave comments"></picture></a>' . $statusStr . $openStr . $content . "\n</div>" . PHP_EOL;
+        echo '<a onclick="toggleComments(' . $ID . ')" title="' . $numrows . $numstring . ': click to read or leave your own" class="toggleComments"><picture class="commenticonpicture"><source srcset="/images/hascommentdark.png" media="(prefers-color-scheme: dark)"><img id="commenticon' . $ID . '" class="commenticon" src="/images/hascomment.png" alt="' . $numrows . $numstring . ': click to read or leave your own"></picture></a>' . $statusStr . $openStr . $content . "\n</div>" . PHP_EOL;
     } else {
-        echo '<a onclick="toggleComments(' . $ID . ')" title="Click to read or leave comments" class="toggleComments"><picture class="commenticonpicture"><source srcset="/images/commentdark.png" media="(prefers-color-scheme: dark)"><img id="commenticon' . $ID . '" class="commenticon" src="/images/comment.png" alt="Click to read or leave comments"></picture></a>' . PHP_EOL . $statusStr . $openStr . $content . "\n</div><!-- .entry-content -->" . PHP_EOL;
+        echo '<a onclick="toggleComments(' . $ID . ')" title="' . $numrows . $numstring . ': click to read or leave your own" class="toggleComments"><picture class="commenticonpicture"><source srcset="/images/commentdark.png" media="(prefers-color-scheme: dark)"><img id="commenticon' . $ID . '" class="commenticon" src="/images/comment.png" alt="' . $numrows . $numstring . ': click to read or leave your own"></picture></a>' . PHP_EOL . $statusStr . $openStr . $content . "\n</div><!-- .entry-content -->" . PHP_EOL;
     }
     $fetch_comment_sql->close();
 	echo '</div>' . PHP_EOL; // End section
