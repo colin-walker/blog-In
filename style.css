@@ -640,6 +640,10 @@ mark {
 	font-family: Helvetica, Arial, san-serif;
 }
 
+input {
+	outline: none;
+}
+
 .lettercontent {
     max-height: 500px !important;
     -webkit-box-sizing: border-box;
