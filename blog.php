@@ -610,7 +610,7 @@ if ($_SESSION['auth'] == $dbauth) { ?>
 		<?php } ?>
         <input type="hidden" id="dopost" name="dopost" value="true">
         <textarea rows="10" id="content" name="content" class="text"></textarea>
-        <input style="float:right; font-size: 75%" type="submit" name="submit" id="submit" value="Post"><a accesskey="c" onclick="hideForm();"><img  style="width: 20px; float:left; position: relative; top: -1px; cursor: pointer;" src="/images/cancel.png" /></a><span style="float: left; padding-left: 15px; font-size: 75%;">Draft: <input type="radio" name="status" value="draft">&nbsp;&nbsp;Publish: <input type="radio" name="status" value="publish" checked="checked"></span><picture style="height: 17px; float: right; position: relative; right: 13px; top: 6px; cursor: pointer;"><source srcset="/images/image_dark.png" media="(prefers-color-scheme: dark)"><img onclick="toggleImage();" style="height: 17px; float: right; position: relative; cursor: pointer;" src="/images/image_light.png" /></picture>
+        <input style="float:right; font-size: 75%" type="submit" name="submit" id="submit" value="Post"><a accesskey="c" onclick="hideForm();"><img  style="width: 20px; float:left; position: relative; top: -1px; cursor: pointer;" src="/images/cancel.png" /></a><span style="float: left; padding-left: 15px; font-size: 75%;">Draft: <input type="radio" name="status" value="draft">&nbsp;&nbsp;Publish: <input type="radio" name="status" value="publish" checked="checked"></span><picture style="height: 17px; float: right; position: relative; right: 13px; top: 4px; cursor: pointer;"><source srcset="/images/media_dark.png" media="(prefers-color-scheme: dark)"><img onclick="toggleImage();" style="height: 20px; float: right; position: relative; cursor: pointer;" src="/images/media_light.png" /></picture>
     </form>
 </div>
 
@@ -751,7 +751,7 @@ $result = mysqli_stmt_get_result($sql);
         <input type="hidden" id="updatepost<?php echo $ID; ?>" name="updatepost" value="<?php echo $ID; ?>">
         <textarea rows="10" id="newcontent<?php echo $ID; ?>" name="newcontent" class="newcontent text"><?php echo $raw; ?></textarea>
         <a onclick="quit(<?php echo $ID; ?>);"><img  style="width: 20px; float: left; position: relative; top: -1px; cursor: pointer;" src="/images/cancel.png" /></a><span style="float: left; padding-left: 15px; font-size: 75%;">Draft: <input type="radio" name="status" value="draft" <?php if($status == 'draft') { echo 'checked="checked"'; }?>>&nbsp;&nbsp;Publish: <input type="radio" name="status" value="publish" <?php if($status != 'draft') { echo 'checked="checked"'; }?>></span>
-        <input style="float:right; font-size: 75%" type="submit" name="submit" id="submit<?php echo $ID; ?>" value="Update"><picture style="height: 17px; float: right; position: relative; right: 13px; top: 6px; cursor: pointer;"><source srcset="/images/image_dark.png" media="(prefers-color-scheme: dark)"><img onclick="toggleImage_edit(<?php echo $ID; ?>);" style="height: 17px; float: right; position: relative; cursor: pointer;" src="/images/image_light.png" /></picture>
+        <input style="float:right; font-size: 75%" type="submit" name="submit" id="submit<?php echo $ID; ?>" value="Update"><picture style="height: 17px; float: right; position: relative; right: 13px; top: 4px; cursor: pointer;"><source srcset="/images/media_dark.png" media="(prefers-color-scheme: dark)"><img onclick="toggleImage_edit(<?php echo $ID; ?>);" style="height: 20px; float: right; position: relative; cursor: pointer;" src="/images/media_light.png" /></picture>
     </form>
 <?php
 	echo '</div>';
@@ -995,7 +995,7 @@ if ($_SESSION['auth'] == $dbauth) { ?>
 			<?php } ?>
             <input type="hidden" id="dopost" name="dopost" value="true">
             <textarea rows="15" id="content" name="content" class="text"></textarea>
-            <span style="float: left; padding-left: 15px; font-size: 75%;">Draft: <input type="radio" name="status" value="draft">&nbsp;&nbsp;Publish: <input type="radio" name="status" value="publish" checked="checked"></span><input style="float:right; font-size: 75%" type="submit" name="submit" id="submit_no_posts" value="Post"><picture style="height: 17px; float: right; position: relative; right: 20px; top: 6px; cursor: pointer;"><source srcset="/images/image_dark.png" media="(prefers-color-scheme: dark)"><img onclick="toggleImage();" style="height: 17px; float: right; position: relative; cursor: pointer;" src="/images/image_light.png" /></picture>
+            <span style="float: left; padding-left: 15px; font-size: 75%;">Draft: <input type="radio" name="status" value="draft">&nbsp;&nbsp;Publish: <input type="radio" name="status" value="publish" checked="checked"></span><input style="float:right; font-size: 75%" type="submit" name="submit" id="submit_no_posts" value="Post"><picture style="height: 17px; float: right; position: relative; right: 20px; top: 4px; cursor: pointer;"><source srcset="/images/media_dark.png" media="(prefers-color-scheme: dark)"><img onclick="toggleImage();" style="height: 20px; float: right; position: relative; cursor: pointer;" src="/images/media_light.png" /></picture>
         </form>
     </div>
 
