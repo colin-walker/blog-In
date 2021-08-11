@@ -280,6 +280,11 @@ if ( isset($_POST['dopost']) ) {
     	        }
             }
         }
+?>
+    <script>
+    	localStorage.removeItem("content");
+    </script>
+<?php
     } else {
     	die("Admin only!");
     }
@@ -1204,10 +1209,6 @@ if ($date != date('Y-m-d')) {
 		content.addEventListener("input", function () {
 			localStorage.setItem("content", content.value);
 		})
-		
-		document.addEventListener("submit", function () {
-             localStorage.removeItem("content");
-         })
     	 
      </script>
 

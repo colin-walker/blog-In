@@ -65,20 +65,6 @@ if ( isset($_POST['dopost']) && ($_POST['content'] !='') ) {
 }
 
 
-// Update entry
-
-if ( isset($_POST['updatepost']) && ($_POST['newcontent'] !='') ) {
-    if ($_SESSION['auth'] == $dbauth) {
-	    $newcontent = $_POST['newcontent'];
-	    $ID = $_POST['id'];
-	    $updatesql = $conn->prepare("UPDATE " . JOURNAL . " SET Content=? WHERE ID=?");
-	    $updatesql->bind_param("si", $newcontent, $ID);
-	    $updatesql->execute();
-	    $updatesql->close();
-	}
-}
-
-
 // Journal streak
 
 $jdate = date('Y-m-d');

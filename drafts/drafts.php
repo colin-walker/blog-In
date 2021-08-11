@@ -142,6 +142,11 @@ if ( isset($_POST['updatepost']) ) {
 	    $updatesql->close();
 
         include '../livefeed.php';
+?>
+    <script>
+    	localStorage.removeItem("newcontent");
+    </script>
+<?php
     } else {
     	die("Admin only!");
     }
@@ -286,6 +291,21 @@ $result = mysqli_stmt_get_result($sql);
         <a onclick="quit(<?php echo $ID; ?>);"><img  style="width: 20px; float: left; position: relative; top: -1px; cursor: pointer;" src="/images/cancel.png" /></a><span style="float: left; padding-left: 15px; font-size: 75%;">Draft: <input type="radio" name="status" value="draft" <?php if($status == 'draft') { echo 'checked="checked"'; }?>>&nbsp;&nbsp;Publish: <input type="radio" name="status" value="publish" <?php if($status != 'draft') { echo 'checked="checked"'; }?>></span>
         <input style="float:right; font-size: 75%" type="submit" name="submit" id="submit<?php echo $ID; ?>" value="Update"><picture style="height: 17px; float: right; position: relative; right: 13px; top: 6px; cursor: pointer;"><source srcset="/images/media_dark.png" media="(prefers-color-scheme: dark)"><img onclick="toggleImage_edit(<?php echo $ID; ?>);" style="height: 17px; float: right; position: relative; cursor: pointer;" src="/images/media_light.png" /></picture>
     </form>
+    
+    <script>
+        // autosave - thanks Jan-Lukas – https://jlelse.blog/dev/form-cache-localstorage
+  		
+  		var newcontent = document.getElementById("newcontent<?php echo $ID; ?>");
+		var cached = localStorage.getItem("newcontent");
+		
+		if (cached != null) {
+			newcontent.value = cached;
+		}
+		newcontent.addEventListener("input", function () {
+			localStorage.setItem("newcontent", newcontent.value);
+		})
+	</script>
+	
 <?php
 	echo '</div>';
     echo '</article>' . PHP_EOL;
@@ -329,23 +349,7 @@ $conn->close();
   			x[i] = clickable[i].innerHTML;
   			clickable[i].innerHTML = x[i] + "<div style='height: 0px; position: relative; width: 50%; margin: 0 auto;'><img src='/images/expand.png' class='overlay noradius'></div>";
   		}
-  		
-  		// autosave - thanks Jan-Lukas – https://jlelse.blog/dev/form-cache-localstorage
-  		
-  		var content = document.getElementById("content");
-		var cached = localStorage.getItem("content");
-		
-		if (cached != null) {
-			content.value = cached;
-		}
-		content.addEventListener("input", function () {
-			localStorage.setItem("content", content.value);
-		})
-		
-		document.addEventListener("submit", function () {
-             localStorage.removeItem("content");
-         })
-    	 
+
      </script>
 
 <?php
