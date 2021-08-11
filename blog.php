@@ -25,7 +25,7 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 
-// HTML starts on line 415
+// HTML output starts on line 455
 
 
 date_default_timezone_set('' . TIMEZONE . '');
@@ -206,14 +206,20 @@ if (isset($_POST['approvecomment'])) {
 if ( isset($_POST['dopost']) ) {
     if ($_SESSION['auth'] == $dbauth) {
         $section_date = date("Y/m/d");
-        $section_check = $connsel->prepare("SELECT Section FROM " . POSTS . " WHERE Day=? ORDER BY ID DESC");
+        $section_check = $connsel->prepare("SELECT ID, Section, Day FROM " . POSTS . " WHERE Day=? and Draft='' ORDER BY ID DESC");
         $section_check->bind_param("s", $section_date);
         $section_check->execute();
         $section_check->bind_result($db_section);
         $draft_result = mysqli_stmt_get_result($section_check);
         $row = $draft_result->fetch_assoc();
+        $last_ID = $row["ID"];
         $last_section = $row["Section"];
-        $section = $last_section + 1;
+        $last_day = $row["Day"];
+        if ($last_ID == $PostID) {
+        	$section = $last_section;
+        } else {
+	        $section = $last_section + 1;
+	   	}
         $section_check->close();
 
         $post_date = date("Y-m-d");
@@ -245,8 +251,8 @@ if ( isset($_POST['dopost']) ) {
             $sql = $conn->prepare("INSERT INTO " . POSTS . " (Permalink, Section, Title, Content, Date, Day, ReplyURL, Reply_Title) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
             $sql->bind_param("sissssss", $permalink, $section, $title, $content, $post_time, $post_day, $replyURL, $reply_title);
         } else {
-            $sql = $conn->prepare("INSERT INTO " . POSTS . " (Permalink, Section, Title, Content, Date, Day, Draft, ReplyURL, Reply_Title) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            $sql->bind_param("sisssssss", $permalink, $section, $title, $content, $post_time, $post_day, $status, $replyURL, $reply_title);
+            $sql = $conn->prepare("INSERT INTO " . POSTS . " (Permalink, Title, Content, Date, Day, Draft, ReplyURL, Reply_Title) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+            $sql->bind_param("ssssssss", $permalink, $title, $content, $post_time, $post_day, $status, $replyURL, $reply_title);
             $draft = 'true';
         }
         $sql->execute();
@@ -257,7 +263,7 @@ if ( isset($_POST['dopost']) ) {
         if ($draft != 'true') {
             $Parsedown = new ParsedownExtra();
 	        $wmcontent = $Parsedown->text($wmcontent);
-
+	        
             $targetURL = '';
             $sourceURL = $permalink . '#p' . $section;
 			
@@ -310,12 +316,33 @@ if ( isset($_POST['updatepost']) ) {
             if ($status == 'publish') {
                 $clear = '';
                 
-        		if (isset($_POST['title']) && $title != $check_title) {
-        			$updatesql = $conn->prepare("UPDATE " . POSTS . " SET Title=?, Content=?, Date=?, Day=?, Draft=? WHERE ID=?");
-        			$updatesql->bind_param("sssssi", $title, $newcontent, $post_time, $post_day, $clear, $PostID);
+                $section_date = date("Y/m/d");
+        		$section_check = $connsel->prepare("SELECT ID, Section, Day FROM " . POSTS . " WHERE Day=? AND Draft='' ORDER BY ID DESC LIMIT 1");
+        		$section_check->bind_param("s", $section_date);
+        		$section_check->execute();
+        		$draft_result = mysqli_stmt_get_result($section_check);
+        		$row = $draft_result->fetch_assoc();
+        		$last_ID = $row["ID"];
+        		$last_section = $row["Section"];
+        		$last_day = $row["Day"];
+        		if ($last_ID == $PostID) {
+        			$section = $last_section;
         		} else {
-        			$updatesql = $conn->prepare("UPDATE " . POSTS . " SET Content=?, Date=?, Day=?, Draft=? WHERE ID=?");
-	            	$updatesql->bind_param("ssssi", $newcontent, $post_time, $post_day, $clear, $PostID);
+	        		$section = $last_section + 1;
+	        	}
+        		$section_check->close();
+        
+                $post_date = date("Y-m-d");
+        		$permalink = BASE_URL . '/?date=' . $post_date;
+        		$post_time = date("D, d M Y H:i:s");
+        		$post_day = date("Y/m/d");
+                
+        		if (isset($_POST['title']) && $title != $check_title) {
+        			$updatesql = $conn->prepare("UPDATE " . POSTS . " SET Permalink=?, Section=?, Title=?, Content=?, Date=?, Day=?, Draft=? WHERE ID=?");
+        			$updatesql->bind_param("sisssssi", $permalink, $section, $title, $newcontent, $post_time, $post_day, $clear, $PostID);
+        		} else {
+        			$updatesql = $conn->prepare("UPDATE " . POSTS . " SET Permalink=?, Section=?, Content=?, Date=?, Day=?, Draft=? WHERE ID=?");
+	            	$updatesql->bind_param("sissssi", $permalink, $section, $newcontent, $post_time, $post_day, $clear, $PostID);
 	           	}
 	            
 	            $client = new IndieWeb\MentionClient();
@@ -339,11 +366,11 @@ if ( isset($_POST['updatepost']) ) {
                 }     
 	        } else {
 	        	if (isset($_POST['title']) && $title != $check_title) {
-	            	$updatesql = $conn->prepare("UPDATE " . POSTS . " SET Title=?, Content=? WHERE ID=?");
-	            	$updatesql->bind_param("ssi", $title, $newcontent, $PostID);
-	            } else {
-	            	$updatesql = $conn->prepare("UPDATE " . POSTS . " SET Content=? WHERE ID=?");
-	            	$updatesql->bind_param("si", $newcontent, $PostID);
+        			$updatesql = $conn->prepare("UPDATE " . POSTS . " SET Title=?, Content=?, Date=?, Day=? WHERE ID=?");
+        			$updatesql->bind_param("ssssi", $title, $newcontent, $post_time, $post_day, $PostID);
+        		} else {
+        			$updatesql = $conn->prepare("UPDATE " . POSTS . " SET Content=?, Date=?, Day=? WHERE ID=?");
+	            	$updatesql->bind_param("sssi", $newcontent, $post_time, $post_day, $PostID);
 	            }
 	        }
         } else {
@@ -363,6 +390,7 @@ if ( isset($_POST['updatepost']) ) {
     	die("Admin only!");
     }
 }
+
 
 // Journal streak
 
@@ -419,6 +447,8 @@ if ($_SESSION['auth'] == $dbauth) {
     $streakStr = '<div id="streak" class="blogin"><a accesskey="l" style="text-decoration: none;" href="/login/?return=blog">(b)log-<picture style="width: 7px; position: relative; top: 1.5px;" class="insertimg"><source srcset="/images/blogin_dark.png" media="(prefers-color-scheme: dark)"><img alt="insert image" style="width: 7px; position: relative; top: 1.5px;" id="insertimg" class="insertimg" src="/images/blogin_light.png" /></picture>n</a></div>' . PHP_EOL;
 }
 ?>
+
+
 
 
 

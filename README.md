@@ -77,7 +77,7 @@ Admin settings can be changed at any time when logged in – a floating cog ico
 
 (b)log-In uses PHP sessions to manage logging in. If not logged in the (b)log-In link top-right goes to the login page, entering the correct credentials creates a random hash of the admin password which is valid ONLY for that browser session. Closing the browser or logging in via another browser/device invalidates any existing session.
 
-When logged in, if no posts exists for that day a 'new post' form will be displayed. Posts can be published immediately or saved as drafts – draft will be indicated by the word 'DRAFT' ahead of the post content, clicking this word switches that post to edit mode. Once a posts has been published on that day the form is hidden and new posts can be added by clicking/tapping the floating '+' toggle in the top-right corner of the page. This toggle also places the blog in 'edit' mode where existing posts can be modified or deleted using the icons visible by each.
+When logged in, if no posts exists for that day a 'new post' form will be displayed. Posts can be published immediately or saved as drafts (see below) – draft will be indicated by the word 'DRAFT' ahead of the post content, clicking this word switches that post to edit mode. Once a posts has been published on that day the form is hidden and new posts can be added by clicking/tapping the floating '+' toggle in the top-right corner of the page. This toggle also places the blog in 'edit' mode where existing posts can be modified or deleted using the icons visible by each.
 
 Media uploads are handled using an iframe above the post form which can be toggled using the picture icon by the Post button.
 
@@ -88,6 +88,14 @@ Choosing a file, click upload then clock the 'Copy file path' to have the direct
 Each post is preceeded by a permalink (#) and a comment icon, the comment icon acts as a toggle to show/hide the comments section for that post and will appear 'filled' when a post has comments. When logged in, each comment will have a delete icon by it. Top level comments can be replied to by clicking the reply arrow next to the commenters name. The system will attempt to pull in an avatar for each commenter (either via microformats on the source site or favicon) and default to a monogram if none can be found. When comment moderation is enabled on the admin page the comment form includes a "Comments are moderated" placeholder and all comments will require approval before being displayed. A tick to approve the comment will be shown next to the usual delete icon:
 
 ![Comment moderation](https://colinwalker.blog/uploads/2021/06/moderation.png)
+
+## Draft posts
+
+Drafts are inserted into the post list where they are initially created but not given a post/section number. When a draft is changed to published its permalink, date, and post/section number will be updated to ensure it is listed as the most recent post on the blog.
+
+Drafts can be edited within the post list on the main blog page or on the separate `/drafts/` page (only accessible when logged in) which will list all draft posts. If drafts exist, an indicator will show at the top of the page, this is also a link to the `/drafts/` page:
+
+![Drafts indicator](https://colinwalker.blog/uploads/2021/08/drafts_icon.png)
 
 ## Markup
 
