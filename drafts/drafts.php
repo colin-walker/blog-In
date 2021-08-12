@@ -147,6 +147,16 @@ if ( isset($_POST['updatepost']) ) {
     	localStorage.removeItem("newcontent");
     </script>
 <?php
+
+	    $draftsql = $connsel->prepare("SELECT * FROM " . POSTS . " WHERE Draft='draft' ");
+        $draftsql->execute();
+        $draftresult = mysqli_stmt_get_result($draftsql);
+        $draftcount = mysqli_num_rows($draftresult);
+				
+        if($draftcount == 0) {
+            header("location: " . BASE_URL);
+            exit;
+        }
     } else {
     	die("Admin only!");
     }
@@ -164,6 +174,16 @@ if (isset($_POST['deletepost'])) {
 	    $delete_sql->close();
 
 	    include '../livefeed.php';
+	    
+	    $draftsql = $connsel->prepare("SELECT * FROM " . POSTS . " WHERE Draft='draft' ");
+        $draftsql->execute();
+        $draftresult = mysqli_stmt_get_result($draftsql);
+        $draftcount = mysqli_num_rows($draftresult);
+				
+        if($draftcount == 0) {
+            header("location: " . BASE_URL);
+            exit;
+        }
     } else {
     	die("Admin only!");
     }

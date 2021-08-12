@@ -279,12 +279,7 @@ if ( isset($_POST['dopost']) ) {
 	                $response = IndieWeb\MentionClient::sendWebmentionToEndpoint($endpoint, $sourceURL, $targetURL);
     	        }
             }
-        }
-?>
-    <script>
-    	localStorage.removeItem("content");
-    </script>
-<?php
+        }        
     } else {
     	die("Admin only!");
     }
@@ -462,24 +457,27 @@ if ($_SESSION['auth'] == $dbauth) {
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="theme-color" content="#eeeeee">
-	<title><?php echo constant('NAME'); ?> — <?php echo isset($_GET['date']) ? date('M j, Y', strtotime($_GET['date'])) : date('M j, Y'); ?></title>
+	<title><?php echo constant('NAME'); ?> - <?php echo isset($_GET['date']) ? date('M j, Y', strtotime($_GET['date'])) : date('M j, Y'); ?></title>
 	<meta name="description" content="<?php echo constant('DESCRIPTION'); ?>">
 	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 	<link defer rel="stylesheet" href="/bigfoot/bigfoot-bottom.css" type="text/css" media="all">
 	<link defer rel="stylesheet" href="/style.css" type="text/css" media="all">
 	<link rel="webmention" href="<?php echo constant('BASE_URL'); ?>/endpoint.php"/>
 	<link rel="http://webmention.org/" href="<?php echo constant('BASE_URL'); ?>/endpoint.php"/>	
-    	<link rel="home alternate" type="application/rss+xml" title="<?php echo constant('NAME'); ?> :: Daily Feed" href="<?php echo constant('BASE_URL'); ?>/dailyfeed.rss" />
-    	<link rel="alternate" type="application/rss+xml" title="<?php echo constant('NAME'); ?> :: Live Feed" href="<?php echo constant('BASE_URL'); ?>/livefeed.rss" />
-    	<link rel="me" href="mailto:<?php echo constant('MAILTO'); ?>" />
+    <link rel="home alternate" type="application/rss+xml" title="<?php echo constant('NAME'); ?> :: Daily Feed" href="<?php echo constant('BASE_URL'); ?>/dailyfeed.rss" />
+    <link rel="alternate" type="application/rss+xml" title="<?php echo constant('NAME'); ?> :: Live Feed" href="<?php echo constant('BASE_URL'); ?>/livefeed.rss" />
+    <link rel="me" href="mailto:<?php echo constant('MAILTO'); ?>" />
+	<link rel="me" href="https://micro.blog/colinwalker" />
 	
 	<script type="text/javascript" src="/script.js"></script>
 
 </head>
 
 <body>
-<?php echo $streakStr; ?>
+<?php
+	echo $streakStr; 
+?>
     <div id="page" class="hfeed h-feed site">
         <header id="masthead" class="site-header">
             <div class="site-branding">
@@ -559,16 +557,15 @@ $day = date('d', strtotime($date));
 
 $dbdate = $year . '/' . $month . '/' . $day;
 
-if ($_SESSION['auth'] == $dbauth) {
+//if ($_SESSION['auth'] == $dbauth) {
+//    $sql = $connsel->prepare("SELECT Date FROM " . POSTS . " WHERE Day=? ORDER BY ID Desc");
+//    $sql->bind_param("s", $dbdate);
+//} else {
     $sql = $connsel->prepare("SELECT Date FROM " . POSTS . " WHERE Day=? ORDER BY ID Desc");
     $sql->bind_param("s", $dbdate);
-} else {
-    $sql = $connsel->prepare("SELECT Date FROM " . POSTS . " WHERE Day=? AND Draft='' ORDER BY ID Desc");
-    $sql->bind_param("s", $dbdate);
-}
+//}
 
 $sql->execute();
-$sql->bind_result($db_date);
 $result = mysqli_stmt_get_result($sql);
 $rowcount=mysqli_num_rows($result);
 
@@ -612,9 +609,25 @@ if ($result->num_rows > 0) {
 	    		$direction = 'up';
 	    	}
 ?>
-		<a href="#p<?php echo $rowcount; ?>"><span class="today-count"><?php echo $rowcount; ?><i class="arrow <?php echo $direction; ?>"></i></span></a>
+		<span class="today-count"><?php echo $rowcount; ?><i class="arrow <?php echo $direction; ?>"></i></span>
+
 <?php
 	    }
+	    
+	    		
+	if ($_SESSION['auth'] == $dbauth) {
+		$draftsql = $connsel->prepare("SELECT * FROM " . POSTS . " WHERE Draft='draft' ");
+		$draftsql->execute();
+		$draftresult = mysqli_stmt_get_result($draftsql);
+		$draftcount = mysqli_num_rows($draftresult);
+				
+		if($draftcount > 0) {
+
+?>
+<a style="float: right; position: relative; top: 9.5px; margin-right: 30px;" href="/drafts/" title="Draft Posts"><picture style="width: 16px;"><source srcset="/images/draft_dark.png" media="(prefers-color-scheme: dark)"><img alt="Draft Posts" style="width: 16px;" src="/images/draft_light.png" /></picture></a>
+<?php }
+	}
+	    
         $toss = rand(0,1);
         if ( $toss == 1 ) {
 	        echo '<br/><span class="updatedSpan">(Updated: ' . $last . ')</span>';
@@ -638,14 +651,14 @@ if ($result->num_rows > 0) {
 if ($_SESSION['auth'] == $dbauth) { ?>
 
 <div id="editdiv" class="editdiv" style="height: 0px;">
-    <iframe id="upload_frame" loading="lazy" src='/uploader.php' style="display: none; width: 100%; height: 30px; border: none; overflow: hidden;"></iframe>
+    <iframe id="upload_frame" scrolling="no" loading="lazy" src='/uploader.php' style="display: none; width: 100%; height: 30px; border: none; overflow: hidden;"></iframe>
     <form name="form" method="post">
 		<?php if ($post_titles == 'yes') { ?>
     		<input type="text" name="title" class="text" style="max-height: 34px;" placeholder="Title">
 		<?php } ?>
         <input type="hidden" id="dopost" name="dopost" value="true">
         <textarea rows="10" id="content" name="content" class="text"></textarea>
-        <input style="float:right; font-size: 75%" type="submit" name="submit" id="submit" value="Post"><a accesskey="c" onclick="hideForm();"><img  style="width: 20px; float:left; position: relative; top: -1px; cursor: pointer;" src="/images/cancel.png" /></a><span style="float: left; padding-left: 15px; font-size: 75%;">Draft: <input type="radio" name="status" value="draft">&nbsp;&nbsp;Publish: <input type="radio" name="status" value="publish" checked="checked"></span><picture style="height: 17px; float: right; position: relative; right: 13px; top: 4px; cursor: pointer;"><source srcset="/images/media_dark.png" media="(prefers-color-scheme: dark)"><img onclick="toggleImage();" style="height: 20px; float: right; position: relative; cursor: pointer;" src="/images/media_light.png" /></picture>
+        <input style="float:right; font-size: 75%" type="submit" name="submit" id="submit" value="Post"><a accesskey="c" onclick="hideForm();"><img  style="width: 20px; float:left; position: relative; top: -1px; cursor: pointer;" src="/images/cancel.png" /></a><span style="float: left; padding-left: 15px; font-size: 75%;">Draft: <input type="radio" name="status" value="draft">&nbsp;&nbsp;Publish: <input type="radio" name="status" value="publish" checked="checked"></span><picture style="height: 17px; float: right; position: relative; right: 13px; top: 3px; cursor: pointer;"><source srcset="/images/media_dark.png" media="(prefers-color-scheme: dark)"><img onclick="toggleImage();" style="height: 20px; float: right; position: relative; cursor: pointer;" src="/images/media_light.png" /></picture>
     </form>
 </div>
 
@@ -689,7 +702,7 @@ $result = mysqli_stmt_get_result($sql);
     } else {
     	$reply_Str = '';
     }
-
+   
   	$content = filters($content);
 
 	$Parsedown = new ParsedownExtra();
@@ -760,7 +773,8 @@ $result = mysqli_stmt_get_result($sql);
     	}
         echo '<a onclick="toggleComments(' . $ID . ')" title="' . $numrows . $numstring . ': click to read or leave your own" class="toggleComments"><picture class="commenticonpicture"><source srcset="/images/hascommentdark.png" media="(prefers-color-scheme: dark)"><img id="commenticon' . $ID . '" class="commenticon" src="/images/hascomment.png" alt="' . $numrows . $numstring . ': click to read or leave your own"></picture></a>' . $statusStr . $openStr . $content . "\n</div>" . PHP_EOL;
     } else {
-        echo '<a onclick="toggleComments(' . $ID . ')" title="' . $numrows . $numstring . ': click to read or leave your own" class="toggleComments"><picture class="commenticonpicture"><source srcset="/images/commentdark.png" media="(prefers-color-scheme: dark)"><img id="commenticon' . $ID . '" class="commenticon" src="/images/comment.png" alt="' . $numrows . $numstring . ': click to read or leave your own"></picture></a>' . PHP_EOL . $statusStr . $openStr . $content . "\n</div><!-- .entry-content -->" . PHP_EOL;
+      $numstring = " comments";
+        echo '<a onclick="toggleComments(' . $ID . ')"  title="' . $numrows . $numstring . ': click to read or leave your own" class="toggleComments"><picture class="commenticonpicture"><source srcset="/images/commentdark.png" media="(prefers-color-scheme: dark)"><img id="commenticon' . $ID . '" class="commenticon" src="/images/comment.png" alt="' . $numrows . $numstring . ': click to read or leave your own"></picture></a>' . PHP_EOL . $statusStr . $openStr . $content . "\n</div><!-- .entry-content -->" . PHP_EOL;
     }
     $fetch_comment_sql->close();
 	echo '</div>' . PHP_EOL; // End section
@@ -778,7 +792,7 @@ $result = mysqli_stmt_get_result($sql);
 	echo '<div id="edit' . $ID . '" class="editdivs">' . PHP_EOL;
 
 ?>
-    <iframe id="edit_upload_frame<?php echo $ID; ?>" loading="lazy" src='/uploader.php' style="display: none; width: 100%; height: 30px; border: none; overflow: hidden;"></iframe>
+    <iframe id="edit_upload_frame<?php echo $ID; ?>" scrolling="no" loading="lazy" src='/uploader.php' style="display: none; width: 100%; height: 30px; border: none; overflow: hidden;"></iframe>
     <form name="form" method="post">
 		<?php if ($post_titles == 'yes') { ?>
     		<input type="text" name="title" class="text" style="max-height: 34px;" value="<?php echo $post_title; ?>">
@@ -786,7 +800,7 @@ $result = mysqli_stmt_get_result($sql);
         <input type="hidden" id="updatepost<?php echo $ID; ?>" name="updatepost" value="<?php echo $ID; ?>">
         <textarea rows="10" id="newcontent<?php echo $ID; ?>" name="newcontent" class="newcontent text"><?php echo $raw; ?></textarea>
         <a onclick="quit(<?php echo $ID; ?>);"><img  style="width: 20px; float: left; position: relative; top: -1px; cursor: pointer;" src="/images/cancel.png" /></a><span style="float: left; padding-left: 15px; font-size: 75%;">Draft: <input type="radio" name="status" value="draft" <?php if($status == 'draft') { echo 'checked="checked"'; }?>>&nbsp;&nbsp;Publish: <input type="radio" name="status" value="publish" <?php if($status != 'draft') { echo 'checked="checked"'; }?>></span>
-        <input style="float:right; font-size: 75%" type="submit" name="submit" id="submit<?php echo $ID; ?>" value="Update"><picture style="height: 17px; float: right; position: relative; right: 13px; top: 4px; cursor: pointer;"><source srcset="/images/media_dark.png" media="(prefers-color-scheme: dark)"><img onclick="toggleImage_edit(<?php echo $ID; ?>);" style="height: 20px; float: right; position: relative; cursor: pointer;" src="/images/media_light.png" /></picture>
+        <input style="float:right; font-size: 75%" type="submit" name="submit" id="submit<?php echo $ID; ?>" value="Update"><picture style="height: 17px; float: right; position: relative; right: 13px; top: 3px; cursor: pointer;"><source srcset="/images/media_dark.png" media="(prefers-color-scheme: dark)"><img onclick="toggleImage_edit(<?php echo $ID; ?>);" style="height: 20px; float: right; position: relative; cursor: pointer;" src="/images/media_light.png" /></picture>
     </form>
 <?php
 	echo '</div>';
@@ -1013,24 +1027,34 @@ if ($moderated != '1' || $_SESSION['auth'] == $dbauth) {
     } else {
         echo '<h3 class="pagetitle"><span class="dateSpan">No posts yet today</span>'; //: ' . date(DAY_SLASH) . '</span>';
     }
-/*
-    if (date('N') >= 6) {
-        echo '<br/><span class="weekend">I will often not post on weekends</span>';
-    }
-*/
+
+
+	if ($_SESSION['auth'] == $dbauth) {
+		
+		$draftsql = $connsel->prepare("SELECT * FROM " . POSTS . " WHERE Draft='draft' ");
+		$draftsql->execute();
+		$draftresult = mysqli_stmt_get_result($draftsql);
+		$draftcount = mysqli_num_rows($draftresult);
+		
+		if($draftcount > 0) {
+?>
+<a style="float: right; position: relative; top: 9.5px; margin-right: 5px;" href="/drafts/" title="Draft Posts"><picture style="width: 16px;"><source srcset="/images/draft_dark.png" media="(prefers-color-scheme: dark)"><img alt="Draft Posts" style="width: 16px;" src="/images/draft_light.png" /></picture></a>
+<?php } 
+	}
+
 	echo '</h3>';
 
 if ($_SESSION['auth'] == $dbauth) { ?>
 
     <div id="editdiv" class="editdiv_no_posts" style="display: block; margin-top: 10px; margin-bottom: 50px;">
-        <iframe id="upload_frame" loading="lazy" src='/uploader.php' style="display: none; width: 100%; height: 30px; border: none; overflow: hidden;"></iframe>
+        <iframe id="upload_frame" scrolling="no" loading="lazy" src='/uploader.php' style="display: none; width: 100%; height: 30px; border: none; overflow: hidden;"></iframe>
         <form name="form" method="post">
 			<?php if ($post_titles == 'yes') { ?>
     			<input type="text" name="title" class="text" style="max-height: 34px;" placeholder="Title">
 			<?php } ?>
             <input type="hidden" id="dopost" name="dopost" value="true">
             <textarea rows="15" id="content" name="content" class="text"></textarea>
-            <span style="float: left; padding-left: 15px; font-size: 75%;">Draft: <input type="radio" name="status" value="draft">&nbsp;&nbsp;Publish: <input type="radio" name="status" value="publish" checked="checked"></span><input style="float:right; font-size: 75%" type="submit" name="submit" id="submit_no_posts" value="Post"><picture style="height: 17px; float: right; position: relative; right: 20px; top: 4px; cursor: pointer;"><source srcset="/images/media_dark.png" media="(prefers-color-scheme: dark)"><img onclick="toggleImage();" style="height: 20px; float: right; position: relative; cursor: pointer;" src="/images/media_light.png" /></picture>
+            <span style="float: left; padding-left: 15px; font-size: 75%;">Draft: <input type="radio" name="status" value="draft">&nbsp;&nbsp;Publish: <input type="radio" name="status" value="publish" checked="checked"></span><input style="float:right; font-size: 75%" type="submit" name="submit" id="submit_no_posts" value="Post"><picture style="height: 17px; float: right; position: relative; right: 20px; top: 3px; cursor: pointer;"><source srcset="/images/media_dark.png" media="(prefers-color-scheme: dark)"><img onclick="toggleImage();" style="height: 20px; float: right; position: relative; cursor: pointer;" src="/images/media_light.png" /></picture>
         </form>
     </div>
 
@@ -1054,8 +1078,11 @@ $conn->close();
 		<div class="nav-links">
 
 <?php
-if ($date != INSTALL_DATE) {
+if ($date != '2021-01-06') {
 echo '<div class="nav-previous"><a href="' . BASE_URL . '?date=' . $prev_date . '" title="Previous day"><<</a></div>';
+}
+if  ($date == '2021-01-06') {
+echo '<div class="nav-previous"><a href="'. BASE_URL . '/wp/2021/01/05/" title="Previous day"><<</a></div>';
 }
 if ($date != date('Y-m-d')) {
 	if ($date == date('Y-m-d', strtotime($today .' -1 day'))) {
@@ -1069,7 +1096,7 @@ if ($date != date('Y-m-d')) {
 			</div><!-- .nav-links -->
 	</nav><!-- .navigation -->
 
-	<div class="linksDiv day-links"><a href="<?php echo BASE_URL; ?>">Today</a>|<a accesskey="s" style="text-decoration: none;" title="Search" href="/search/"><picture class="searchicon"><source srcset="/images/search_dark.png" media="(prefers-color-scheme: dark)"><img class="searchicon" src="/images/search_light.png" alt="Search the blog"></picture></a><?php if(getOption("Use_Random") == "yes") {?>|<a accesskey="r" class="randomlink" style="text-decoration: none;" title="Random post" href="/random/">?</a><?php } ?>|<a href="/joinme/" title="Subscribe to regular & daily RSS feeds">Join me</a>
+	<div class="linksDiv day-links"><a href="<?php echo BASE_URL; ?>">Today</a>|<a accesskey="s" style="text-decoration: none;" title="Search" href="/search/"><picture class="searchicon"><source srcset="/images/search_dark.png" media="(prefers-color-scheme: dark)"><img class="searchicon" src="/images/search_light.png" alt="Search the blog"></picture></a><?php if(getOption("Use_Random") == "yes") {?>|<a accesskey="r" class="randomlink" style="text-decoration: none;" title="Random post" href="/random/">?</a><?php } ?>|<a href="/joinme/" title="Subscribe to regular & daily RSS feeds & the muse-letter">Join me</a>
 	</div>
 
     <script>
@@ -1200,8 +1227,8 @@ if ($date != date('Y-m-d')) {
   		
   		// autosave - thanks Jan-Lukas – https://jlelse.blog/dev/form-cache-localstorage
   		
-  		var content = document.getElementById("content");
-		var cached = localStorage.getItem("content");
+  		let content = document.getElementById("content");
+		let cached = localStorage.getItem("content");
 		
 		if (cached != null) {
 			content.value = cached;
@@ -1209,7 +1236,10 @@ if ($date != date('Y-m-d')) {
 		content.addEventListener("input", function () {
 			localStorage.setItem("content", content.value);
 		})
-    	 
+		
+		document.addEventListener("submit", function () {
+             localStorage.removeItem("content");
+         })
      </script>
 
 <?php
