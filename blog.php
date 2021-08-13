@@ -220,6 +220,9 @@ if ( isset($_POST['dopost']) ) {
         } else {
 	        $section = $last_section + 1;
 	   	}
+	   	if ($last_ID == '') {
+	   		$section = 1;
+	   	}
         $section_check->close();
 
         $post_date = date("Y-m-d");
@@ -557,13 +560,13 @@ $day = date('d', strtotime($date));
 
 $dbdate = $year . '/' . $month . '/' . $day;
 
-//if ($_SESSION['auth'] == $dbauth) {
-//    $sql = $connsel->prepare("SELECT Date FROM " . POSTS . " WHERE Day=? ORDER BY ID Desc");
-//    $sql->bind_param("s", $dbdate);
-//} else {
+if ($_SESSION['auth'] == $dbauth) {
     $sql = $connsel->prepare("SELECT Date FROM " . POSTS . " WHERE Day=? ORDER BY ID Desc");
     $sql->bind_param("s", $dbdate);
-//}
+} else {
+    $sql = $connsel->prepare("SELECT Date FROM " . POSTS . " WHERE Day=? AND Draft='' ORDER BY ID Desc");
+    $sql->bind_param("s", $dbdate);
+}
 
 $sql->execute();
 $result = mysqli_stmt_get_result($sql);
