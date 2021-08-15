@@ -658,10 +658,28 @@ if ($_SESSION['auth'] == $dbauth) { ?>
     <form name="form" method="post">
 		<?php if ($post_titles == 'yes') { ?>
     		<input type="text" name="title" class="text" style="max-height: 34px;" placeholder="Title">
+		<?php } else { ?>
+		    <input type="text" id="post_title" name="title" class="text" style="max-height: 34px; display: none;" placeholder="Title">
 		<?php } ?>
         <input type="hidden" id="dopost" name="dopost" value="true">
         <textarea rows="10" id="content" name="content" class="text"></textarea>
         <input style="float:right; font-size: 75%" type="submit" name="submit" id="submit" value="Post"><a accesskey="c" onclick="hideForm();"><img  style="width: 20px; float:left; position: relative; top: -1px; cursor: pointer;" src="/images/cancel.png" /></a><span style="float: left; padding-left: 15px; font-size: 75%;">Draft: <input type="radio" name="status" value="draft">&nbsp;&nbsp;Publish: <input type="radio" name="status" value="publish" checked="checked"></span><picture style="height: 17px; float: right; position: relative; right: 13px; top: 3px; cursor: pointer;"><source srcset="/images/media_dark.png" media="(prefers-color-scheme: dark)"><img onclick="toggleImage();" style="height: 20px; float: right; position: relative; cursor: pointer;" src="/images/media_light.png" /></picture>
+    <?php if ($post_titles != 'yes') { ?>
+    <span style="float: right; margin-right: 30px; position: relative; top: 1px; font-size: 18px; font-weight: bold; font-family: serif; cursor: pointer;" onclick="toggle_title();">T</span>
+    </form>
+    <script>
+      function toggle_title() {
+        var post_title = document.getElementById("post_title");
+        if(post_title.style.display != "block") {
+          post_title.style.display = "block";
+          document.getElementById("editdiv").style.height ="320px";
+        } else {
+          post_title.style.display = "none";
+          document.getElementById("editdiv").style.height ="260px";
+        }
+      }
+    </script>
+    <?php } ?>
     </form>
 </div>
 
@@ -797,7 +815,7 @@ $result = mysqli_stmt_get_result($sql);
 ?>
     <iframe id="edit_upload_frame<?php echo $ID; ?>" scrolling="no" loading="lazy" src='/uploader.php' style="display: none; width: 100%; height: 30px; border: none; overflow: hidden;"></iframe>
     <form name="form" method="post">
-		<?php if ($post_titles == 'yes') { ?>
+		<?php if ($post_title != '') { ?>
     		<input type="text" name="title" class="text" style="max-height: 34px;" value="<?php echo $post_title; ?>">
 		<?php } ?>
         <input type="hidden" id="updatepost<?php echo $ID; ?>" name="updatepost" value="<?php echo $ID; ?>">
@@ -1053,11 +1071,29 @@ if ($_SESSION['auth'] == $dbauth) { ?>
         <iframe id="upload_frame" scrolling="no" loading="lazy" src='/uploader.php' style="display: none; width: 100%; height: 30px; border: none; overflow: hidden;"></iframe>
         <form name="form" method="post">
 			<?php if ($post_titles == 'yes') { ?>
-    			<input type="text" name="title" class="text" style="max-height: 34px;" placeholder="Title">
-			<?php } ?>
-            <input type="hidden" id="dopost" name="dopost" value="true">
+    			<input type="text" id="post_title" name="title" class="text" style="max-height: 34px;" placeholder="Title">
+			<?php } else { ?>
+		    <input type="text" id="post_title" name="title" class="text" style="max-height: 34px; display: none;" placeholder="Title">
+		<?php } ?>
+	        <input type="hidden" id="dopost" name="dopost" value="true">
             <textarea rows="15" id="content" name="content" class="text"></textarea>
             <span style="float: left; padding-left: 15px; font-size: 75%;">Draft: <input type="radio" name="status" value="draft">&nbsp;&nbsp;Publish: <input type="radio" name="status" value="publish" checked="checked"></span><input style="float:right; font-size: 75%" type="submit" name="submit" id="submit_no_posts" value="Post"><picture style="height: 17px; float: right; position: relative; right: 20px; top: 3px; cursor: pointer;"><source srcset="/images/media_dark.png" media="(prefers-color-scheme: dark)"><img onclick="toggleImage();" style="height: 20px; float: right; position: relative; cursor: pointer;" src="/images/media_light.png" /></picture>
+    <?php if ($post_titles != 'yes') { ?>
+    <span style="float: right; margin-right: 30px; position: relative; top: 1px; font-size: 18px; font-weight: bold; font-family: serif; cursor: pointer;" onclick="toggle_title();">T</span>
+    </form>
+    <script>
+      function toggle_title() {
+        var post_title = document.getElementById("post_title");
+        if(post_title.style.display != "block") {
+          post_title.style.display = "block";
+          document.getElementById("editdiv").style.height ="320px";
+        } else {
+          post_title.style.display = "none";
+          document.getElementById("editdiv").style.height ="260px";
+        }
+      }
+    </script>
+    <?php } ?>
         </form>
     </div>
 
