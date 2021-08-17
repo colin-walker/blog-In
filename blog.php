@@ -56,7 +56,8 @@ $authsql->close();
 
 // Process comments
 
-if (isset($_POST['PostID']) && !isset($_POST['deletecomment']) && !isset($_POST['approvecomment']) && $_POST['check'] == '' && $_POST['email'] == '') {
+if (isset($_POST['PostID']) && !isset($_POST['deletecomment']) && !isset($_POST['approvecomment']) && $_POST['check'] == '' && $_POST['email'] == '' && $_POST['commentrandcheck'] == $_SESSION['commentrand'] ) {
+		$_SESSION['commentrand']=rand();
 	    $Parent = $_POST['PostID'];
 	    $Name = addslashes($_POST['name']);
 	    $Website = addslashes($_POST['website']);
@@ -203,8 +204,9 @@ if (isset($_POST['approvecomment'])) {
 
 // Submit new post
 
-if ( isset($_POST['dopost']) ) {
+if ( isset($_POST['dopost']) && $_POST['randcheck'] == $_SESSION['rand']  ) {
     if ($_SESSION['auth'] == $dbauth) {
+   		$_SESSION['rand']=rand();
         $section_date = date("Y/m/d");
         $section_check = $connsel->prepare("SELECT ID, Section, Day FROM " . POSTS . " WHERE Day=? and Draft='' ORDER BY ID DESC");
         $section_check->bind_param("s", $section_date);
@@ -656,6 +658,11 @@ if ($_SESSION['auth'] == $dbauth) { ?>
 <div id="editdiv" class="editdiv" style="height: 0px;">
     <iframe id="upload_frame" scrolling="no" loading="lazy" src='/uploader.php' style="display: none; width: 100%; height: 30px; border: none; overflow: hidden;"></iframe>
     <form name="form" method="post">
+        <?php
+        	$rand = rand();
+        	$_SESSION['rand']=$rand;
+        ?>
+		<input type="hidden" value="<?php echo $rand; ?>" name="randcheck" />
 		<?php if ($post_titles == 'yes') { ?>
     		<input type="text" name="title" class="text" style="max-height: 34px;" placeholder="Title">
 		<?php } else { ?>
@@ -1022,6 +1029,11 @@ if ($moderated != '1' || $_SESSION['auth'] == $dbauth) {
 ?>
 
 	    <form method="post" name="comments" style="margin-bottom: 60px;">
+        	<?php
+        		$commentrand = rand();
+        		$_SESSION['commentrand'] = $commentrand;
+        	?>
+			<input type="hidden" value="<?php echo $commentrand; ?>" name="commentrandcheck" />
 		    <input type="hidden" name="PostID" value="<?php echo $ID; ?>">
 		    <input type="hidden" name="InReplyTo" id="InReplyTo<?php echo $ID; ?>" value="">
 
