@@ -1276,6 +1276,7 @@ if ($date != date('Y-m-d')) {
   			clickable[i].innerHTML = x[i] + "<div style='height: 0px; position: relative; width: 50%; margin: 0 auto;'><img src='/images/expand.png' class='overlay noradius'></div>";
   		}
   		
+ <?php if ($_SESSION['auth'] == $dbauth) { ?> 
   		// autosave - thanks Jan-Lukas – https://jlelse.blog/dev/form-cache-localstorage
   		
   		let content = document.getElementById("content");
@@ -1291,6 +1292,7 @@ if ($date != date('Y-m-d')) {
 		document.addEventListener("submit", function () {
              localStorage.removeItem("content");
          })
+ <?php } ?>
      </script>
 
 <?php

@@ -503,8 +503,9 @@ body [fragmention] em {
 .postTitle {
     clear: none;
     font-size: 1.2em;
+    letter-spacing: -0.75px;
     position: relative;
-    top: 1px;
+    top: -0.5px;
     z-index: -1;
 }
 
@@ -1157,6 +1158,10 @@ object.avatar {
   	.statusStr {
   		top: 4px;
   	}
+  	
+  	.postTitle {
+	    top: 1px;
+	}
 
   	.comment_text {
 		width: 304px;
