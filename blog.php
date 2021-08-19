@@ -211,7 +211,6 @@ if ( isset($_POST['dopost']) && $_POST['randcheck'] == $_SESSION['rand']  ) {
         $section_check = $connsel->prepare("SELECT ID, Section, Day FROM " . POSTS . " WHERE Day=? and Draft='' ORDER BY ID DESC");
         $section_check->bind_param("s", $section_date);
         $section_check->execute();
-        $section_check->bind_result($db_section);
         $draft_result = mysqli_stmt_get_result($section_check);
         $row = $draft_result->fetch_assoc();
         $last_ID = $row["ID"];
@@ -473,7 +472,6 @@ if ($_SESSION['auth'] == $dbauth) {
     <link rel="home alternate" type="application/rss+xml" title="<?php echo constant('NAME'); ?> :: Daily Feed" href="<?php echo constant('BASE_URL'); ?>/dailyfeed.rss" />
     <link rel="alternate" type="application/rss+xml" title="<?php echo constant('NAME'); ?> :: Live Feed" href="<?php echo constant('BASE_URL'); ?>/livefeed.rss" />
     <link rel="me" href="mailto:<?php echo constant('MAILTO'); ?>" />
-	<link rel="me" href="https://micro.blog/colinwalker" />
 	
 	<script type="text/javascript" src="/script.js"></script>
 
@@ -689,9 +687,7 @@ if ($_SESSION['auth'] == $dbauth) { ?>
     </form>
 </div>
 
-<?php } ?>
-
-<?php
+<?php }
 
 if ($_SESSION['auth'] == $dbauth) {
 	$sql = $connsel->prepare("SELECT ID, Permalink, Section, Title, Content, Date, Draft, ReplyURL, Reply_Title FROM " . POSTS . " WHERE Day=? ORDER BY ID " . $post_order);
@@ -716,6 +712,20 @@ $result = mysqli_stmt_get_result($sql);
     $reply_title = $row["Reply_Title"];
   	$content = $row["Content"];
   	$raw = $content;
+  	
+  	$title_in_body = false;
+  	$post_array = explode("\n", $content);
+    $size = sizeof($post_array);
+	if (substr($post_array[0], 0, 2) == "# ") {
+		$length = strlen($post_array[0]);
+		$required = $length - 2;
+		$post_title = substr($post_array[0], 2, $required);
+		$title_in_body = true;
+		$content = '';
+		for ($i = 2; $i < $size; $i++) {
+			$content .= $post_array[$i];
+		}
+	}
 
     if($status == 'draft') {
         $statusStr = '<span style="cursor: pointer;" onclick="toggleEdit(' . $ID . ')" class="statusStr">Draft:&nbsp;</span>';
@@ -821,7 +831,7 @@ $result = mysqli_stmt_get_result($sql);
 ?>
     <iframe id="edit_upload_frame<?php echo $ID; ?>" scrolling="no" loading="lazy" src='/uploader.php' style="display: none; width: 100%; height: 30px; border: none; overflow: hidden;"></iframe>
     <form name="form" method="post">
-		<?php if ($post_title != '') { ?>
+		<?php if ($post_title != '' && $title_in_body == false) { ?>
     		<input type="text" name="title" class="text" style="max-height: 34px;" value="<?php echo $post_title; ?>">
 		<?php } ?>
         <input type="hidden" id="updatepost<?php echo $ID; ?>" name="updatepost" value="<?php echo $ID; ?>">
@@ -1081,6 +1091,11 @@ if ($_SESSION['auth'] == $dbauth) { ?>
     <div id="editdiv" class="editdiv_no_posts" style="display: block; margin-top: 10px; margin-bottom: 50px;">
         <iframe id="upload_frame" scrolling="no" loading="lazy" src='/uploader.php' style="display: none; width: 100%; height: 30px; border: none; overflow: hidden;"></iframe>
         <form name="form" method="post">
+        	<?php
+   				$rand=rand();
+   				$_SESSION['rand']=$rand;
+  			?>
+			<input type="hidden" value="<?php echo $rand; ?>" name="randcheck" />
 			<?php if ($post_titles == 'yes') { ?>
     			<input type="text" id="post_title" name="title" class="text" style="max-height: 34px;" placeholder="Title">
 			<?php } else { ?>
@@ -1090,7 +1105,7 @@ if ($_SESSION['auth'] == $dbauth) { ?>
             <textarea rows="15" id="content" name="content" class="text"></textarea>
             <span style="float: left; padding-left: 15px; font-size: 75%;">Draft: <input type="radio" name="status" value="draft">&nbsp;&nbsp;Publish: <input type="radio" name="status" value="publish" checked="checked"></span><input style="float:right; font-size: 75%" type="submit" name="submit" id="submit_no_posts" value="Post"><picture style="height: 17px; float: right; position: relative; right: 20px; top: 3px; cursor: pointer;"><source srcset="/images/media_dark.png" media="(prefers-color-scheme: dark)"><img onclick="toggleImage();" style="height: 20px; float: right; position: relative; cursor: pointer;" src="/images/media_light.png" /></picture>
     		<?php if ($post_titles != 'yes') { ?>
-    			<span style="float: right; margin-right: 30px; position: relative; top: 1px; font-size: 18px; font-weight: bold; font-family: serif; cursor: pointer;" onclick="toggle_title();">T</span>
+    			<span style="float: right; margin-right: 40px; position: relative; top: 1px; font-size: 18px; font-weight: bold; font-family: serif; cursor: pointer;" onclick="toggle_title();">T</span>
     			<script>
       				function toggle_title() {
         				var post_title = document.getElementById("post_title");

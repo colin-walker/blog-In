@@ -243,6 +243,19 @@ $result = mysqli_stmt_get_result($sql);
     $post_time = $row["Date"];
   	$content = $row["Content"];
   	$raw = $content;
+  	
+  	        $post_array = explode("\n", $content);
+        $size = sizeof($post_array);
+		if (substr($post_array[0], 0, 2) == "# ") {
+			$length = strlen($post_array[0]);
+			$required = $length - 2;
+			$post_title = substr($post_array[0], 2, $required);
+			$title_in_body = true;
+			$content = '';
+			for ($i = 2; $i < $size; $i++) {
+				$content .= $post_array[$i];
+			}
+		}
 
     $statusStr = '<span style="cursor: pointer;" onclick="toggleEdit(' . $ID . ')" class="statusStr">Draft:&nbsp;</span>';
     
@@ -273,7 +286,7 @@ $result = mysqli_stmt_get_result($sql);
   		$editSpan .= '<input type="hidden" name="deletepost" value="' . $ID . '">' . PHP_EOL;
  		$editSpan .= '<input onClick="javascript: return confirm(\'Are you sure?\');" type="image" src="/images/red-cross.png" style="width: 16px;">' . PHP_EOL;
 		$editSpan .= '</form>' . PHP_EOL;
-	    $editSpan .= '<a class="editicon" style="display: block;" onclick="toggleEdit(' . $ID . ')"><picture style="width: 12px; position: relative; top: 0.5px;"><source srcset="/images/edit_dark.png" media="(prefers-color-scheme: dark)"><img  style="width: 12px; position: relative; top: 0.5px;" src="/images/edit_light.png" /></picture></a>' . PHP_EOL;
+	    $editSpan .= '<a class="editicon" style="display: block;" onclick="toggleEdit(' . $ID . ')"><picture style="width: 12px; position: relative; top: 1.5px;"><source srcset="/images/edit_dark.png" media="(prefers-color-scheme: dark)"><img  style="width: 12px; position: relative; top: 0.5px;" src="/images/edit_light.png" /></picture></a>' . PHP_EOL;
 	} else {
 	    $editSpan = '';
     }

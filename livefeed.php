@@ -55,6 +55,18 @@ while($row = $feed_result->fetch_assoc()) {
 		$replyURL = $row["ReplyURL"];
 		$reply_title = $row["Reply_Title"];
 		$content = stripslashes($row["Content"]);
+		
+		$post_array = explode("\n", $content);
+        $size = sizeof($post_array);
+		if (substr($post_array[0], 0, 2) == "# ") {
+			$length = strlen($post_array[0]);
+			$required = $length - 2;
+			$post_title = substr($post_array[0], 2, $required);
+			$content = '';
+			for ($i = 2; $i < $size; $i++) {
+				$content .= $post_array[$i];
+			}
+		}
 
   		$content = filters($content);
   		if($replyURL != '') {
