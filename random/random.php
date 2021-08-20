@@ -32,6 +32,7 @@ $authsql->close();
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="theme-color" content="#eeeeee">
 	<title><?php echo NAME; ?> - random post</title>
+	<meta name="description" content="<?php echo constant('DESCRIPTION'); ?>">
 	<link rel="stylesheet" href="../style.css" type="text/css" media="all">
 	<link defer rel="stylesheet" href="../bigfoot/bigfoot-bottom.css" type="text/css" media="all">
 	<script type="text/javascript" src="../script.js"></script>

@@ -25,7 +25,7 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 
-// HTML output starts on line 455
+// HTML output starts on line 459
 
 
 date_default_timezone_set('' . TIMEZONE . '');
@@ -471,6 +471,7 @@ if ($_SESSION['auth'] == $dbauth) {
 	<link rel="http://webmention.org/" href="<?php echo constant('BASE_URL'); ?>/endpoint.php"/>	
     <link rel="home alternate" type="application/rss+xml" title="<?php echo constant('NAME'); ?> :: Daily Feed" href="<?php echo constant('BASE_URL'); ?>/dailyfeed.rss" />
     <link rel="alternate" type="application/rss+xml" title="<?php echo constant('NAME'); ?> :: Live Feed" href="<?php echo constant('BASE_URL'); ?>/livefeed.rss" />
+    <link rel="canonical" href="<?php echo BASE_URL; ?>">
     <link rel="me" href="mailto:<?php echo constant('MAILTO'); ?>" />
 	
 	<script type="text/javascript" src="/script.js"></script>
@@ -510,7 +511,7 @@ if ($_SESSION['auth'] == $dbauth) {
                 cursor: pointer;
                 color: #333;
                 z-index: 100;
-                width: 20px;" src="/images/admin_light.png" />
+                width: 20px;" alt="Post/Edit" src="/images/admin_light.png" />
             </picture>
         </a>
         
@@ -521,7 +522,7 @@ if ($_SESSION['auth'] == $dbauth) {
             color: #333;
             z-index: 100;
             width: 23px;">
-            <source srcset="/images/add_dark.png" media="(prefers-color-scheme: dark)">
+            <source alt="Post/Edit" srcset="/images/add_dark.png" media="(prefers-color-scheme: dark)">
             <img style="
                 position: fixed;
                 right: 22px;
@@ -538,7 +539,7 @@ if ($_SESSION['auth'] == $dbauth) {
             cursor: pointer;
             color: #333;
             z-index: 100;
-            width: 23px;" src="/images/cancel.png" />
+            width: 23px;" alt="cancel" src="/images/cancel.png" />
         </a>
 <?php } ?>
 
@@ -668,7 +669,7 @@ if ($_SESSION['auth'] == $dbauth) { ?>
 		<?php } ?>
         <input type="hidden" id="dopost" name="dopost" value="true">
         <textarea rows="10" id="content" name="content" class="text"></textarea>
-        <input style="float:right; font-size: 75%" type="submit" name="submit" id="submit" value="Post"><a accesskey="c" onclick="hideForm();"><img  style="width: 20px; float:left; position: relative; top: -1px; cursor: pointer;" src="/images/cancel.png" /></a><span style="float: left; padding-left: 15px; font-size: 75%;">Draft: <input type="radio" name="status" value="draft">&nbsp;&nbsp;Publish: <input type="radio" name="status" value="publish" checked="checked"></span><picture style="height: 17px; float: right; position: relative; right: 13px; top: 3px; cursor: pointer;"><source srcset="/images/media_dark.png" media="(prefers-color-scheme: dark)"><img onclick="toggleImage();" style="height: 20px; float: right; position: relative; cursor: pointer;" src="/images/media_light.png" /></picture>
+        <input style="float:right; font-size: 75%" type="submit" name="submit" id="submit" value="Post"><a accesskey="c" onclick="hideForm();"><img  style="width: 20px; float:left; position: relative; top: -1px; cursor: pointer;" alt="cancel" src="/images/cancel.png" /></a><span style="float: left; padding-left: 15px; font-size: 75%;">Draft: <input type="radio" name="status" value="draft">&nbsp;&nbsp;Publish: <input type="radio" name="status" value="publish" checked="checked"></span><picture style="height: 17px; float: right; position: relative; right: 13px; top: 3px; cursor: pointer;"><source srcset="/images/media_dark.png" media="(prefers-color-scheme: dark)"><img onclick="toggleImage();" style="height: 20px; float: right; position: relative; cursor: pointer;" src="/images/media_light.png" /></picture>
     	<?php if ($post_titles != 'yes') { ?>
     		<span style="float: right; margin-right: 30px; position: relative; top: 1px; font-size: 18px; font-weight: bold; font-family: serif; cursor: pointer;" onclick="toggle_title();">T</span>
    			<script>
@@ -816,7 +817,7 @@ $result = mysqli_stmt_get_result($sql);
     $fetch_comment_sql->close();
 	echo '</div>' . PHP_EOL; // End section
 	echo '<time class="dt-published" datetime="' . date("c", strtotime($post_time)) . '"></time>' . PHP_EOL;
-	if ($post_order == 'DESC' && getOption('Post_Meta') == 'yes') {
+	if ($post_order == 'DESC' && $post_meta') == 'yes') {
 		echo '<span style="font-size: 12px; position: relative; top: -5px;">→ ' . date(DATE_META, strtotime($post_time)) . '</span>';
 	}
 ?>
@@ -836,7 +837,7 @@ $result = mysqli_stmt_get_result($sql);
 		<?php } ?>
         <input type="hidden" id="updatepost<?php echo $ID; ?>" name="updatepost" value="<?php echo $ID; ?>">
         <textarea rows="10" id="newcontent<?php echo $ID; ?>" name="newcontent" class="newcontent text"><?php echo $raw; ?></textarea>
-        <a onclick="quit(<?php echo $ID; ?>);"><img  style="width: 20px; float: left; position: relative; top: -1px; cursor: pointer;" src="/images/cancel.png" /></a><span style="float: left; padding-left: 15px; font-size: 75%;">Draft: <input type="radio" name="status" value="draft" <?php if($status == 'draft') { echo 'checked="checked"'; }?>>&nbsp;&nbsp;Publish: <input type="radio" name="status" value="publish" <?php if($status != 'draft') { echo 'checked="checked"'; }?>></span>
+        <a onclick="quit(<?php echo $ID; ?>);"><img  style="width: 20px; float: left; position: relative; top: -1px; cursor: pointer;" alt="cancel" src="/images/cancel.png" /></a><span style="float: left; padding-left: 15px; font-size: 75%;">Draft: <input type="radio" name="status" value="draft" <?php if($status == 'draft') { echo 'checked="checked"'; }?>>&nbsp;&nbsp;Publish: <input type="radio" name="status" value="publish" <?php if($status != 'draft') { echo 'checked="checked"'; }?>></span>
         <input style="float:right; font-size: 75%" type="submit" name="submit" id="submit<?php echo $ID; ?>" value="Update"><picture style="height: 17px; float: right; position: relative; right: 13px; top: 3px; cursor: pointer;"><source srcset="/images/media_dark.png" media="(prefers-color-scheme: dark)"><img onclick="toggleImage_edit(<?php echo $ID; ?>);" style="height: 20px; float: right; position: relative; cursor: pointer;" src="/images/media_light.png" /></picture>
     </form>
 <?php

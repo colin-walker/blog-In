@@ -23,6 +23,7 @@ require_once('../ParsedownExtra.php');
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title><?php echo constant('NAME'); ?> — About</title>
+	<meta name="description" content="<?php echo constant('DESCRIPTION'); ?>">
 	<link rel="stylesheet" href="../style.css" type="text/css" media="all">
 </head>
 

@@ -18,6 +18,7 @@ require_once('../ParsedownExtra.php');
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title><?php echo constant('NAME'); ?> - Search</title>
+	<meta name="description" content="<?php echo constant('DESCRIPTION'); ?>">
 	<link rel="stylesheet" href="../style.css" type="text/css" media="all">
 	<link rel="stylesheet" href="../bigfoot/bigfoot-bottom.css" type="text/css" media="all">
 	<script type="text/javascript" src="../script.js"></script>

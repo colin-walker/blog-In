@@ -10,6 +10,7 @@ require_once('../config.php');
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title><?php echo constant('NAME'); ?> — Colophon</title>
+	<meta name="description" content="<?php echo constant('DESCRIPTION'); ?>">
 	<link rel="stylesheet" href="../style.css" type="text/css" media="all">
 </head>
 
