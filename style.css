@@ -274,6 +274,7 @@ a {
 	margin-left: auto;
 	margin-right: auto;
 	max-width: 660px;
+	/* max-width: 41.25rem; */
 	margin: 1.5em auto;
 	padding: 0 1.5em;
 }
@@ -786,9 +787,10 @@ iframe {
 
 .comment {
 	width: 590px;
+	/* max-width: 37rem; */
 	padding-right: 10px;
 	margin-bottom: 20px;
-	float: right;
+	float: left;
 }
 
 .indentComment {
@@ -1085,7 +1087,8 @@ object.avatar {
 
 @media screen and (max-width: 767px) {
 
-	.site-header {
+
+.site-header {
     	padding: 1em 0;
     }
 
@@ -1245,8 +1248,20 @@ object.avatar {
 
 @media screen and (max-width: 411px) {
 	.comment {
-		width: 250px;
+		width: 80%;
 		padding-left: 10px;
+	}
+}
+
+
+@media screen and (max-width: 340px) {
+	.comment {
+		width: 75%;
+		padding-left: 10px;
+	}
+	
+	.commentNameSpan {
+		width: 70%;
 	}
 }
 
