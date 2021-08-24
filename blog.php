@@ -355,7 +355,7 @@ if ( isset($_POST['updatepost']) ) {
 	            $wmcontent = $Parsedown->text($newcontent);
 
                 $targetURL = '';
-                $sourceURL = $draft_permalink . '#p' . $draft_section;
+                $sourceURL = $permalink . '#p' . $section;
 
                 $urls = $client->findOutgoingLinks($wmcontent);
                 foreach ($urls as $url) {
