@@ -829,7 +829,7 @@ iframe {
 }
 
 .comment_text {
-	width: 600px;
+	width: 95%; /* 600px */
 }
 
 .comment_body {
@@ -1167,7 +1167,7 @@ object.avatar {
 	}
 
   	.comment_text {
-		width: 304px;
+		width: 91%; /* 304px; */
   	}
 
   	.comment {
@@ -1254,6 +1254,16 @@ object.avatar {
 }
 
 
+
+@media screen and (max-width: 370px) {	
+	#streak {
+		top: 80px !important;
+		right: 20px;
+	}
+}
+
+
+
 @media screen and (max-width: 340px) {
 	.comment {
 		width: 75%;
@@ -1262,6 +1272,10 @@ object.avatar {
 	
 	.commentNameSpan {
 		width: 70%;
+	}
+	
+	input[type="text"], input[type="url"] {
+		width: 91%;
 	}
 }
 
