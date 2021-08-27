@@ -59,8 +59,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             
             $session_id = session_id();
                         
-            header("location: " . BASE_URL . "");
-            exit;
+            if ($_GET['return'] == 'muse') {
+                header("location: " . BASE_URL . "/muse-letter/");
+                exit;
+            } else {
+                header("location: " . BASE_URL . "");
+                exit;
+            }
         } else {
             // Display an error message if password is not valid
             $password_err = "The password you entered was not valid.";
@@ -80,7 +85,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         .wrapper{ width: 350px; padding: 20px; }
     </style>
 </head>
-<body>
+<body class="login">
     <div class="wrapper">
         <h2 class="titleSpan">Login</h2>
         <form id="login_form" action="" method="post">

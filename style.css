@@ -131,12 +131,21 @@ a {
 
 /* Login page */
 
+body.login {
+	background-color: var(--grey-e);
+}
+
 .wrapper {
 	width: 350px;
 	padding: 20px;
-	margin: 75px auto 25px;
+	/* margin: 75px auto 25px; */
 	border: 1px solid #999;
 	border-radius: 8px;
+	background-color: #ffffff;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
 
 .wrapper2 {
@@ -248,6 +257,7 @@ a {
 	cursor: pointer;
 	color: var(--grey-3);
     z-index: 100;
+    outline: none;
 }
 
 #cancel {
