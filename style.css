@@ -135,6 +135,15 @@ body.login {
 	background-color: var(--grey-e);
 }
 
+.adminwrapper {
+	width: 350px;
+	padding: 20px;
+	margin: 75px auto 25px;
+	border: 1px solid #999;
+	border-radius: 8px;
+	background-color: #ffffff;
+}
+
 .wrapper {
 	width: 350px;
 	padding: 20px;
@@ -154,6 +163,7 @@ body.login {
 	margin: 0px auto 50px;
 	border: 1px solid #999;
 	border-radius: 8px;
+	background-color: #ffffff;
 }
 
 .wrapper h2 {

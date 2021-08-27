@@ -185,7 +185,7 @@ if ( $_POST['passcheck'] == 'true' ) {
     <link rel="stylesheet" href="/style.css">
 
 </head>
-<body>
+<body class="login">
 
 	<a accesskey="c" href="<?php echo BASE_URL; ?>"><img  style="
             position: absolute;
@@ -205,7 +205,7 @@ if ( $_POST['passcheck'] == 'true' ) {
             $changeStr = 'Nothing changed';
         }
     ?>
-        <div class="wrapper">
+        <div class="adminwrapper">
             <div style="text-align: center; padding: 25px 0;">
                 <strong>Done ✓</strong>
                 <p>
@@ -218,7 +218,7 @@ if ( $_POST['passcheck'] == 'true' ) {
     <?php
     } else {
     ?>            
-    <div class="wrapper">
+    <div class="adminwrapper">
     	<h2 class="titleSpan">Admin</h2>
 		<form id="admin_form" method="post">
             <div>
