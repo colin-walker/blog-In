@@ -43,7 +43,7 @@ $authsql->close();
         <header id="masthead" class="site-header">
             <div class="site-branding">
                 <h1 class="site-title">
-                    <a href="/blog.php" rel="home">
+                    <a href="<?php echo BASE_URL; ?>" rel="home">
                         <span class="p-name">Random post</span>
                     </a>
                 </h1>
@@ -71,6 +71,19 @@ $authsql->close();
     $reply_title = $row["Reply_Title"];
   	$content = $row["Content"];
   	$raw = $content;
+
+  	$post_array = explode("\n", $content);
+
+    $size = sizeof($post_array);
+	if (substr($post_array[0], 0, 2) == "# ") {
+		$length = strlen($post_array[0]);
+		$required = $length - 2;
+		$post_title = substr($post_array[0], 2, $required);
+		$content = '';
+		for ($i = 2; $i < $size; $i++) {
+			$content .= $post_array[$i];
+		}
+	}
   	
   	if($status == 'draft') {
   	    header("location: " . BASE_URL . "/random/");
@@ -152,6 +165,7 @@ $authsql->close();
     	}
         echo '<a onclick="toggleComments(' . $ID . ')" title="' . $numrows . $numstring . ': click to read or leave your own" class="toggleComments"><picture class="commenticonpicture"><source srcset="/images/hascommentdark.png" media="(prefers-color-scheme: dark)"><img id="commenticon' . $ID . '" class="commenticon" src="/images/hascomment.png" alt="' . $numrows . $numstring . ': click to read or leave your own"></picture></a>' . $statusStr . $openStr . $content . "\n</div>" . PHP_EOL;
     } else {
+      $numstring = " comments";
         echo '<a onclick="toggleComments(' . $ID . ')" title="' . $numrows . $numstring . ': click to read or leave your own" class="toggleComments"><picture class="commenticonpicture"><source srcset="/images/commentdark.png" media="(prefers-color-scheme: dark)"><img id="commenticon' . $ID . '" class="commenticon" src="/images/comment.png" alt="' . $numrows . $numstring . ': click to read or leave your own"></picture></a>' . PHP_EOL . $statusStr . $openStr . $content . "\n</div><!-- .entry-content -->" . PHP_EOL;
     }
     $fetch_comment_sql->close();
