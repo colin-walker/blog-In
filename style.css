@@ -826,13 +826,13 @@ iframe {
     padding: 5px 0px 0px 8px;
     box-sizing: border-box;
     position: relative;
-    left: -10px;
+    left: -5px;
     top: -5px;
     border-radius: 5px;
 }
 
 .nested.linkedComment {
-    left: 10px !important;
+    left: 15px !important;
 }
 
 .commentNameSpan {
@@ -1204,11 +1204,11 @@ object.avatar {
 	}
 	
     .linkedComment {
-        left: -15px !important;
+        left: -5px !important;
     }
     
     .nested.linkedComment {
-        left: 5px !important;
+        left: 15px !important;
     }
     
     .linkedComment .commentDelForm {
