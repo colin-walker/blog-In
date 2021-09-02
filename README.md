@@ -204,6 +204,8 @@ Each time a post is published, edited or deleted the live rss feed is regenerate
 
 The private journal works in a similar way to the blog but there is only one post per day. You can visually separate it into section susing the `@@` markup listed above. Once a journal entry exists just click/tap the date above it to switch to edit mode.
 
+A link at the bottom of the journal (when viewing today's entry) will show a random journal entry.
+
 ## Now page
 
 A [/now](https://nownownow.com/about) page can be used and operates in the same way as the Journal. An option on the admin page enables/disables a link to it in the footer. 
