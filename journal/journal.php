@@ -16,7 +16,7 @@ require_once('../ParsedownExtra.php');
 date_default_timezone_set('' . TIMEZONE . '');
 
 
-// redirect if now disabled
+// redirect if journal disabled
 
 if (getOption('Journal') == 'no') {
     header("location: " . BASE_URL);
@@ -75,7 +75,7 @@ $count = 0;
 $streak_sql = $connsel->prepare("SELECT Day FROM " . JOURNAL . " ORDER BY ID DESC");
 $streak_sql->execute();
 $streak_result = mysqli_stmt_get_result($streak_sql);
-$rowcount = mysqli_num_rows($streak_result);
+$rowcount=mysqli_num_rows($streak_result);
 
 while($row = $streak_result->fetch_assoc()) {
 	$postdate = date('Y-m-d', strtotime($row["Day"]));
@@ -246,7 +246,7 @@ if ($date != date('Y-m-d')) {
 ?>
 	<div class="linksDiv day-links"><a href="/journal/">Today</a></div>
 <?php } else { ?>
-  <div class="linksDiv day-links">&nbsp;</div>
+  <div class="linksDiv day-links"><a accesskey="r" class="randomlink" style="text-decoration: none;" title="Random entry" href="random.php">?</a></div>
 <?php } ?>
 
 	<script src="../jquery-3.6.0.min.js"></script>
@@ -295,9 +295,9 @@ if ($date != date('Y-m-d')) {
     			post.style.display = 'none';
     			edit.style.display = 'block';
     			var contentArea = document.getElementById('newcontent');
-                        if(contentArea.value.slice(-3) != '@@ ') {
-                        	contentArea.value = contentArea.value + '\n\n@@ ';
-                        }
+                        //if(contentArea.value.slice(-3) != '@@ ') {
+                        //	contentArea.value = contentArea.value + '\n\n@@ ';
+                        //}
                         var areaLen = contentArea.value.length;
                         contentArea.setSelectionRange(areaLen, areaLen);
                         contentArea.focus();
