@@ -1,8 +1,28 @@
 <?php
 
+// Initialise session
+session_start();
+
 define('APP_RAN', '');
 
 require_once('config.php');
+
+// Get auth string from database
+
+$authsql = $connsel->prepare("SELECT Option_Value FROM " . OPTIONS . " WHERE Option_Name = 'Auth' ");
+$authsql->execute();
+$authresult = mysqli_stmt_get_result($authsql);
+$row = $authresult->fetch_assoc();
+$dbauth = $row["Option_Value"];
+$authsql->close();
+
+
+// admin check
+
+if (!$_SESSION['auth'] == $dbauth) {
+	die("Private!");
+}
+
 
 $year = date('Y');
 $month = date('m');
@@ -50,7 +70,7 @@ if(isset($_POST["submit"])) {
 <body>
 
 <form action="" method="post" enctype="multipart/form-data" style="width: 100%; margin-top: 10px;">
-      <label id="choose_button" class="button" for="fileToUpload" style="color: #999; opacity: 1;">Choose File</label><span id="is_uploaded" style="display:none; font-size: 18px; position: relative; left: 110px; top: -9px">✓</span><input onchange="uploaded();" style="display: none; opacity: 0; color: #999; width: 30%;" type="file" name="fileToUpload" id="fileToUpload" required></span><input id="upload" type="submit" value="Upload" name="submit" style="position: absolute; top: 0px; right: 0px;">
+      <label id="choose_button" class="button" for="fileToUpload" style="color: #999; opacity: 1;">Choose File</label><span id="is_uploaded" style="display:none; font-size: 18px; position: relative; left: 110px; top: -12px">✓</span><input onchange="uploaded();" style="display: none; opacity: 0; color: #999; width: 30%;" type="file" name="fileToUpload" id="fileToUpload" required></span><input id="upload" type="submit" value="Upload" name="submit" style="position: absolute; top: 0px; right: 0px;">
 </form>
 
 
