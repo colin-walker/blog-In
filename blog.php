@@ -56,7 +56,7 @@ $authsql->close();
 
 // Process comments
 
-if (isset($_POST['PostID']) && !isset($_POST['deletecomment']) && !isset($_POST['approvecomment']) && $_POST['check'] == '' && $_POST['email'] == '' && $_POST['commentrandcheck'] == $_SESSION['commentrand'] ) {
+if (isset($_POST['PostID']) && !isset($_POST['deletecomment']) && !isset($_POST['approvecomment']) && ($_POST['check'] == '') && ($_POST['email'] == '') && ($_POST['commentcheck' . $_POST['PostID']] == $_SESSION['commentrand'. $_POST['PostID']]) ) {
 		$_SESSION['commentrand']=rand();
 	    $Parent = $_POST['PostID'];
 	    $Name = addslashes($_POST['name']);
@@ -1041,9 +1041,9 @@ if ($moderated != '1' || $_SESSION['auth'] == $dbauth) {
 	    <form method="post" name="comments" style="margin-bottom: 60px;">
         	<?php
         		$commentrand = rand();
-        		$_SESSION['commentrand'] = $commentrand;
+        		$_SESSION['commentrand'. $ID] = $commentrand;
         	?>
-			<input type="hidden" value="<?php echo $commentrand; ?>" name="commentrandcheck" />
+			<input type="hidden" value="<?php echo $commentrand; ?>" name="commentcheck<?php echo $ID; ?>" />
 		    <input type="hidden" name="PostID" value="<?php echo $ID; ?>">
 		    <input type="hidden" name="InReplyTo" id="InReplyTo<?php echo $ID; ?>" value="">
 
