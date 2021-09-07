@@ -269,7 +269,7 @@ if ( isset($_POST['dopost']) && $_POST['randcheck'] == $_SESSION['rand']  ) {
 	        $wmcontent = $Parsedown->text($wmcontent);
 	        
             $targetURL = '';
-            $sourceURL = $permalink . '#p' . $section;
+            $sourceURL = BASE_URL . '/post.php?date=' . $post_date . '&p=' . $section;
 			
 			$client = new IndieWeb\MentionClient();
             $urls = $client->findOutgoingLinks($wmcontent);
@@ -355,7 +355,7 @@ if ( isset($_POST['updatepost']) ) {
 	            $wmcontent = $Parsedown->text($newcontent);
 
                 $targetURL = '';
-                $sourceURL = $permalink . '#p' . $section;
+                $sourceURL = BASE_URL . '/post.php?date=' . $post_date . '&p=' . $section;
 
                 $urls = $client->findOutgoingLinks($wmcontent);
                 foreach ($urls as $url) {
