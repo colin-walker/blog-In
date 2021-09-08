@@ -133,9 +133,11 @@ Valid classes:
 - .i100 (align center, width 100%)
 - .noradius (all images have a border radius by default, applying this removes it for that image)
 
-The .clickable class is a special case and is applied to a link where that link contains a thumbnail of a larger image. This adds an overlay to indicate that the image can be expanded. The format is a markdown link containing a markdown image and is as follows:
+The .clickable and .clickabledark classes are a special case and are applied to a link where that link contains a thumbnail of a larger image. This adds an overlay to indicate that the image can be expanded. The format is a markdown link containing a markdown image and is as follows:
 
 `[![image alt text](thumbnail link){.optional_image_class}](image link){.clickable}`
+
+Use .clickabledark if the image is light and the overlay will not be easily visible.
 
 and looks like this:
 
