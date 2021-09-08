@@ -1289,6 +1289,13 @@ if ($date != date('Y-m-d')) {
   			x[i] = clickable[i].innerHTML;
   			clickable[i].innerHTML = x[i] + "<div style='height: 0px; position: relative; width: 50%; margin: 0 auto;'><img src='/images/expand.png' class='overlay noradius'></div>";
   		}
+    	
+		var clickabledark = document.getElementsByClassName("clickabledark");
+		var x = new Array();
+    	for (i = 0; i < clickabledark.length; i++) { 
+  			x[i] = clickabledark[i].innerHTML;
+  			clickabledark[i].innerHTML = x[i] + "<div style='height: 0px; position: relative; width: 50%; margin: 0 auto;'><img src='/images/expanddark.png' class='overlay noradius'></div>";
+  		}
   		
  <?php if ($_SESSION['auth'] == $dbauth) { ?> 
   		// autosave - thanks Jan-Lukas – https://jlelse.blog/dev/form-cache-localstorage
