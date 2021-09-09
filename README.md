@@ -35,6 +35,7 @@ It also includes a modification of a [form-caching trick](https://git.jlel.se/jl
 ## Postrequisites
 
 - after installation, a cron job running once a day (at time of choice but ideally around midnight) to build the Daily RSS feed
+- replace generic avatar favicons (favicon-16x16.png, favicon-32x32.png, favicon.ico) with your own
 
 ## Installation
 
