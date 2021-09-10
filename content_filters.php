@@ -4,6 +4,7 @@ define('APP_RAN', '');
 
 require_once('config.php');
 
+
 function filters($content) {
 
 GLOBAL $indent;
@@ -23,10 +24,10 @@ $content = str_replace('[hr]', '<hr noshade width="33%" style="margin-bottom: 25
 
 // linked hashtags
 
-	$content = preg_replace('/((?<!&|\'|\#|\)|\||\/|\[|[0-9]|[a-z]|=")#(?!\s|#|\*|\$|^[a-z]).*?)([^\s|^"|^\)|^\.<]+)/i', '<span class="hashtag"><a href="' . BASE_URL . '/search/?s=%23'.'$2">#$2</a></span>', $content);
+	$content = preg_replace('/((?<!&|\'|\`|\#|\)|\||\/|\[|[0-9]|[a-z]|=")#(?!\s|#|\*|\$|^[a-z]).*?)([^\s|^"|^\)|^\.<]+)/i', '<span class="hashtag"><a href="' . BASE_URL . '/search/?s=%23'.'$2">#$2</a></span>', $content);
 
-
-// internal links
+	
+	// internal links
 
 	$open = '[[';
 	$close = ']]';
@@ -40,7 +41,7 @@ $content = str_replace('[hr]', '<hr noshade width="33%" style="margin-bottom: 25
 			$orig = substr($content, $opos, $len+2);
 			$linktext = substr($content, $opos+2, $len-2);
 			$gardenlinkurl = strtolower(str_replace(' ', '-', $linktext));
-			$replace = '.<a href="/wp/' . $gardenlinkurl . '/">' . $linktext . '</a>';
+			$replace = '<a href="/garden/page.php?t=' . $linktext . '">' . $linktext . '</a>';
 			$content = str_replace($orig, $replace , $content);
 		}
 	}
@@ -61,6 +62,25 @@ $content = str_replace('[hr]', '<hr noshade width="33%" style="margin-bottom: 25
 			$linktext = substr($content, $opos+2, $len-2);
 			$gardenlinkurl = strtolower(str_replace(' ', '-', $linktext));
 			$replace = '&#123;&#123;<a href="' . $linktext . '">' . $linktext . '</a>&#125;&#125;';
+			$content = str_replace($orig, $replace, $content);
+		}
+	}
+	
+	
+// iframe quotes
+
+	$open = '<<';
+	$close = '>>';
+	$linkcount = substr_count($content, $open);
+
+	for ($i=0; $i < $linkcount; $i++) {
+		$opos = strpos($content, $open);
+		$cpos = strpos($content, $close);
+		$len = $cpos-$opos;
+		if ($cpos - $opos != 2) {
+			$orig = substr($content, $opos, $len+2);
+			$linktext = substr($content, $opos+2, $len-2);
+			$replace = '<div class="aligncenter" style="position: relative; width: 100%; padding-top: 56.25%;"><iframe style="position: absolute; top: 10px; bottom: 0; left: 0; right: 0; width: 100%; height: 100%" src="' . $linktext . '"></iframe></div>';
 			$content = str_replace($orig, $replace, $content);
 		}
 	}
@@ -221,6 +241,7 @@ $content = str_replace('[hr]', '<hr noshade width="33%" style="margin-bottom: 25
 			$linktext = substr($content, $opos+3, $len-3);
 			$replace = '<audio controls="controls" preload="metadata" src="' . $linktext . '"></audio>';
 		
+			//$replace = '<div class="aligncenter" style="position: relative; width: 75%; padding-top: 42.1875%;"><iframe style="position: absolute; top: 0; bottom: 0; left: 0; right: 0; width: 100%; height: 100%" src="' . $linktext . '" allowfullscreen="true" frameborder="0">Click to watch...</iframe></div>';
 			$content = str_replace($orig, $replace, $content);
 		}
 	}
@@ -262,8 +283,15 @@ $content = str_replace('[hr]', '<hr noshade width="33%" style="margin-bottom: 25
 		if ($cpos - $opos != 3) {
 			$orig = substr($content, $opos, $len+4);
 			$linktext = substr($content, $opos+3, $len-3);
+			
+			$linktext_array = explode(' "', $linktext);
+			if ($linktext_array[1] != '') {
+				$linktext_array[1] = '<strong>' . substr($linktext_array[1], 0 , -1) . '</strong><br/>';
+			} else {
+			  $linktext_array[1] = '';
+			}
 		
-			$replace = '<div class="aligncenter" style="position: relative; width: 100%; padding-top: 56.25%"><iframe style="position: absolute; top: 10px; bottom: 0; left: 0; right: 0; width: 100%; height: 100%" src="https://www.youtube.com/embed/' . $linktext . '" allowfullscreen="false" frameborder="0">Can\'t see the video? Click here to watch...</iframe></div>';
+			$replace = '<div class="aligncenter" style="position: relative; width: 100%; padding-top: 56.25%"><iframe style="position: absolute; top: 10px; bottom: 0; left: 0; right: 0; width: 100%; height: 100%" src="https://www.youtube.com/embed/' . $linktext_array[0] . '" allowfullscreen="false" frameborder="0">' . $linktext_array[1] . '<a href="https://www.youtube.com/embed/' . $linktext_array[0] . '">Can\'t see the video? Click here to watch...</a></iframe></div>';
 			
 			$content = str_replace($orig, $replace, $content);
 		}
@@ -368,6 +396,9 @@ function reply($content) {
 				    $reply_title = wordwrap($reply_title, $length);
 				    $reply_title = substr($reply_title, 0, strpos($reply_title, "\n"));
 				}
+				
+				//$reply_str = '<em>In reply to: <a class="u-in-reply-to" href="' . $linktext . '">' . $reply_title . '</a>...</em>';
+				//$content = str_replace($orig, $reply_str, $content);
 			}
 		} else {
 			$linktext = '';
@@ -375,6 +406,7 @@ function reply($content) {
 		}
 
 		$content = substr($content, 2);
+		//return $content;
 		return array($linktext, $reply_title, $content);
 }
 
