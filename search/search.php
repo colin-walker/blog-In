@@ -89,11 +89,10 @@ if($rows > 5){
 
 	$max = 'limit ' .($pagenum - 1) * $page_rows .',' .$page_rows;
 
-	$sql = $connsel->prepare("SELECT ID, Permalink, Section, Content, Date, Draft FROM " . POSTS . " WHERE Content REGEXP '[^[:punct:]][a-zA-Z0-9();,\'\"]?$query' AND Draft='' ORDER BY ID Desc $max");
+	$sql = $connsel->prepare("SELECT ID, Permalink, Section, Title, Content, Date, Draft, ReplyURL, Reply_Title FROM " . POSTS . " WHERE Content REGEXP '[^[:punct:]][a-zA-Z0-9();,\'\"]?$query' AND Draft='' ORDER BY ID Desc $max");
 
   if($sql) {
 	$sql->execute();
-	$sql->bind_result($db_ID, $db_permalink, $db_section, $db_content, $db_date, $db_draft);
 	$result = mysqli_stmt_get_result($sql);
   }
 	if (mysqli_num_rows($result) != 0) {
@@ -102,9 +101,32 @@ if($rows > 5){
     		$ID = $row["ID"];
     		$permalink = $row["Permalink"];
     		$section_number = $row["Section"];
+    		$post_title = $row["Title"];
     		$post_time = $row["Date"];
+    		$replyURL = $row["ReplyURL"];
+    		$reply_title = $row["Reply_Title"];
   			$content = stripslashes($row["Content"]);
   			$raw = $content;
+  			
+  			$post_array = explode("\n", $content);
+    		$size = sizeof($post_array);
+			if (substr($post_array[0], 0, 2) == "# ") {
+				$length = strlen($post_array[0]);
+				$required = $length - 2;
+				$post_title = substr($post_array[0], 2, $required);
+				$content = '';
+				for ($i = 2; $i < $size; $i++) {
+					$content .= $post_array[$i];
+				}
+			}
+			
+			if($replyURL != '') {
+    			$reply_Str = '<p class="replyto"><em>In reply to: <a class="u-in-reply-to" href="' . $replyURL . '">' . $reply_title . '</a>...</em></p>';
+		    	$content = substr($content, (strlen($replyURL)+9));
+    		} else {
+    			$reply_Str = '';
+    		}
+	
   			$content = filters($content);
 
 			$Parsedown = new ParsedownExtra();
@@ -119,10 +141,17 @@ if($rows > 5){
             $pattern = "/(?<!&|\'|\#|\)|\||\.|\/|\[|-|=|\")(?<=[a-z]|[A-Z]|\(|\s)$query(?![^<]*\>)(?!\/|\"\>)/i";
             $replace = '<span class="result">' . stripslashes($query) . '</span>';
 			$content = preg_replace($pattern, $replace, $content);
+			
+			if ($post_title != '') {
+    			$openStr = '<h2 class="p-name postTitle">' . $post_title . '</h2>' . $reply_Str . '<div class="entry-content e-content"><p>';
+    		} else {
+    			$openStr = $reply_Str;
+    		}
 
 			echo '<article class="h-entry"><div class="entry-content e-content">';
 			echo '<div id="post' . $ID . '">';
-			echo '<p class="section"><a class="u-url search-u-url" name="p' . $section_number . '" href="' . $permalink . '#p' . $section_number . '" class="postCount">#</a>' . $content . "</p>";
+			echo '<div class="section"><a style="float: left;" class="u-url search-u-url" name="p' . $section_number . '" href="' . $permalink . '#p' . $section_number . '" class="postCount">#</a>' . $openStr . $content . "</div>";
+			echo '<span style="font-size: 12px; position: relative; top: -5px;">→ <a href="' . $permalink . '#p' . $section_number . '" style="text-decoration: none;">' . date(DATE_META, strtotime($post_time)) . '</a></span>';
 			echo '</div><!-- .entry-content --></article>';
 		}
 
