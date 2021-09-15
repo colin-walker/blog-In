@@ -160,7 +160,7 @@ if($rows > 5){
 		} else {
 			echo "<a title='First' href='{$_SERVER['PHP_SELF']}?pagenum=1&s=$query'><<</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
 			$previous = $pagenum-1;
-			echo "<a title='Previous' href='{$_SERVER['PHP_SELF']}?pagenum=$previous&s=$query'><</a>";
+			echo "<a accesskey='j' title='Previous' href='{$_SERVER['PHP_SELF']}?pagenum=$previous&s=$query'><</a>";
 		}
 		if ($pagenum != 1 && $pagenum != $last) {
 			echo '<span style="margin: 0 20px;"> </span>';
@@ -168,7 +168,7 @@ if($rows > 5){
 		if ($pagenum == $last) {
 		} else {
 			$next = $pagenum+1;
-			echo "<a title='Next' href='{$_SERVER['PHP_SELF']}?pagenum=$next&s=$query'>></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+			echo "<a accesskey='k' title='Next' href='{$_SERVER['PHP_SELF']}?pagenum=$next&s=$query'>></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
 			echo "<a title='Last' href='{$_SERVER['PHP_SELF']}?pagenum=$last&s=$query'>>></a>";
 		}
 		echo '</div>';

@@ -174,6 +174,8 @@ A number of accesskeys are defined across the system as below:
 - accesskey a = go to admin
 - accesskey c = close post form but stay in edit mode
 - accesskey e = toggle edit mode
+- accesskey j = previous day
+- accesskey k = next day
 - accesskey l = go to login page
 - accesskey r = show random post
 - accesskey s = go to search
@@ -186,8 +188,17 @@ A number of accesskeys are defined across the system as below:
 
 ### Search
 
+- accesskey j = previous page
+- accesskey k = next page
 - accesskey s = submit search
 - accesskey s = new search when in results
+
+### Journal
+
+- accesskey e = toggle edit mode
+- accesskey j = previous day
+- accesskey k = next day
+- accesskey r = show random entry
 
 ## Webmentions
 

@@ -226,14 +226,14 @@ if ($_SESSION['auth'] == $dbauth) {
 		<div class="nav-links">
 
 <?php
-if ($date != '2020-12-15') {
-echo '<div class="nav-previous"><a href="/journal/?date=' . $prev_date . '"><<</a></div>';
+if ($date != INSTALL_DATE) {
+echo '<div class="nav-previous"><a accesskey="j" href="/journal/?date=' . $prev_date . '"><<</a></div>';
 }
 if ($date != date('Y-m-d')) {
 	if ($date == date('Y-m-d', strtotime($today .' -1 day'))) {
-		echo '<div class="nav-next"><a href="/journal/">>></a></div>';
+		echo '<div class="nav-next"><a accesskey="k" href="/journal/">>></a></div>';
 	} else {
-		echo '<div class="nav-next"><a href="/journal/?date=' . $next_date . '">>></a></div>';
+		echo '<div class="nav-next"><a accesskey="k" href="/journal/?date=' . $next_date . '">>></a></div>';
 	}
 }
 ?>
