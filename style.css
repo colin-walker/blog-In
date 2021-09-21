@@ -108,6 +108,22 @@ a {
 	margin: 0.75em auto 1.25em;
 }
 
+.alignleft {
+	display: inline;
+	float: left;	
+	margin-right: 1.5em;
+	margin-top: .75em;
+	margin-bottom: .75em;
+}
+
+.alignright {
+	display: inline;
+	float: right;	
+	margin-left: 1.5em;
+	margin-top: .75em;
+	margin-bottom: .75em;
+}
+
 .left {
     float: left;
     width: 48%;
@@ -548,6 +564,8 @@ body [fragmention] em {
 
 .entry-content img {
   border-radius: 8px;
+  max-width: 100% !important;
+  height: auto !important;
 }
 
 .entry-content li {
@@ -835,6 +853,10 @@ iframe {
     left: 15px !important;
 }
 
+.nested.linkedComment .commentDelForm {
+    left: 5px !important;
+}
+
 .commentNameSpan {
 	font-family: Helvetica, Arial, san-serif;
 	font-size: 16px;
@@ -931,8 +953,6 @@ object.avatar {
 	color: var(--grey-3);
 	margin: 50px 0 0;
 }
-
-
 
 /* flash "reply to" */
  
@@ -1212,7 +1232,7 @@ object.avatar {
     }
     
     .linkedComment .commentDelForm {
-        left: 15px;   
+        left: 20px;   
     }
 
   	#comment_submit {
