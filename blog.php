@@ -284,6 +284,7 @@ if ( isset($_POST['dopost']) && $_POST['randcheck'] == $_SESSION['rand']  ) {
     	        }
             }
         }        
+        $newpost = true;
     } else {
     	die("Admin only!");
     }
@@ -1315,6 +1316,17 @@ if ($date != date('Y-m-d')) {
          })
  <?php } ?>
      </script>
+     
+<?php
+	if ($newpost == true) {
+?>
+	<script>
+		var last_post = document.getElementById("post<?php echo $ID; ?>");
+		last_post.scrollIntoView();
+	</script>
+<?php
+	}
+?>
 
 <?php
 	$pageDesktop = "210";
