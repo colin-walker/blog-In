@@ -42,6 +42,18 @@ if ($_SESSION['auth'] != $dbauth) {
 }
 
 
+// Redirect if no drafts
+
+$draftsql = $connsel->prepare("SELECT * FROM " . POSTS . " WHERE Draft='draft' ");
+$draftsql->execute();
+$draftresult = mysqli_stmt_get_result($draftsql);
+$draftcount = mysqli_num_rows($draftresult);
+if($draftcount == 0) {
+  header("location: " . BASE_URL);
+  exit;
+}
+
+
 // Update existing post
 
 if ( isset($_POST['updatepost']) ) {
@@ -149,11 +161,11 @@ if ( isset($_POST['updatepost']) ) {
 <?php
 
 	    $draftsql = $connsel->prepare("SELECT * FROM " . POSTS . " WHERE Draft='draft' ");
-        $draftsql->execute();
-        $draftresult = mysqli_stmt_get_result($draftsql);
-        $draftcount = mysqli_num_rows($draftresult);
+      $draftsql->execute();
+      $draftresult = mysqli_stmt_get_result($draftsql);
+      $draftcount = mysqli_num_rows($draftresult);
 				
-        if($draftcount == 0) {
+        if ($draftcount == 0) {
             header("location: " . BASE_URL);
             exit;
         }
@@ -176,8 +188,8 @@ if (isset($_POST['deletepost'])) {
 	    include '../livefeed.php';
 	    
 	    $draftsql = $connsel->prepare("SELECT * FROM " . POSTS . " WHERE Draft='draft' ");
-        $draftsql->execute();
-        $draftresult = mysqli_stmt_get_result($draftsql);
+      $draftsql->execute();
+      $draftresult = mysqli_stmt_get_result($draftsql);
         $draftcount = mysqli_num_rows($draftresult);
 				
         if($draftcount == 0) {
