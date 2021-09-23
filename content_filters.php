@@ -412,4 +412,50 @@ function reply($content) {
 
 
 
+function bookmark($content) {
+		$open = '!(';
+		$close = ')!';
+
+		$content = '..' . $content;
+		$linkopos = strpos($content, $open);
+		$linkcpos = strpos($content, $close);
+		$len = $linkcpos-$linkopos;
+		$orig = substr($content, $linkopos, $len+2);
+		$linktext = substr($content, $linkopos+2, $len-2);
+
+		if ( $linkopos && $linkcpos && $linktext !="" ) {
+			ob_start();
+            $ch = curl_init($linktext);
+			curl_setopt($ch,CURLOPT_USERAGENT,parse_url(BASE_URL)['host']);
+			curl_setopt($ch,CURLOPT_HEADER,0);
+			$ok = curl_exec($ch);
+			curl_close($ch);
+			$result = ob_get_contents();
+			ob_end_clean();
+
+			$dom = new DOMDocument();
+			libxml_use_internal_errors(true);
+			$dom->loadHTML($result);
+			libxml_clear_errors();
+			$book_title = $dom->getElementsByTagName('title')->item('0')->nodeValue;
+
+			if ($book_title != '') {
+				$length = 75;
+				if (strlen($book_title) > $length) {
+				    $book_title = wordwrap($book_title, $length);
+				    $book_title = substr($book_title, 0, strpos($book_title, "\n"));
+				}
+
+				$book_str = '<p><em>Bookmarked: <a class="u-bookmark-of" href="' . $linktext . '">' . $book_title . '</a>...</em></p>';
+				$content = str_replace($orig, $book_str, $content);
+			}
+		}
+
+		$content = substr($content, 2);
+		return $content;
+}
+
+
+
+
 ?>

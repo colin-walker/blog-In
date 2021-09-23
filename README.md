@@ -114,6 +114,7 @@ In addition to Markdown, custom markup can be used to enhance and simplify posti
 - `==marked text==` – the HTML mark tag
 - `((link to be liked))` - insert properly formatted link to send a webmention Like
 - `(r(link to reply to)r)` – insert properly formatted link to send a webmention Reply
+- `!(link to bookmark)` – insert properly formatted link to send a webmention Bookmark
 
 One other piece of markup I use in the journal allows me to divide entries up into sections. Inserting `@@` at the start of a line will add a formatted hash character which looks like the blog permalinks but is purely visual.
 

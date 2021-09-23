@@ -238,6 +238,7 @@ if ( isset($_POST['dopost']) && $_POST['randcheck'] == $_SESSION['rand']  ) {
         }
         $content = $_POST['content'];
         $content = like($content);
+        $content = bookmark($content);
         if(strpos($content, '(r(') == 0) {
         	list($replyURL, $reply_title, $content) = reply($content);
         } else {
