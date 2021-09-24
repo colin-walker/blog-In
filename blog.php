@@ -693,10 +693,10 @@ if ($_SESSION['auth'] == $dbauth) { ?>
 <?php }
 
 if ($_SESSION['auth'] == $dbauth) {
-	$sql = $connsel->prepare("SELECT ID, Permalink, Section, Title, Content, Date, Draft, ReplyURL, Reply_Title FROM " . POSTS . " WHERE Day=? ORDER BY ID " . $post_order);
+	$sql = $connsel->prepare("SELECT ID, Permalink, Section, Title, Content, Date, Draft, ReplyURL, Reply_Title FROM " . POSTS . " WHERE Day=? ORDER BY Date " . $post_order);
 	$sql->bind_param("s", $dbdate);
 } else {
-	$sql = $connsel->prepare("SELECT ID, Permalink, Section, Title, Content, Date, Draft, ReplyURL, Reply_Title FROM " . POSTS . " WHERE Day=? AND Draft='' ORDER BY ID " . $post_order);
+	$sql = $connsel->prepare("SELECT ID, Permalink, Section, Title, Content, Date, Draft, ReplyURL, Reply_Title FROM " . POSTS . " WHERE Day=? AND Draft='' ORDER BY Date " . $post_order);
 	$sql->bind_param("s", $dbdate);
 }
   // output data of each row
