@@ -819,7 +819,7 @@ $result = mysqli_stmt_get_result($sql);
     $fetch_comment_sql->close();
 	echo '</div>' . PHP_EOL; // End section
 	echo '<time class="dt-published" datetime="' . date("c", strtotime($post_time)) . '"></time>' . PHP_EOL;
-	if ($post_order == 'DESC' && $post_meta') == 'yes') {
+	if ($post_order == 'DESC' && $post_meta == 'yes') {
 		echo '<span style="font-size: 12px; position: relative; top: -5px;">→ ' . date(DATE_META, strtotime($post_time)) . '</span>';
 	}
 ?>
