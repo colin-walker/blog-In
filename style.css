@@ -759,6 +759,10 @@ input[type="search"] {
 	top: 0.5px;
 }
 
+input[type="radio"], input[type="checkbox"] {
+  accent-color: var(--light-links);
+}
+
 select {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -1141,7 +1145,7 @@ object.avatar {
     }
     
 	.bigfoot-footnote__button {
-		top: -0.03em;
+		/*top: 0em;*/
 	}
     
     #page {
@@ -1439,6 +1443,10 @@ object.avatar {
 	input[type="search"], input[type="submit"]:active {
 		color: var(--grey-3);
 	}
+	
+	input[type="radio"], input[type="checkbox"] {
+    accent-color: var(--dark-links);
+  }
 
 	.entry-content a, .section a {
 		color: var(--dark-links) !important;
