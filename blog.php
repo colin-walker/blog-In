@@ -287,6 +287,12 @@ if ( isset($_POST['dopost']) && $_POST['randcheck'] == $_SESSION['rand']  ) {
         }        
         $newpost = true;
     } else {
+    	?>
+    	<script>
+    		let safetynet = localStorage.getItem("safetynet");
+    		localStorage.setItem("content", safetynet);
+    	</script>
+    	<?php
     	die("Admin only!");
     }
 }
@@ -393,6 +399,12 @@ if ( isset($_POST['updatepost']) ) {
 
         include 'livefeed.php';
     } else {
+    	?>
+    	<script>
+    		let safetynet = localStorage.getItem("safetynet");
+    		localStorage.setItem("content", safetynet);
+    	</script>
+    	<?php
     	die("Admin only!");
     }
 }
@@ -1313,8 +1325,10 @@ if ($date != date('Y-m-d')) {
 		})
 		
 		document.addEventListener("submit", function () {
-             localStorage.removeItem("content");
-         })
+			let cached = localStorage.getItem("content");
+		    localStorage.setItem("safetynet", cached);
+            localStorage.removeItem("content");
+        })
  <?php } ?>
      </script>
      
