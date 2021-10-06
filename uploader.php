@@ -69,7 +69,8 @@ if(isset($_POST["submit"])) {
 </head>
 <body>
 
-<form action="" method="post" enctype="multipart/form-data" style="width: 100%; margin-top: 10px;">
+<form action="" method="post" enctype="multipart/form-data" style="width: 100%; margin-top: 10px;" onsubmit="document.getElementById('upload').value='Uploading'; document.getElementById('upload').style.border='0px'; document.getElementById('upload').style.display='none'; document.getElementById('is_uploaded').style.fontSize='12px'; document.getElementById('is_uploaded').style.paddingTop='7px'; document.getElementById('is_uploaded').innerText='Uploading...';">
+<form action="" method="post" enctype="multipart/form-data" style="width: 100%; margin-top: 10px;" onsubmit="document.getElementById('upload').value='Uploading';">
       <label id="choose_button" class="button" for="fileToUpload" style="color: #999; opacity: 1;">Choose File</label><span id="is_uploaded" style="display:none; font-size: 18px; position: relative; left: 110px; top: -12px">✓</span><input onchange="uploaded();" style="display: none; opacity: 0; color: #999; width: 30%;" type="file" name="fileToUpload" id="fileToUpload" required></span><input id="upload" type="submit" value="Upload" name="submit" style="position: absolute; top: 0px; right: 0px;">
 </form>
 
@@ -94,7 +95,7 @@ if(isset($_POST["submit"])) {
         document.execCommand("copy");
         document.getElementById("copy_button").value = "Copied";
         window.getSelection().removeAllRanges();
-        setTimeout(function () { location.href="https://colinwalker.blog/uploader.php"; }, 2000);
+        setTimeout(function () { location.href="/uploader.php"; }, 2000);
     }
     
     function uploaded() {
