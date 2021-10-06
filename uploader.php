@@ -71,7 +71,7 @@ if(isset($_POST["submit"])) {
 
 <form action="" method="post" enctype="multipart/form-data" style="width: 100%; margin-top: 10px;" onsubmit="document.getElementById('upload').value='Uploading'; document.getElementById('upload').style.border='0px'; document.getElementById('upload').style.display='none'; document.getElementById('is_uploaded').style.display='none'; document.getElementById('is_uploaded').style.fontSize='12px'; document.getElementById('is_uploaded').style.paddingTop='7px'; document.getElementById('choose_button').innerText='Uploading...';">
 <form action="" method="post" enctype="multipart/form-data" style="width: 100%; margin-top: 10px;" onsubmit="document.getElementById('upload').value='Uploading';">
-      <label id="choose_button" class="button" for="fileToUpload" style="color: #999; opacity: 1;">Choose File</label><span id="is_uploaded" style="display:none; font-size: 18px; position: relative; left: 110px; top: -10px;">✓</span><input onchange="uploaded();" style="display: none; opacity: 0; color: #999; width: 30%;" type="file" name="fileToUpload" id="fileToUpload" required></span><input id="upload" type="submit" value="Upload" name="submit" style="display: none; position: absolute; top: 0px; right: 0px;">
+      <label id="choose_button" class="button" for="fileToUpload" style="color: #999; opacity: 1;">Choose File</label><span id="is_uploaded" style="display:none; font-size: 18px; position: relative; left: 110px; top: -11px;">✓</span><input onchange="uploaded();" style="display: none; opacity: 0; color: #999; width: 30%;" type="file" name="fileToUpload" id="fileToUpload" required></span><input id="upload" type="submit" value="Upload" name="submit" style="display: none; position: absolute; top: 0px; right: 0px;">
 </form>
 
 
@@ -101,6 +101,7 @@ if(isset($_POST["submit"])) {
     function uploaded() {
         document.getElementById("is_uploaded").style.display = "block";
         document.getElementById("upload").style.display = "block";
+        document.getElementById("choose_button").innerText="Selected";
     }
 </script>
 
