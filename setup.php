@@ -183,6 +183,7 @@ if ( file_exists( $file ) ) {
 		$sql .= "INSERT INTO " . $options . " (Option_Name, Option_Value) VALUES ('Description', '');";
 		$sql .= "INSERT INTO " . $options . " (Option_Name, Option_Value) VALUES ('About_Type', 'name');";
 		$sql .= "INSERT INTO " . $options . " (Option_Name, Option_Value) VALUES ('About', '');";
+		$sql .= "INSERT INTO " . $options . " (Option_Name, Option_Value) VALUES ('Licence', 'yes');";
 		
 		
 		$sql .= "INSERT INTO " . $options . " (Option_Name, Option_Value) VALUES ('SMTP_Host', '');";

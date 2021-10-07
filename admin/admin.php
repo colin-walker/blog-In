@@ -35,8 +35,9 @@ if ($_POST['update'] == 'true') {
     $login = $_POST['username'];
     $avatar = $_POST['avatar'];
     $description = $_POST['description'];
-    $about = $_POST['about'];
     $abouttype = $_POST['abouttype'];
+    $about = $_POST['about'];
+    $licence = $_POST['licence'];
     $smtphost = $_POST['smtphost'];
     $smtpuser = $_POST['smtpuser'];
     $smtppass = $_POST['smtppass'];
@@ -57,8 +58,9 @@ if ($_POST['update'] == 'true') {
     $username = getOption('Login');
     $dbavatar = getOption('Avatar');
     $dbdesc = getOption('Description');
-    $dbabout = getOption('About');
     $dbabouttype = getOption('About_Type');
+    $dbabout = getOption('About');
+    $dblicence = getOption('Licence');
     $dbsmtphost = getOption('SMTP_Host');
     $dbsmtpuser = getOption('SMTP_Username');
     $dbsmtppass = getOption('SMTP_Password');
@@ -91,6 +93,11 @@ if ($_POST['update'] == 'true') {
         $changeStr .= 'Description changed.<br/>';
     }
     
+    if ($abouttype != $dbabouttype) {
+        setOption('About_Type', $abouttype);
+        $changeStr .= 'About type changed.<br/>';
+    }
+    
     $Parsedown = new ParsedownExtra();
     $dbmd = $Parsedown->text($dbabout);
     
@@ -99,9 +106,9 @@ if ($_POST['update'] == 'true') {
         $changeStr .= 'About text changed.<br/>';
     }
     
-    if ($abouttype != $dbabouttype) {
-        setOption('About_Type', $abouttype);
-        $changeStr .= 'About type changed.<br/>';
+    if ($licence != $dblicence) {
+        setOption('Licence', $licence);
+        $changeStr .= 'Licence status changed.<br/>';
     }
     
 // SMTP Options
@@ -242,7 +249,12 @@ if ( $_POST['passcheck'] == 'true' ) {
  				  <option value="about"<?php if(getOption('About_Type') == 'about') { echo 'selected'; } ?>>Use 'About'</option>
  				</select>
             	<label>About Text</label>
- 				<textarea rows="10" name="about" class="form-control" style="height: 150px; margin-bottom: 50px;"><?php echo getOption('About'); ?></textarea>
+ 				<textarea rows="10" name="about" class="form-control" style="height: 150px;"><?php echo getOption('About'); ?></textarea>
+ 				<label>Show Licence</label>
+ 				<select name="licence" class="form-control" style="width: 100%; margin-bottom: 50px;">
+ 				  <option value="yes"<?php if(getOption('Licence') == 'yes') { echo 'selected'; } ?>>yes</option>
+ 				  <option value="no" <?php if(getOption('Licence') == 'no') { echo 'selected'; } ?>>no</option>
+ 				</select>
  				
             	<label>SMTP host</label>
  				<input type="text" name="smtphost" class="form-control" value="<?php echo getOption('SMTP_Host'); ?>">
