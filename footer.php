@@ -1,6 +1,10 @@
     <div id="siteID" class="siteID">
         <span class="nameSpan">
+        <?php if(getOption('About_Type') == 'name') { ?>
             <a href="/about/"><?php echo constant("NAME"); ?></a>
+        <?php } else { ?>
+            <a href="/about/">About</a>
+        <?php } ?>
         </span>
         <br/>
         <span class="licSpan">

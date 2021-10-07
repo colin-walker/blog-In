@@ -36,6 +36,7 @@ if ($_POST['update'] == 'true') {
     $avatar = $_POST['avatar'];
     $description = $_POST['description'];
     $about = $_POST['about'];
+    $abouttype = $_POST['abouttype'];
     $smtphost = $_POST['smtphost'];
     $smtpuser = $_POST['smtpuser'];
     $smtppass = $_POST['smtppass'];
@@ -57,6 +58,7 @@ if ($_POST['update'] == 'true') {
     $dbavatar = getOption('Avatar');
     $dbdesc = getOption('Description');
     $dbabout = getOption('About');
+    $dbabouttype = getOption('About_Type');
     $dbsmtphost = getOption('SMTP_Host');
     $dbsmtpuser = getOption('SMTP_Username');
     $dbsmtppass = getOption('SMTP_Password');
@@ -95,6 +97,11 @@ if ($_POST['update'] == 'true') {
     if ($about != $dbabout) {
         setOption('About', $about);
         $changeStr .= 'About text changed.<br/>';
+    }
+    
+    if ($abouttype != $dbabouttype) {
+        setOption('About_Type', $abouttype);
+        $changeStr .= 'About type changed.<br/>';
     }
     
 // SMTP Options
@@ -229,7 +236,12 @@ if ( $_POST['passcheck'] == 'true' ) {
  				<input type="text" name="avatar" class="form-control" value="<?php echo getOption('Avatar'); ?>">
             	<label>Description</label>
  				<textarea rows="3" name="description" class="form-control" style="height: 42px;"><?php echo getOption('Description'); ?></textarea>
-            	<label>About</label>
+ 				<label>About Type</label>
+ 				<select name="abouttype" class="form-control" style="width: 100%;">
+ 				  <option value="name" <?php if(getOption('About_Type') == 'name') { echo 'selected'; } ?>>Use site name</option>
+ 				  <option value="about"<?php if(getOption('About_Type') == 'about') { echo 'selected'; } ?>>Use 'About'</option>
+ 				</select>
+            	<label>About Text</label>
  				<textarea rows="10" name="about" class="form-control" style="height: 150px; margin-bottom: 50px;"><?php echo getOption('About'); ?></textarea>
  				
             	<label>SMTP host</label>

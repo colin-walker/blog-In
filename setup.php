@@ -31,7 +31,7 @@ if ( file_exists( $file ) ) {
 		fwrite($createfile,''.PHP_EOL);
 		fwrite($createfile,'if(!defined("APP_RAN")){ die(); }'.PHP_EOL);
 		fwrite($createfile,''.PHP_EOL);
-		fwrite($createfile,'define("NAME", "' . $sitename . '");'.PHP_EOL);
+		//fwrite($createfile,'define("NAME", "' . $sitename . '");'.PHP_EOL);
 		fwrite($createfile,'define("BASE_URL", "' . $url . '");'.PHP_EOL);
 		fwrite($createfile,'define("MAILTO", "' . $email . '");'.PHP_EOL);
 		fwrite($createfile,''.PHP_EOL);
@@ -175,11 +175,13 @@ if ( file_exists( $file ) ) {
 		$options = $prefix."_options";
 		
 		$conn = new mysqli($dbserver, $dbwrite, $writepass, $dbname);
+		$sql = "INSERT INTO " . $options . " (Option_Name, Option_Value) VALUES ('Sitename', '" . $sitename ."');";
 		$sql = "INSERT INTO " . $options . " (Option_Name, Option_Value) VALUES ('Login', '" . $login ."');";
 		$sql .= "INSERT INTO " . $options . " (Option_Name, Option_Value) VALUES ('Password', '" . $password ."');";
 		$sql .= "INSERT INTO " . $options . " (Option_Name, Option_Value) VALUES ('Auth', '');";
 		$sql .= "INSERT INTO " . $options . " (Option_Name, Option_Value) VALUES ('Avatar', '');";
 		$sql .= "INSERT INTO " . $options . " (Option_Name, Option_Value) VALUES ('Description', '');";
+		$sql .= "INSERT INTO " . $options . " (Option_Name, Option_Value) VALUES ('About_Type', 'name');";
 		$sql .= "INSERT INTO " . $options . " (Option_Name, Option_Value) VALUES ('About', '');";
 		
 		
@@ -199,7 +201,6 @@ if ( file_exists( $file ) ) {
 		$sql .= "INSERT INTO " . $options . " (Option_Name, Option_Value) VALUES ('Use_Now', 'no');";
 		$sql .= "INSERT INTO " . $options . " (Option_Name, Option_Value) VALUES ('Now_Text', '');";
 		$sql .= "INSERT INTO " . $options . " (Option_Name, Option_Value) VALUES ('Now_Updated', '');";
-		$sql .= "INSERT INTO " . $options . " (Option_Name, Option_Value) VALUES ('Use_Random', 'no');";
 
 		
 		if ($conn->multi_query($sql) === TRUE) {
@@ -246,7 +247,7 @@ if ( file_exists( $file ) ) {
 	    <h2 class="titleSpan">Setup</h2>
 	    <form id="setup_form" method="post">
             <div>
-                <label>Name</label>
+                <label>Sitename</label>
                 <input type="text" name="name" class="form-control" value="" required>
                 <label>URL</label>
                 <input type="url" name="url" class="form-control" value="" required>
