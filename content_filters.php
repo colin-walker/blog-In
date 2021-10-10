@@ -344,6 +344,7 @@ function like($content) {
 			$dom->loadHTML($result);
 			libxml_clear_errors();
 			$liked_title = $dom->getElementsByTagName('title')->item('0')->nodeValue;
+			$liked_title = trim($liked_title);
 
 			if ($liked_title != '') {
 				$length = 75;
@@ -389,6 +390,7 @@ function reply($content) {
 			$dom->loadHTML($result);
 			libxml_clear_errors();
 			$reply_title = $dom->getElementsByTagName('title')->item('0')->nodeValue;
+			$reply_title = trim($reply_title);
 
 			if ($reply_title != '') {
 				$length = 50;
@@ -454,8 +456,5 @@ function bookmark($content) {
 		$content = substr($content, 2);
 		return $content;
 }
-
-
-
 
 ?>
