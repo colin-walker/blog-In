@@ -27,7 +27,7 @@ $content = str_replace('[hr]', '<hr noshade width="33%" style="margin-bottom: 25
 	$content = preg_replace('/((?<!&|\'|\`|\#|\)|\||\/|\[|[0-9]|[a-z]|=")#(?!\s|#|\*|\$|^[a-z]).*?)([^\s|^"|^\)|^\.<]+)/i', '<span class="hashtag"><a href="' . BASE_URL . '/search/?s=%23'.'$2">#$2</a></span>', $content);
 
 	
-	// internal links
+// internal links
 
 	$open = '[[';
 	$close = ']]';
@@ -62,63 +62,6 @@ $content = str_replace('[hr]', '<hr noshade width="33%" style="margin-bottom: 25
 			$linktext = substr($content, $opos+2, $len-2);
 			$gardenlinkurl = strtolower(str_replace(' ', '-', $linktext));
 			$replace = '&#123;&#123;<a href="' . $linktext . '">' . $linktext . '</a>&#125;&#125;';
-			$content = str_replace($orig, $replace, $content);
-		}
-	}
-	
-	
-// iframe quotes
-
-	$open = '<<';
-	$close = '>>';
-	$linkcount = substr_count($content, $open);
-
-	for ($i=0; $i < $linkcount; $i++) {
-		$opos = strpos($content, $open);
-		$cpos = strpos($content, $close);
-		$len = $cpos-$opos;
-		if ($cpos - $opos != 2) {
-			$orig = substr($content, $opos, $len+2);
-			$linktext = substr($content, $opos+2, $len-2);
-			$replace = '<div class="aligncenter" style="position: relative; width: 100%; padding-top: 56.25%;"><iframe style="position: absolute; top: 10px; bottom: 0; left: 0; right: 0; width: 100%; height: 100%" src="' . $linktext . '"></iframe></div>';
-			$content = str_replace($orig, $replace, $content);
-		}
-	}
-
-
-// summary
-
-	$open = '[s[';
-	$close = ']s]';
-	$linkcount = substr_count($content, $open);
-
-	for ($i=0; $i < $linkcount; $i++) {
-		$opos = strpos($content, $open);
-		$cpos = strpos($content, $close);
-		$len = $cpos-$opos;
-		if ($cpos - $opos != 2) {
-			$orig = substr($content, $opos, $len+4);
-			$summary = substr($content, $opos+3, $len-3);
-			$replace = "<details><summary style='outline: none;'>$summary</summary>";
-			$content = str_replace($orig, $replace, $content);
-		}
-	}
-
-
-// details
-
-	$open = '[d[';
-	$close = ']d]';
-	$linkcount = substr_count($content, $open);
-
-	for ($i=0; $i < $linkcount; $i++) {
-		$opos = strpos($content, $open);
-		$cpos = strpos($content, $close);
-		$len = $cpos-$opos;
-		if ($cpos - $opos != 2) {
-			$orig = substr($content, $opos, $len+4);
-			$details = substr($content, $opos+3, $len-3);
-			$replace = "<div style='margin-left: 17px;'>$details</div></details>";
 			$content = str_replace($orig, $replace, $content);
 		}
 	}
@@ -165,11 +108,11 @@ $content = str_replace('[hr]', '<hr noshade width="33%" style="margin-bottom: 25
 
 	$strike = '~~';
 	$check = '/~~/i';
-	$linkscount = substr_count($content, $strike);
+	$strikecount = substr_count($content, $strike);
 
 	$odd = 1;
 
-	for ($i=0; $i < $linkscount; $i++) {
+	for ($i=0; $i < $strikecount; $i++) {
 		if ($odd == 1) {
 			$replace = '<del>';
 			$odd = 0;
@@ -240,8 +183,6 @@ $content = str_replace('[hr]', '<hr noshade width="33%" style="margin-bottom: 25
 			$orig = substr($content, $opos, $len+4);
 			$linktext = substr($content, $opos+3, $len-3);
 			$replace = '<audio controls="controls" preload="metadata" src="' . $linktext . '"></audio>';
-		
-			//$replace = '<div class="aligncenter" style="position: relative; width: 75%; padding-top: 42.1875%;"><iframe style="position: absolute; top: 0; bottom: 0; left: 0; right: 0; width: 100%; height: 100%" src="' . $linktext . '" allowfullscreen="true" frameborder="0">Click to watch...</iframe></div>';
 			$content = str_replace($orig, $replace, $content);
 		}
 	}
@@ -305,8 +246,7 @@ $content = str_replace('[hr]', '<hr noshade width="33%" style="margin-bottom: 25
 	$pattern = "/::(.*)::/i";
 	$replace = "<span style='background-color: #f1fe19; color: #333; padding: 2px 5px; border-radius: 5px;'>$1</span>";
 	$content = preg_replace($pattern,$replace,$content);
-		
-//	return $content;
+	
 
 // mark text
 
@@ -334,6 +274,7 @@ function like($content) {
             $ch = curl_init($linktext);
 			curl_setopt($ch,CURLOPT_USERAGENT,parse_url(BASE_URL)['host']);
 			curl_setopt($ch,CURLOPT_HEADER,0);
+      		curl_setopt($ch, CURLOPT_ENCODING, "");
 			$ok = curl_exec($ch);
 			curl_close($ch);
 			$result = ob_get_contents();
@@ -344,7 +285,7 @@ function like($content) {
 			$dom->loadHTML($result);
 			libxml_clear_errors();
 			$liked_title = $dom->getElementsByTagName('title')->item('0')->nodeValue;
-			$liked_title = trim($liked_title);
+			$liked_title = utf8_decode(trim($liked_title));
 
 			if ($liked_title != '') {
 				$length = 75;
@@ -380,6 +321,7 @@ function reply($content) {
             $ch = curl_init($linktext);
 			curl_setopt($ch,CURLOPT_USERAGENT,parse_url(BASE_URL)['host']);
 			curl_setopt($ch,CURLOPT_HEADER,0);
+      		curl_setopt($ch, CURLOPT_ENCODING, "");
 			$ok = curl_exec($ch);
 			curl_close($ch);
 			$result = ob_get_contents();
@@ -390,7 +332,7 @@ function reply($content) {
 			$dom->loadHTML($result);
 			libxml_clear_errors();
 			$reply_title = $dom->getElementsByTagName('title')->item('0')->nodeValue;
-			$reply_title = trim($reply_title);
+			$reply_title = utf8_decode(trim($reply_title));
 
 			if ($reply_title != '') {
 				$length = 50;
