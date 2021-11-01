@@ -49,6 +49,15 @@ if ($_POST['source'] != $_POST['target']) {
 			$explode = explode("#p", $sourceURL);
 			$mainlink = $explode[0];
 			$sourceSection = $explode[1];
+			$s = $sourceSection -1;
+			//echo $sourceSection . PHP_EOL;  // uncomment for testing
+			//echo $s . PHP_EOL;
+			if ($s == -1) {
+				$explode = explode("&p=", $sourceURL);	
+				$sourceSection = $explode[1];
+				$s = $sourceSection -1;
+				//echo $s;
+			}
 		}
 
 		$post_check = $connsel->prepare("SELECT ID FROM " . POSTS . " WHERE Permalink=? AND Section=?");
@@ -96,14 +105,14 @@ if ($_POST['source'] != $_POST['target']) {
 
 		//print_r( $mf ); // uncomment for testing via something like POSTMAN
 
-		$s = $sourceSection -1;
-		//echo $sourceSection . PHP_EOL;  // uncomment for testing
-		//echo $s . PHP_EOL;
-
 		$Name = $mf['items']['0']['children']["$s"]['properties']['author']['0']['properties']['name'][0];
-		if ( !$Name ) {
+	  	if ( !$Name ) {
 			$Name = $mf['items']['0']['properties']['author']['0']['properties']['name'][0];
 		}
+	  	if ( !$Name ) {
+			$Name = $mf['items']['0']['children']['0']['properties']['author']['0']['properties']['name'][0];
+		}
+
 		if ( !$Name ) {
 			if ( strpos($sourceURL, BASE_URL) ) {
 				$Name = NAME;
@@ -113,6 +122,9 @@ if ($_POST['source'] != $_POST['target']) {
 		$Photo = $mf['items']['0']['children']["$s"]['properties']['author']['0']['properties']['photo']['0'];
 		if ( !$Photo ) {
 			$Photo = 	$mf['items']['0']['properties']['author']['0']['properties']['photo']['0'];
+		}
+		if ( !$Photo ) {
+			$Photo = 	$mf['items']['0']['children']['0']['properties']['author']['0']['properties']['photo']['0'];
 		}
 		
 		if ( strpos($sourceURL, BASE_URL) == 0 ) {
@@ -172,25 +184,25 @@ if ($_POST['source'] != $_POST['target']) {
 		$comment_sql->bind_param("issssssss", $Parent, $Name, $Photo, $Website, $Comment, $Mention, $Like, $Reply, $fragmention);
 		if($comment_sql) {
 			$comment_sql->execute();
-	    		$comment_ID = $comment_sql->insert_id;
-	    		$cid = $comment_ID;
+	    	$comment_ID = $comment_sql->insert_id;
+	    	$cid = $comment_ID;
 			$comment_sql->close();
 
 			$parent_sql = $connsel->prepare("SELECT Permalink, Section FROM " . POSTS . " WHERE ID=?");
 			$parent_sql->bind_param("i", $Parent);
-    			$parent_sql->execute();
-    			$parent_sql->bind_result($db_permalink, $db_section);
-    			$parent_result = mysqli_stmt_get_result($parent_sql);
-    			$row = $parent_result->fetch_assoc();
-    			$permalink = $row["Permalink"];
-    			$section = $row["Section"];
-    			$postlink = $permalink . '&c=' . $section . ':' . $cid; //'#p' . $section;
-    			$parent_sql->close();
+    		$parent_sql->execute();
+    		$parent_sql->bind_result($db_permalink, $db_section);
+    		$parent_result = mysqli_stmt_get_result($parent_sql);
+    		$row = $parent_result->fetch_assoc();
+    		$permalink = $row["Permalink"];
+    		$section = $row["Section"];
+    		$postlink = $permalink . '&c=' . $section . ':' . $cid; //'#p' . $section;
+    		$parent_sql->close();
 
-    			$body .= '<p>A new webmention has been received on the blog.</p>';
-    			$body .= '<p>\'' . $Name . '\' mentioned <a href="' . $postlink . '">this post</a> saying:</p>';
-    			$body .= '<blockquote>' . $Comment . '</blockquote>';
-    			$body .= '<p>From: <a href="' . $Website . '">' . $Website . '</a></p>';
+    		$body .= '<p>A new webmention has been received on the blog.</p>';
+    		$body .= '<p>\'' . $Name . '\' mentioned <a href="' . $postlink . '">this post</a> saying:</p>';
+   			$body .= '<blockquote>' . $Comment . '</blockquote>';
+   			$body .= '<p>From: <a href="' . $Website . '">' . $Website . '</a></p>';
 
 			$mail = new PHPMailer(true);
 

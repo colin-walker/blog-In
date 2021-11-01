@@ -275,6 +275,9 @@ if ( isset($_POST['dopost']) && $_POST['randcheck'] == $_SESSION['rand']  ) {
 			$client = new IndieWeb\MentionClient();
             $urls = $client->findOutgoingLinks($wmcontent);
             foreach ($urls as $url) {
+	            if(strpos($url, BASE_URL) == 0){
+	              $sourceURL = BASE_URL . '/?date=' . $post_date . '#p' . $section;
+	            }
 	            $targetURL = $url;
 	            $endpoint = $client->discoverWebmentionEndpoint($targetURL);
 	            if ($endpoint) {
@@ -367,6 +370,9 @@ if ( isset($_POST['updatepost']) ) {
 
                 $urls = $client->findOutgoingLinks($wmcontent);
                 foreach ($urls as $url) {
+	            	if(strpos($url, BASE_URL) == 0){
+	              		$sourceURL = BASE_URL . '/?date=' . $post_date . '#p' . $section;
+	            	}
 	                $targetURL = $url;
 	                $endpoint = $client->discoverWebmentionEndpoint($targetURL);
 	                if ($endpoint) {
