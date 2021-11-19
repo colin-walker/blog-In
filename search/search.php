@@ -53,7 +53,7 @@ if ( (isset($_POST['s']) && $_POST['s'] != '' ) || (isset($_GET['s']) && $_GET['
 
     $query = strtolower($query);
 
-	$sql = $connsel->prepare("SELECT ID, Permalink, Section, Content, Date, Draft FROM " . POSTS . " WHERE Content REGEXP '[^[:punct:]][a-zA-Z0-9();,\'\"]?$query' AND Draft='' ORDER BY ID Desc");
+	$sql = $connsel->prepare("SELECT ID, Permalink, Section, Content, Date, Draft FROM " . POSTS . " WHERE Content REGEXP '[^(https.*)][a-zA-Z0-9();,\'\/\"]?$query' AND Draft='' ORDER BY ID Desc");
 	// output data of each row
 
 	$pagenum = htmlspecialchars($_GET["pagenum"]);
@@ -89,7 +89,7 @@ if($rows > 5){
 
 	$max = 'limit ' .($pagenum - 1) * $page_rows .',' .$page_rows;
 
-	$sql = $connsel->prepare("SELECT ID, Permalink, Section, Title, Content, Date, Draft, ReplyURL, Reply_Title FROM " . POSTS . " WHERE Content REGEXP '[^[:punct:]][a-zA-Z0-9();,\'\"]?$query' AND Draft='' ORDER BY ID Desc $max");
+	$sql = $connsel->prepare("SELECT ID, Permalink, Section, Title, Content, Date, Draft, ReplyURL, Reply_Title FROM " . POSTS . " WHERE Content REGEXP '[^(https.*)][a-zA-Z0-9();,\'\/\"]?$query' AND Draft='' ORDER BY ID Desc $max");
 
   if($sql) {
 	$sql->execute();

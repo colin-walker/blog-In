@@ -46,6 +46,11 @@ a {
 	color: var(--grey-7);
 }
 
+.hashtag a {
+	text-decoration-line: underline;
+	text-decoration-style: double;
+}
+
 
 /* Images */
 
@@ -101,7 +106,7 @@ a {
 	border-radius: 0 !important;
 }
 
-.aligncenter {
+.center, .aligncenter {
 	clear: both;
 	text-align: center;
 	display: block;
@@ -186,7 +191,7 @@ body.login {
 	margin: 0 0 20px;
 }
 
-#login_form label, #setup_form label, #admin_form label {
+#login_form label, #setup_form label, #admin_form label, #password_form label {
 	display: inline-block;
 	max-width: 100%;
 	margin-bottom: 5px;
@@ -493,7 +498,7 @@ body [fragmention] em {
 }
 
 .delicon {
-	display: none;
+	display: block;
 	float: left;
 	margin-right: 10px;
 	margin-bottom: 0px;
@@ -510,7 +515,7 @@ body [fragmention] em {
 }
 
 .editicon {
-	display: none;
+	display: block;
 	float:left;
 	margin-right: 10px;
 	font-size: 12px;
@@ -1074,6 +1079,7 @@ object.avatar {
 .day-links a {
 	margin: 0 0.7em;
 	letter-spacing: -0.5px;
+	text-decoration: none;
 }
 
 .searchicon {
@@ -1193,13 +1199,14 @@ object.avatar {
   }
 
 	.delicon {
-		top: 3.5px;
+		top: 5px;
 		margin-right: 12px;
 	}
 
   	.editicon {
     	margin-right: 12px;
     	font-size: 14px;
+    	top: 5px;
   	}
   	
   	.statusStr {
@@ -1501,6 +1508,10 @@ object.avatar {
 	
 	.wrapper, .wrapper2 {
 	    border: 1px solid #aaa;
+	}
+	
+	#login_form label, #setup_form label, #admin_form label, #password_form label {
+		color: var(--grey-3);
 	}
 
 }

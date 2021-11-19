@@ -24,7 +24,7 @@ $content = str_replace('[hr]', '<hr noshade width="33%" style="margin-bottom: 25
 
 // linked hashtags
 
-	$content = preg_replace('/((?<!&|\'|\`|\#|\)|\||\/|\[|[0-9]|[a-z]|=")#(?!\s|#|\*|\$|^[a-z]).*?)([^\s|^"|^\)|^\.<]+)/i', '<span class="hashtag"><a href="' . BASE_URL . '/search/?s=%23'.'$2">#$2</a></span>', $content);
+	$content = preg_replace('/((?<!&|\'|\`|\#|\)|\||\/|\[|[0-9]|[a-z]|=")#(?!\s|#|\*|\$|^[a-z]).*?)([^\s|^"|^\)|^\.<]+)/i', '<span class="hashtag"><a href="' . BASE_URL . '/search/?s=%23'.'$2&source=blog">#$2</a></span>', $content);
 
 	
 // internal links
@@ -203,7 +203,7 @@ $content = str_replace('[hr]', '<hr noshade width="33%" style="margin-bottom: 25
 			$orig = substr($content, $opos, $len+4);
 			$linktext = substr($content, $opos+3, $len-3);
 			
-			$replace = '<div class="aligncenter"><video width="90%" controls><source src="' . $linktext . '" type="video/mp4">Can\'t see the video? a href="' . $linktext . '">Click here to watch...</a></video></div>';
+			$replace = '<div class="aligncenter"><video width="90%" controls><source src="' . $linktext . '" type="video/mp4">Can\'t see the video? <a href="' . $linktext . '">Click here to watch...</a></video></div>';
 			
 			$content = str_replace($orig, $replace, $content);
 		}
@@ -246,15 +246,64 @@ $content = str_replace('[hr]', '<hr noshade width="33%" style="margin-bottom: 25
 	$pattern = "/::(.*)::/i";
 	$replace = "<span style='background-color: #f1fe19; color: #333; padding: 2px 5px; border-radius: 5px;'>$1</span>";
 	$content = preg_replace($pattern,$replace,$content);
-	
+
 
 // mark text
 
 	$mark = "/==(.*)==/i";
 	$replace = "<mark>$1</mark>";
 	$content = preg_replace($mark,$replace,$content);
-		
+
+	
+// search text
+
+//	$search = "/[$](.*)[$]/i";
+	$search = '/(\$\$(?<!\s)(.+?)(?!\s)\$\$)/i';
+	$match = preg_match($search,$content,$matches);
+	$term = trim($matches[0], '$');
+	$replace = "<a href='" . BASE_URL . "/search/?s=$term&source=blog'><span style='text-decoration: double underline !important;'>$term</span></a>";
+	$content = preg_replace($search,$replace,$content);
+	
+	
+// dictionary
+	$check = "/\!(.*)\!/i";
+	//$check = "/!!(?<!\s)(.*)(?!\s)!!/i";
+	$match = preg_match_all($check,$content,$matches, PREG_SET_ORDER);
+	
+	for ($i=0; $i<$match; $i++) {
+		foreach ($matches as $test) {
+			$trim = trim($test[0], '!');
+			/*
+			$file = fopen("dictionary.txt", "r");
+			while(! feof($file)) {
+				$line = fgets($file);
+				if(strpos($line, $trim) === 0) {
+  					$explode = explode(',',$line);
+					$replacement = $explode[1];
+					$content = str_replace($test[0], $replacement, $content);
+				}
+			}
+			fclose($file);
+			*/
+			
+			$sqlconn = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+			$sqlconn->set_charset("utf8mb4_unicode_ci");
+			$dict_sql = $sqlconn->prepare("SELECT Replacement FROM nowp_dictionary WHERE Snippet=?");
+			$dict_sql->bind_param("s", $trim);
+			$dict_sql->execute();
+			$dict_result = mysqli_stmt_get_result($dict_sql);
+			$dict_row = $dict_result->fetch_assoc();
+			$replacement = $dict_row["Replacement"];
+			if($replacement != '') {
+				$content = str_replace($test[0], $replacement, $content);
+			}
+			$dict_sql->close();
+		}
+	}
+	
+
 	return $content;
+	
 }
 
 
@@ -285,7 +334,7 @@ function like($content) {
 			$dom->loadHTML($result);
 			libxml_clear_errors();
 			$liked_title = $dom->getElementsByTagName('title')->item('0')->nodeValue;
-			$liked_title = utf8_decode(trim($liked_title));
+			$liked_title = trim($liked_title);
 
 			if ($liked_title != '') {
 				$length = 75;
@@ -332,7 +381,7 @@ function reply($content) {
 			$dom->loadHTML($result);
 			libxml_clear_errors();
 			$reply_title = $dom->getElementsByTagName('title')->item('0')->nodeValue;
-			$reply_title = utf8_decode(trim($reply_title));
+			$reply_title = trim($reply_title);
 
 			if ($reply_title != '') {
 				$length = 50;
@@ -340,9 +389,6 @@ function reply($content) {
 				    $reply_title = wordwrap($reply_title, $length);
 				    $reply_title = substr($reply_title, 0, strpos($reply_title, "\n"));
 				}
-				
-				//$reply_str = '<em>In reply to: <a class="u-in-reply-to" href="' . $linktext . '">' . $reply_title . '</a>...</em>';
-				//$content = str_replace($orig, $reply_str, $content);
 			}
 		} else {
 			$linktext = '';
