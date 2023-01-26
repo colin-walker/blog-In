@@ -163,4 +163,6 @@ Any hashtags included in post content will automatically be converted into searc
 
 ## Fragmentions and comment links
 
-(b)log-In supports the original proposal for fragmentions; highlighting a paragraph
+(b)log-In supports the original proposal for fragmentions; highlighting a paragraph that includes test passed via the URL in the format ##required+text+here
+
+Comments can be linked to directly using a URL parameter: &c=1:3 – where 1 is the first post on the page and 3 is the third comment on that post.
