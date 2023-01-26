@@ -163,4 +163,4 @@ Any hashtags included in post content will automatically be converted into searc
 
 ## Fragmentions and comment links
 
-(b)log-In supports the original proposal for fragmentions; highlighting a parag
+(b)log-In supports the original proposal for fragmentions; highlighting a paragraph
