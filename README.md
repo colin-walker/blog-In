@@ -1,4 +1,9 @@
 # blog-In
+
+## Please note:
+
+_This is an old version of (b)log-In and does not reflect the current system I use (either in range of functionality or security). It can be used freely for reference purposes and forked according to the licence._
+
 ### The (b)log-In blogging system.
 
 (b)log-In (a play on blogging, login and inline) is a custom CMS built specifically for blogging that emerged from my efforts to make WordPress a simpler platform.
